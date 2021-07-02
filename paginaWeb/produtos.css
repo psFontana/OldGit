@@ -1,0 +1,205 @@
+body {
+
+    
+
+}
+
+header {
+
+    background: #BBB;
+    padding: 20px 0;
+
+}
+
+.cabeçalho {
+
+    display: flex;
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    justify-content: space-evenly;
+    align-items: center;
+
+}
+
+nav {
+
+    display: flex;
+    top: 110px;
+    right: 0;
+    
+
+}
+
+nav li {
+
+    display: inline;
+    margin-left: 15px;
+
+}
+
+nav a {
+
+    text-transform: uppercase;
+    color: #000;
+    font-weight: bold;
+    font-size: 22px;
+    text-decoration: none;
+
+}
+
+nav a:hover {
+
+    color: #c78c19;
+    text-decoration: underline;
+
+}
+
+main {
+
+    width: 100% ;
+    padding: 50px 0px;
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    justify-content: space-around;
+    flex-grow: 1;
+
+}
+.produtos {
+
+    display: flex;
+    width: 33%;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+
+}
+
+.produtos-lista {
+
+    margin-left: 0%;
+    margin-right: 2%;
+    display: flex;
+    
+
+}
+
+.produtos li {
+
+    
+    box-sizing: border-box;
+    border: 2px solid #000;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    text-align: center;
+    display: inline-block;
+
+}
+
+.produtos li:hover {
+
+    border-color: #c78c19;
+
+}
+
+.produtos li:active {
+
+    border-color: green;
+
+}
+
+.produtos li:hover h2 {
+
+    font-size: 34px;
+
+}
+
+.produtos h2 {
+
+    font-size: 30px;
+    font-weight: bold;
+
+}
+
+.produto-descriçao {
+
+    font-size: 18px;
+
+}
+
+.produto-preço {
+
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 10px;
+
+}
+
+footer {
+
+    text-align: center;
+    padding: 40px 0;
+    background: url("bg.jpg");
+
+}
+
+.copyright {
+
+    color: white;
+    font-size: 13px;
+    margin-top: 13px;
+
+}
+
+@media screen and (max-width: 780px){
+	
+    .cabeçalho {
+
+        display: flex;
+        flex-direction: column;        
+
+    }
+    nav li, h1 {
+
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        margin: 0 0 10% 0;
+
+    }
+
+    nav li a {
+
+        font-size: 30px;
+
+    }
+
+    .produtos {
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        width: 100%;
+        margin: 0;
+
+    }
+
+    .produtos li {
+
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        margin-bottom: 10%;
+
+
+    }
+
+}

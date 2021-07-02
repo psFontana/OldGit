@@ -1,0 +1,23 @@
+<meta charset="UTF-8">
+
+<script>
+
+    function pulaLinha() {
+
+        document.write("<br>");
+        document.write("<br>");
+}
+
+    function mostra(frase) {
+
+        document.write(frase);
+        pulaLinha();
+}
+
+	var tabuada = parseInt(prompt("qual tabuada você gostaria que eu imprimisse?"));
+
+	for (var contador = 1; contador <= 10; contador ++){
+		
+		mostra(tabuada * contador);
+	}
+</script>

@@ -1,0 +1,33 @@
+<meta charset="UTF-8">
+<script>
+function pulaLinha() {
+	document.write("<br>");
+}
+function exibeTexto(texto) {
+	document.write(texto);
+	pulaLinha();
+}
+function calculaIMC(altura, peso) {
+	//var imc = peso / (altura * altura);
+	//return imc;
+	return peso / (altura * altura);
+}
+
+//const pesoPaulo = 59;
+//const alturaPaulo = 1.85;
+//const pesoMatheus = 81;
+//const alturaMatheus = 1.90;
+//const imcPaulo = calculaIMC(1.85, 59);
+//const imcMatheus = calculaIMC(alturaMatheus, pesoMatheus);
+
+//exibeTexto("O IMC do Paulo é: " + imcPaulo);
+//exibeTexto("O IMC do Matheus é: " + imcMatheus);
+//pulaLinha();
+//exibeTexto("A soma do IMC do Paulo com o do Matheus é igual a: " + (imcPaulo + imcMatheus));
+
+const pesoInformado = prompt("Informe seu peso em KG (Ex: 78.4)");
+const alturaInformada = prompt("Informe sua altura em metros (Ex: 1.88)");
+const imcInformado = calculaIMC(alturaInformada, pesoInformado);
+
+exibeTexto("O IMC calculado é: " + imcInformado);
+</script>

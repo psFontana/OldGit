@@ -1,0 +1,63 @@
+<meta charset="UTF-8">
+
+<canvas width="6000" height="4000"></canvas>
+
+<script>
+
+	var tela = document.querySelector("canvas");
+	var pincel = tela.getContext("2d");
+	
+	function desenhaQuadrado(cor, x, y, w) {
+	
+		pincel.fillStyle = cor;
+		pincel.fillRect(x, y, w, w);
+		pincel.strokeStyle = "black";
+		pincel.strokeRect(x, y, w, w);
+	
+	}
+	
+	function trocaCor() {
+	
+		if (corAtual == "white") {
+			
+				corAtual = "green";
+			
+			}else 	if (corAtual == "green") {
+						
+							corAtual = "white";
+						}
+	}
+	
+	function desenhaLinha(tamanho) {
+	
+		for(var i = 1; i <= tamanho; i++){
+		
+			desenhaQuadrado(corAtual, x, y, 100);
+			x = x + 100;		
+			trocaCor();
+		}
+		
+		x = 0
+		if(tamanho%2==0){
+		
+			trocaCor();
+		}
+	}
+	
+	function desenhaTabuleiro(tamanho) {
+
+		for(var i = 1; i <= tamanho; i++){
+			
+			desenhaLinha(tamanho)
+			y = y + 100
+
+		}
+	}
+	
+	corAtual = "white";
+	var x = 0;
+	var y = 0;	
+	
+	desenhaTabuleiro(prompt("qual medida em quadrados do lado do tabuleiro que gostaria??"))
+	
+</script>

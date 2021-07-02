@@ -1,0 +1,50 @@
+<meta charset="UTF-8">
+
+<button> Calcular Gerações </button>
+
+<script>
+function pulaLinha(n) {
+
+	for (var i = 0; i < n; i++) {
+	
+		document.write("<br>");
+	
+	}
+
+}
+function mostra(frase) {
+
+	document.write(frase);
+	pulaLinha(1);
+
+}
+function calculaGeracoes () {
+	
+	var anoInicial = prompt("Qual o ano de inicio do calculo?");
+	var anoFinal = parseInt(prompt("Até que ano você quer calcular?"));
+	var media = 28;
+	var geracoes = (anoFinal - anoInicial) / media;
+	
+	if (isNaN(anoInicial) || isNaN(anoFinal)) {
+	
+		alert("por favor, insira um número");
+	
+	}else {
+	
+		if(anoInicial > anoFinal) {
+		
+			alert("Impossivel calcular pois o ano inicial é maior que o final.");
+		
+		}else {
+		
+			alert("Segundo os meus cálculos, desde " + anoInicial + " até " + anoFinal + " se passaram " + geracoes + " gerações!");
+		
+		}
+	
+	}
+}
+
+var button = document.querySelector("button");
+button.onclick = calculaGeracoes;
+
+</script>
