@@ -22,7 +22,11 @@ class contaCorrente {
 
     depositar(valor){
 
-        this.saldo += valor;
+        if(valor >= 0 ){
+
+            this.saldo += valor;
+
+        }
 
     }
 
