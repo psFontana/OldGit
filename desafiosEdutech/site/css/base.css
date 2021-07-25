@@ -27,12 +27,6 @@ body {
 
 }
 
-.container {
-
-    
-
-}
-
 .botao {
 
     text-align: center;
@@ -43,5 +37,61 @@ body {
     padding: 1rem 2rem;
     border: 1px solid var(--branco);
     border-radius: 5px;
+
+}
+
+.rodape {
+
+    background: url(bg.jpg);
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    
+}
+
+.rodape1 {
+
+    margin-top: 1em;
+    flex-direction: column;
+    text-align: center;
+    margin-right: 5vw;
+
+}
+
+.rodape2 {
+
+    flex-direction: column;
+    text-align: center;
+    margin-left: 5vw;
+
+}
+
+
+.logo_footer {
+
+    width: 6vw;
+    padding: 2%;
+
+}
+
+.rodape_link, .rodape p{
+
+    font-style: var(--montserrat);
+    font-size: 1.15em;
+    margin-bottom: .5em;
+    
+
+}
+
+.rodape_link:hover {
+
+    text-decoration: underline;
+    font-weight: bold;
+    color: rgb(0, 140, 255);
 
 }

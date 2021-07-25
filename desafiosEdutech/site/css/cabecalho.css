@@ -13,6 +13,8 @@
     padding-bottom: .75rem;
 
     background: url(https://cdn.shopify.com/s/files/1/0833/1179/files/leaping-dog-min_large.jpg?5020090375806538914) repeat;
+
+    color: white;
 }
 
 .cabecalho__logo {
@@ -38,6 +40,6 @@
 
     text-decoration: underline;
     font-weight: bold;
-    color: orange;
+    color: rgb(0, 140, 255);
 
 } 
