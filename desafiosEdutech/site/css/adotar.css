@@ -1,0 +1,57 @@
+.adotar {
+
+    /* padding: 5em; */
+    text-align: center;
+    padding-top: 0;
+    padding-bottom: 0;
+
+}
+
+.adotar h1 {
+
+    font-weight: 700;
+    font-size: 1.75rem;
+    text-decoration: overline;
+    margin-top: 1em;
+    color: rgb(114, 70, 4);
+    margin-top:  1em;
+
+
+}
+
+.adotar ul {
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: center;
+    font-size: 1.5em;
+    justify-content: center;
+
+}
+
+.adotar li {
+
+    box-sizing: border-box;
+    border: 2px solid black;
+    border-radius: 15px;
+    margin: 0.75em;
+
+}
+
+.adotar li:hover {
+
+    border-color: orange;
+    font-size: 1.25em;
+    color: orange;
+
+}
+
+.img_raca {
+
+    width: 20vw;
+    height: 90%;
+
+
+
+}

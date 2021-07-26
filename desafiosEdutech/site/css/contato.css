@@ -1,6 +1,6 @@
-.sobre {
+.contato {
 
-    background: url(cul.jpg);
+    background: url(fundo_contato.jpg);
     background-size: 100%;
     justify-content: space-between;
     display: inline-block;
@@ -8,7 +8,7 @@
 
 }
 
-.sobre .container {
+.contato .container {
 
     padding-left: 0%;
     justify-content: space-around;
@@ -17,30 +17,30 @@
 
 .imgMain {
 
-    width: 33.3vw;
+    width: 36vw;
     box-sizing: border-box;
     border: 2px solid black;
     border-radius: 5px;
     display: inline-block;
     margin-right: 1.75rem;
-    float: left;
+    float: right;
     margin-left: 1vw;
     margin-bottom: 3em;
 
 }
 
-.sobre h2 {
+.contato h2 {
 
-    text-align: end;
+    text-align: start;
     font-weight: bold;
     font-size: 1.75em;
     margin-bottom: 1em;
-    margin-right: 30vw;
+    margin-left: 30vw;
     margin-top: 1em;
 
 }
 
-.sobre p {
+.contato p {
 
     display: block;
     text-align: center;
@@ -53,14 +53,14 @@
 
 }
 
-.link_sobre {
+.link_contato {
 
     font-size: 1.2em;
     color: orange;
 
 }
 
-.link_sobre:hover {
+.link_contato:hover {
 
     text-decoration: underline;
 
