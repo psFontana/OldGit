@@ -15,6 +15,7 @@ class contaCorrente {
         if(this.saldo >= valor) {
 
             this.saldo -= valor;
+            return valor;
 
         }
 
@@ -22,12 +23,9 @@ class contaCorrente {
 
     depositar(valor){
 
-        if(valor >= 0 ){
+        if(valor <= 0 )return;
 
             this.saldo += valor;
-
-        }
-
     }
 
 }
