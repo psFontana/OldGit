@@ -1,5 +1,5 @@
-import { cliente } from "./Cliente";
-import { contaCorrente } from "./ContaCorrente";
+import {cliente} from "./Cliente.js";
+import { contaCorrente } from "./ContaCorrente.js";
 
 const cliente1 = new cliente();
 cliente1.nome = "Marcus";
