@@ -10,3 +10,4 @@ const cliente2 = new cliente();
 cliente2.nome = "Jean";
 cliente2.cpf = 74283492394;
 
+console.log(cliente2)
