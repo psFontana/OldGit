@@ -26,4 +26,6 @@ export class contaCorrente {
         const valorSacado = this.sacar(valor);
         conta.depositar(valorSacado);
 
+    }        
+
 }
