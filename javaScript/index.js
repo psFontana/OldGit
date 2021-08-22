@@ -8,3 +8,5 @@ const cliente2 = new cliente("Jean", 74283492394);
 const contaCliente2 = new contaCorrente(cliente2, 205)
 
 console.log(contaCliente2)
+
+console.log(cliente2)
