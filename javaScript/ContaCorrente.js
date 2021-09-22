@@ -1,5 +1,4 @@
 import { Conta } from "./Conta.js";
-
 export class contaCorrente extends Conta{
 
     static numeroDeContas = 0;
