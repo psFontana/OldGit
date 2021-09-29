@@ -9,11 +9,17 @@ export class cliente {
 
     }
 
-    constructor (nome, cpf) {
+    constructor (nome, cpf, senha) {
 
         this.nome = nome;
         this._cpf = cpf;
+        this._senha = senha;
 
+    }
+
+    autenticar(senha) {
+
+        return senha == this._senha
     }
 
 }
