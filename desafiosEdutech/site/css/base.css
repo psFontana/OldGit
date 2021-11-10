@@ -1,97 +1,78 @@
 :root {
+  --branco: #fff;
+  --azul-claro: #dfe3e5;
+  --vermelho-forte: #b72e2e;
+  --cinza-escuro: #4f4c4c;
+  --cinza-claro: #f7f4f4;
+  --cinza-medio: #d9d9d9;
 
-    --branco: #FFF;
-    --azul-claro: #DFE3E5;
-    --vermelho-forte: #B72E2E;
-    --cinza-escuro: #4F4C4C;
-    --cinza-claro: #F7F4F4;
-    --cinza-medio: #D9D9D9;
+  --fonte-link: #0084ff;
+  --fonte-cinza: #666;
+  --borda-cabecalho-mobile: #103d4a;
+  --bg-rodape: #333;
+  --bg-chamada-mobile: #00161c;
 
-    --fonte-link: #0084FF;
-    --fonte-cinza: #666;
-    --borda-cabecalho-mobile: #103D4A;
-    --bg-rodape: #333;
-    --bg-chamada-mobile: #00161C;
+  --planos-cartao-start: #56ccf2;
+  --planos-cartao-ultra: #b04cd9;
+  --planos-cartao-mega: #e33b3b;
 
-    --planos-cartao-start: #56CCF2;
-    --planos-cartao-ultra: #B04CD9;
-    --planos-cartao-mega: #E33B3B;
-
-    --montserrat: 'Montserrat', sans-serif;
-
+  --montserrat: "Montserrat", sans-serif;
 }
 
 body {
-
-    font-family: 'Open Sans', sans-serif;
-
+  font-family: "Open Sans", sans-serif;
 }
 
 .botao {
-
-    text-align: center;
-    display: block;
-    width: 100%;
-    max-width: 350px;
-    box-sizing: border-box;
-    padding: 1rem 2rem;
-    border: 1px solid var(--branco);
-    border-radius: 5px;
-
+  text-align: center;
+  display: block;
+  width: 100%;
+  max-width: 350px;
+  box-sizing: border-box;
+  padding: 1rem 2rem;
+  border: 1px solid var(--branco);
+  border-radius: 5px;
 }
 
 .rodape {
-
-    background: url(bg.jpg);
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    box-sizing: border-box;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    text-align: center;
-    
+  background: url(bg.jpg);
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
 }
 
 .rodape1 {
-
-    margin-top: 1em;
-    flex-direction: column;
-    text-align: center;
-    margin-right: 5vw;
-
+  margin-top: 1em;
+  flex-direction: column;
+  text-align: center;
+  margin-right: 5vw;
 }
 
 .rodape2 {
-
-    flex-direction: column;
-    text-align: center;
-    margin-left: 5vw;
-
+  flex-direction: column;
+  text-align: center;
+  margin-left: 5vw;
 }
-
 
 .logo_footer {
-
-    width: 6vw;
-    padding: 2%;
-
+  width: 6vw;
+  padding: 2%;
 }
 
-.rodape_link, .rodape p{
-
-    font-style: var(--montserrat);
-    font-size: 1.15em;
-    margin-bottom: .5em;
-    
-
+.rodape_link,
+.rodape p {
+  font-style: var(--montserrat);
+  font-size: 1.15em;
+  margin-bottom: 0.5em;
 }
 
 .rodape_link:hover {
-
-    text-decoration: underline;
-    font-weight: bold;
-    color: rgb(0, 140, 255);
-
+  text-decoration: underline;
+  font-weight: bold;
+  color: rgb(0, 140, 255);
 }

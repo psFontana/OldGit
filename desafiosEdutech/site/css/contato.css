@@ -1,68 +1,53 @@
 .contato {
-
-    background: url(fundo_contato.jpg);
-    background-size: 100%;
-    justify-content: space-between;
-    display: inline-block;
-    width: 100%;
-
+  background: url(fundo_contato.jpg);
+  background-size: 100%;
+  justify-content: space-between;
+  display: inline-block;
+  width: 100%;
 }
 
 .contato .container {
-
-    padding-left: 0%;
-    justify-content: space-around;
-
+  padding-left: 0%;
+  justify-content: space-around;
 }
 
 .imgMain {
-
-    width: 36vw;
-    box-sizing: border-box;
-    border: 2px solid black;
-    border-radius: 5px;
-    display: inline-block;
-    margin-right: 1.75rem;
-    float: right;
-    margin-left: 1vw;
-    margin-bottom: 3em;
-
+  width: 36vw;
+  box-sizing: border-box;
+  border: 2px solid black;
+  border-radius: 5px;
+  display: inline-block;
+  margin-right: 1.75rem;
+  float: right;
+  margin-left: 1vw;
+  margin-bottom: 3em;
 }
 
 .contato h2 {
-
-    text-align: start;
-    font-weight: bold;
-    font-size: 1.75em;
-    margin-bottom: 1em;
-    margin-left: 30vw;
-    margin-top: 1em;
-
+  text-align: start;
+  font-weight: bold;
+  font-size: 1.75em;
+  margin-bottom: 1em;
+  margin-left: 30vw;
+  margin-top: 1em;
 }
 
 .contato p {
-
-    display: block;
-    text-align: center;
-    margin-bottom: 2em;
-    flex-wrap: wrap;
-    font-family: var(--montserrat);
-    font-weight: 700;
-    margin-right: 1.75rem;
-    font-size: 1.25em;
-
+  display: block;
+  text-align: center;
+  margin-bottom: 2em;
+  flex-wrap: wrap;
+  font-family: var(--montserrat);
+  font-weight: 700;
+  margin-right: 1.75rem;
+  font-size: 1.25em;
 }
 
 .link_contato {
-
-    font-size: 1.2em;
-    color: orange;
-
+  font-size: 1.2em;
+  color: orange;
 }
 
 .link_contato:hover {
-
-    text-decoration: underline;
-
+  text-decoration: underline;
 }
-

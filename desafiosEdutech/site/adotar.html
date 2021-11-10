@@ -1,103 +1,192 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width initial-scale=1">
-        <title>Sobre - CAC</title>
-        <link href="css/reset.css" rel="stylesheet">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Open+Sans:wght@300;400;700&display=swap" rel="stylesheet">
-        <link href="css/cabecalho.css" rel="stylesheet">
-        <link href="css/base.css" rel="stylesheet">
-        <link href="css/adotar.css" rel="stylesheet">
-        <link href="css/doar.css" rel="stylesheet">
-    </head>
-    <body>
-        <header class="cabecalho container">
-            <h1><img src="img/logo.svg" class="cabecalho__logo" alt="Logo da Apeperia"></h1>
-            <nav class="cabecalho__navegacao">
-                <ul>                    
-                    <li class="cabecalho__link"><a href="adotar.html">Adotar</a></li>
-                    <li class="cabecalho__link"><a href="doar.html">Doar</a></li>
-                    <li class="cabecalho__link"><a href="contato.html">Contato</a></li>
-                    <li class="cabecalho__link"><a href="sobre.html">Sobre</a></li>
-                </ul>
-            </nav>
-        </header>
-        <main class="adotar">
-            <h1>Raças Disponíveis</h1>
-            <ul>
-                <li class="raca">
-                    <img src="img/goldenRetriever.svg" alt="Imagem de Golden Retriever" class="img_raca">
-                    <p>Golden Retriever</p>
-                </li>
-                <li>
-                    <img src="img/husky.svg" alt="Imagem de Husky" class="img_raca">
-                    <p>Husky</p>
-                </li>
-                <li>
-                    <img src="img/labrador.svg" alt="Imagem de Labrador" class="img_raca">
-                    <p>Labrador</p>
-                </li>
-                <li>
-                    <img src="img/pastorAlemao.svg" alt="Imagem de Pastor Alemao" class="img_raca">
-                    <p>Pastor Alemao</p>
-                </li>
-                <li>
-                    <img src="img/pitbull.svg" alt="Imagem de Pitbull" class="img_raca">
-                    <p>Pitbull</p>
-                </li>
-                <li>
-                    <img src="img/shihTzu.svg" alt="Imagem de shih Tzu" class="img_raca">
-                    <p>Shih Tzu</p>
-                </li>
-                <li>
-                    <img src="img/pinscher.svg" alt="Imagem de Pinscher" class="img_raca">
-                    <p>Pinscher</p>
-                </li>
-            </ul>
-            <form>
-                <h1 class="main_h1">Preencha os Dados</h1>
-                <label for="nome" class="doacao">Nome</label>
-                <input type="text" class="doacao" id="nome" required>
-                <label for="email" class="doacao">E-mail</label>
-                <input type="email" class="doacao" id="email" placeholder="email@dominio.com" required>
-                <label for="endereco" class="doacao">Endereço Completo</label>
-                <input type="text" class="doacao" id="endereco" placeholder="Estado, Cidade, Rua, Número" required>
-                <label for="celular" class="doacao" >Celular</label>
-                <input type="tel" class="doacao" id="celular" placeholder="(XX) XXXXX-XXXX" required>
-                <label for="raca" class="doacao" >Raça que deseja adotar</label>
-                <input type="text" class="doacao" id="raca" required>
-            </form>
-            <fieldset>                
-                <legend>Como gostaria de receber nosso contato?</legend>
-                <label for="radio-email"><input type="radio" name="contato" value="email" id="radio-email">E-mail</label>                    
-                <label for="radio-telefone"><input type="radio" name="contato" value="telefone" id="radio-telefone">Telefone</label>                
-                <label for="radio-whatsapp"><input type="radio" name="contato" value="whatsapp" id="radio-whatsapp" checked>WhatsApp</label><br>         
-                <input type="submit" value="Enviar" class="enviar">        
-            </fieldset>  
-        </main>
-        <footer class="rodape">
-            <div class="rodape1"><img src="img/logo_branca.png" class="logo_footer">
-                <p>&copy;Copyright: CAC 2021</p>
-                <nav class="nav_rodape">
-                    <ul>
-                        <li class="rodape_link"><a href="adotar.html">Adotar</a></li>
-                        <li class="rodape_link"><a href="adotar.html">Doar</a></li>
-                        <li class="rodape_link"><a href="adotar.html">Contato</a></li>
-                        <li class="rodape_link"><a href="adotar.html">Sobre</a></li>
-                    </ul>
-                </nav>
-            </div>         
-            <div class="rodape2">
-                <p>Acesse nossas redes sociais!</p>
-                <ul>
-                    <li><a href="https://facebook.com"><img src="img/facebook.png" alt="Logo Facebook" class="rede_social"> <br></a></li>
-                    <li><a href="https://www.instagram.com/"><img src="img/instagram.png" alt="Logo Instagram" class="rede_social"><br></a></li>
-                    <li><a href="https://twitter.com/"><img src="img/twitter.png" alt="Logo" class="rede_social"></a></li>
-                </ul>               
-            </div>
-        </footer>
-    </body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <title>Sobre - CAC</title>
+    <link href="css/reset.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Open+Sans:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link href="css/cabecalho.css" rel="stylesheet" />
+    <link href="css/base.css" rel="stylesheet" />
+    <link href="css/adotar.css" rel="stylesheet" />
+    <link href="css/doar.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="cabecalho container">
+      <h1>
+        <img
+          src="img/logo.svg"
+          class="cabecalho__logo"
+          alt="Logo da Apeperia"
+        />
+      </h1>
+      <nav class="cabecalho__navegacao">
+        <ul>
+          <li class="cabecalho__link"><a href="adotar.html">Adotar</a></li>
+          <li class="cabecalho__link"><a href="doar.html">Doar</a></li>
+          <li class="cabecalho__link"><a href="contato.html">Contato</a></li>
+          <li class="cabecalho__link"><a href="sobre.html">Sobre</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main class="adotar">
+      <h1>Raças Disponíveis</h1>
+      <ul>
+        <li class="raca">
+          <img
+            src="img/goldenRetriever.svg"
+            alt="Imagem de Golden Retriever"
+            class="img_raca"
+          />
+          <p>Golden Retriever</p>
+        </li>
+        <li>
+          <img src="img/husky.svg" alt="Imagem de Husky" class="img_raca" />
+          <p>Husky</p>
+        </li>
+        <li>
+          <img
+            src="img/labrador.svg"
+            alt="Imagem de Labrador"
+            class="img_raca"
+          />
+          <p>Labrador</p>
+        </li>
+        <li>
+          <img
+            src="img/pastorAlemao.svg"
+            alt="Imagem de Pastor Alemao"
+            class="img_raca"
+          />
+          <p>Pastor Alemao</p>
+        </li>
+        <li>
+          <img src="img/pitbull.svg" alt="Imagem de Pitbull" class="img_raca" />
+          <p>Pitbull</p>
+        </li>
+        <li>
+          <img
+            src="img/shihTzu.svg"
+            alt="Imagem de shih Tzu"
+            class="img_raca"
+          />
+          <p>Shih Tzu</p>
+        </li>
+        <li>
+          <img
+            src="img/pinscher.svg"
+            alt="Imagem de Pinscher"
+            class="img_raca"
+          />
+          <p>Pinscher</p>
+        </li>
+      </ul>
+      <form>
+        <h1 class="main_h1">Preencha os Dados</h1>
+        <label for="nome" class="doacao">Nome</label>
+        <input type="text" class="doacao" id="nome" required />
+        <label for="email" class="doacao">E-mail</label>
+        <input
+          type="email"
+          class="doacao"
+          id="email"
+          placeholder="email@dominio.com"
+          required
+        />
+        <label for="endereco" class="doacao">Endereço Completo</label>
+        <input
+          type="text"
+          class="doacao"
+          id="endereco"
+          placeholder="Estado, Cidade, Rua, Número"
+          required
+        />
+        <label for="celular" class="doacao">Celular</label>
+        <input
+          type="tel"
+          class="doacao"
+          id="celular"
+          placeholder="(XX) XXXXX-XXXX"
+          required
+        />
+        <label for="raca" class="doacao">Raça que deseja adotar</label>
+        <input type="text" class="doacao" id="raca" required />
+      </form>
+      <fieldset>
+        <legend>Como gostaria de receber nosso contato?</legend>
+        <label for="radio-email"
+          ><input
+            type="radio"
+            name="contato"
+            value="email"
+            id="radio-email"
+          />E-mail</label
+        >
+        <label for="radio-telefone"
+          ><input
+            type="radio"
+            name="contato"
+            value="telefone"
+            id="radio-telefone"
+          />Telefone</label
+        >
+        <label for="radio-whatsapp"
+          ><input
+            type="radio"
+            name="contato"
+            value="whatsapp"
+            id="radio-whatsapp"
+            checked
+          />WhatsApp</label
+        ><br />
+        <input type="submit" value="Enviar" class="enviar" />
+      </fieldset>
+    </main>
+    <footer class="rodape">
+      <div class="rodape1">
+        <img src="img/logo_branca.png" class="logo_footer" />
+        <p>&copy;Copyright: CAC 2021</p>
+        <nav class="nav_rodape">
+          <ul>
+            <li class="rodape_link"><a href="adotar.html">Adotar</a></li>
+            <li class="rodape_link"><a href="adotar.html">Doar</a></li>
+            <li class="rodape_link"><a href="adotar.html">Contato</a></li>
+            <li class="rodape_link"><a href="adotar.html">Sobre</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="rodape2">
+        <p>Acesse nossas redes sociais!</p>
+        <ul>
+          <li>
+            <a href="https://facebook.com"
+              ><img
+                src="img/facebook.png"
+                alt="Logo Facebook"
+                class="rede_social" />
+              <br
+            /></a>
+          </li>
+          <li>
+            <a href="https://www.instagram.com/"
+              ><img
+                src="img/instagram.png"
+                alt="Logo Instagram"
+                class="rede_social" /><br
+            /></a>
+          </li>
+          <li>
+            <a href="https://twitter.com/"
+              ><img src="img/twitter.png" alt="Logo" class="rede_social"
+            /></a>
+          </li>
+        </ul>
+      </div>
+    </footer>
+  </body>
 </html>

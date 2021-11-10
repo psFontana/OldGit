@@ -1,45 +1,43 @@
 .cabecalho {
+  width: 100%;
 
-    width: 100%;
+  box-sizing: border-box;
 
-    box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
 
-    padding-top: .75rem;
-    padding-bottom: .75rem;
+  background: url(https://cdn.shopify.com/s/files/1/0833/1179/files/leaping-dog-min_large.jpg?5020090375806538914)
+    repeat;
 
-    background: url(https://cdn.shopify.com/s/files/1/0833/1179/files/leaping-dog-min_large.jpg?5020090375806538914) repeat;
-
-    color: white;
+  color: white;
 }
 
 .cabecalho__logo {
-    margin-bottom: 1rem;
-    width: 15rem;
+  margin-bottom: 1rem;
+  width: 15rem;
 }
 
 .cabecalho__navegacao {
-    text-align: center;
+  text-align: center;
 }
 
 .cabecalho__link {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
 
-    display: inline-block;
+  display: inline-block;
 
-    margin-right: .7rem;
-    margin-bottom: 1.25rem;
-    margin-left: .7rem;
+  margin-right: 0.7rem;
+  margin-bottom: 1.25rem;
+  margin-left: 0.7rem;
 }
 
 .cabecalho__link:hover {
-
-    text-decoration: underline;
-    font-weight: bold;
-    color: rgb(0, 140, 255);
-
-} 
+  text-decoration: underline;
+  font-weight: bold;
+  color: rgb(0, 140, 255);
+}
