@@ -1,0 +1,41 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.cabecalho {
+  display: flex;
+  justify-content: space-between;
+  background-color: black;
+  align-items: center;
+  padding: 20px 60px 20px 60px;
+}
+
+.logo-rock {
+  max-width: 40px;
+}
+
+.logo-obc {
+  max-width: 200px;
+}
+
+.navegacao {
+  display: flex;
+  column-gap: 10px;
+  height: 100%;
+}
+
+.navitem {
+  padding: 10px;
+  border: 2px solid white;
+  background-color: black;
+  color: white;
+  border-radius: 10px;
+  font-size: 20px;
+  transition: 0.4s;
+}
+
+.navitem:hover {
+  border-color: #f04;
+  cursor: pointer;
+}

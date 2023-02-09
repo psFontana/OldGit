@@ -1,0 +1,125 @@
+* {
+  padding: 0;
+  margin: 0;
+  text-decoration: 0;
+}
+
+.cabecalho {
+  background-color: rgb(32, 32, 32);
+  display: flex;
+  justify-content: space-between;
+  padding: 30px;
+}
+
+.logo-obc {
+  width: 200px;
+}
+
+.navcabecalho {
+  width: 25vh;
+  display: flex;
+  justify-content: space-between;
+}
+
+.linkcabecalho {
+  background-color: rgb(32, 32, 32);
+  width: 7vh;
+  border: none;
+  color: white;
+  font-size: 20px;
+}
+
+.linkcabecalho:hover {
+  border-bottom: 2px solid black;
+  cursor: pointer;
+}
+
+main {
+  display: grid;
+  grid-column: 2px;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas: "t t t t" "s s s e";
+}
+
+.titulo {
+  grid-area: t;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.titulo-h1 {
+  font-size: 30;
+}
+
+.titulo-p {
+  color: gray;
+  font-size: 25px;
+}
+
+.principal {
+  grid-area: s;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 20px;
+}
+
+.esporte-img {
+  width: 33vh;
+  height: 20vh;
+  border-radius: 10px;
+}
+
+.esporte-h4 {
+  font-size: 30px;
+  color: black;
+}
+
+.esporte-p {
+  width: 33vh;
+  color: black;
+  font-size: 23px;
+}
+
+.extra {
+  grid-area: e;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-color: black;
+  color: white;
+}
+
+.extra-titulo {
+  margin: 20px;
+  font-size: 20px;
+}
+
+.extra-p {
+  color: white;
+  font-size: 25px;
+  margin: 15px 25px 30px 25px;
+}
+
+.extra-img {
+  width: 30vh;
+}
+
+.rodape {
+  background-color: black;
+  display: flex;
+  padding: 30px;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.rodape-btn {
+  border: none;
+  background-color: black;
+  color: white;
+  font-size: 20px;
+}

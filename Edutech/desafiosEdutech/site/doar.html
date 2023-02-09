@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/reset.css" rel="stylesheet">
+    <link href="css/cabecalho.css" rel="stylesheet">
+    <link href="css/base.css" rel="stylesheet">
+    <link href="css/doar.css" rel="stylesheet">
+    <title>Doar - CAC</title>
+</head>
+
+<body>
+    <header>
+        <header class="cabecalho container">
+            <h1><img src="img/logo.svg" class="cabecalho__logo" alt="Logo da Apeperia"></h1>
+            <nav class="cabecalho__navegacao">
+                <ul>
+                    <li class="cabecalho__link"><a href="adotar.html">Adotar</a></li>
+                    <li class="cabecalho__link"><a href="doar.html">Doar</a></li>
+                    <li class="cabecalho__link"><a href="contato.html">Contato</a></li>
+                    <li class="cabecalho__link"><a href="sobre.html">Sobre</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main class="doar">
+            <div class="doar_info">
+                <h1 class="main_h1">Como funciona</h1>
+                <p>Nós iremos recolher os seus dados e encaminhá-los para o CAC mais próximo, após isso eles irão entrar
+                    em contato para acertar os detalhes.</p>
+                <p>Com isso nós iremos á sua casa para recolher o cachorro e cuidar dele.</p>
+            </div>
+            <form>
+                <h1 class="main_h1">Preencha os Seus Dados</h1>
+                <label for="nome" class="doacao">Nome</label>
+                <input type="text" class="doacao" id="nome" required>
+                <label for="email" class="doacao">E-mail</label>
+                <input type="email" class="doacao" id="email" placeholder="email@dominio.com" required>
+                <label for="endereco" class="doacao">Endereço Completo</label>
+                <input type="text" class="doacao" id="endereco" placeholder="Estado, Cidade, Rua, Número" required>
+                <label for="celular" class="doacao">Celular</label>
+                <input type="tel" class="doacao" id="celular" placeholder="(XX) XXXXX-XXXX" required>
+                <h1 class="main_h1">Preencha os Dados do Cachorro</h1>
+                <label for="nomecao" class="doacao">Nome</label>
+                <input type="text" class="doacao" id="nomecao" required>
+                <label for="idade" class="doacao">Idade</label>
+                <input type="text" class="doacao" id="idade" required>
+                <label for="raca" class="doacao">Raça</label>
+                <input type="text" class="doacao" id="raca" required>
+            </form>
+            <fieldset>
+                <legend>Como gostaria de receber nosso contato?</legend>
+                <label for="radio-email"><input type="radio" name="contato" value="email"
+                        id="radio-email">E-mail</label>
+                <label for="radio-telefone"><input type="radio" name="contato" value="telefone"
+                        id="radio-telefone">Telefone</label>
+                <label for="radio-whatsapp"><input type="radio" name="contato" value="whatsapp" id="radio-whatsapp"
+                        checked>WhatsApp</label><br>
+                <input type="submit" value="Enviar" class="enviar">
+            </fieldset>
+        </main>
+        <footer class="rodape">
+            <div class="rodape1"><img alt="logo branca" src="img/logo_branca.png" class="logo_footer">
+                <p>&copy;Copyright: CAC 2021</p>
+                <nav class="nav_rodape">
+                    <ul>
+                        <li class="rodape_link"><a href="adotar.html">Adotar</a></li>
+                        <li class="rodape_link"><a href="adotar.html">Doar</a></li>
+                        <li class="rodape_link"><a href="adotar.html">Contato</a></li>
+                        <li class="rodape_link"><a href="adotar.html">Sobre</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="rodape2">
+                <p>Acesse nossas redes sociais!</p>
+                <ul>
+                    <li><a href="https://facebook.com"><img src="img/facebook.png" alt="Logo Facebook"
+                                class="rede_social"> <br></a></li>
+                    <li><a href="https://www.instagram.com/"><img src="img/instagram.png" alt="Logo Instagram"
+                                class="rede_social"><br></a></li>
+                    <li><a href="https://twitter.com/"><img src="img/twitter.png" alt="Logo" class="rede_social"></a>
+                    </li>
+                </ul>
+            </div>
+        </footer>
+</body>
+
+</html>

@@ -1,0 +1,23 @@
+* {
+  /* Seleciona todos os elementos. */
+}
+
+#pelis {
+  /* Seleciona o ID 'pelis'. */
+}
+.pelis {
+  /* Seleciona a classe 'pelis'. */
+}
+
+pelis duro {
+  /* Seleciona todas as classes duro dentro de pelis. */
+}
+
+pelis > duro {
+  /* Seleciona todas as classes duro que sejam filhos diretos de pelis. */
+}
+
+a[href="https://www.vovozinha.com"]
+{
+  /* Seleciona todos os links que direcionam para o site da vovozinha. */
+}

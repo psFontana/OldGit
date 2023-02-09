@@ -1,0 +1,31 @@
+:root {
+  --azul: #008080;
+  --fundo: #fffafa;
+}
+
+h1 {
+  font-family: "Montserrat";
+}
+
+.date {
+  font-family: "Roboto";
+  color: var(--azul);
+  font-weight: bold;
+}
+
+.post {
+  padding-top: 3%;
+  background-color: var(--fundo);
+}
+
+.post-container {
+  background-color: var(--fundo);
+  width: 70%;
+  margin: 0 auto 0 auto;
+  padding: 0% 5% 0% 2.5%;
+}
+
+.post-content {
+  font-family: "Open Sans";
+  padding-bottom: 3%;
+}
