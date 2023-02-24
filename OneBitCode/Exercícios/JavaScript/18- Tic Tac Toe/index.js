@@ -1,7 +1,6 @@
 let player1 = document.getElementById("player1");
 let player2 = document.getElementById("player2");
 let btnStart = document.getElementById("start");
-let player = document.getElementById("plays");
 let square = document.querySelectorAll(".square");
 let titulo = document.getElementsByClassName("player");
 let vboard = [];
@@ -79,6 +78,8 @@ function whenWin(regions) {
 }
 
 function comecarJogo() {
+  document.querySelector("h2").innerHTML = ' Vez de:<span id="plays"></span>';
+  let player = document.getElementById("plays");
   vboard = [
     ["", "", ""],
     ["", "", ""],
@@ -119,7 +120,7 @@ function comecarJogo() {
       if (verifica().length > 0 && verifica()) {
         winRegions = verifica();
         let jogadorVencedor = vez;
-        document.querySelector("h2").innerHTML =
+        document.querySelector("h2").innerText =
           "Parabéns " + jogadorVencedor + " você venceu!!";
         square.forEach(function (element) {
           element.style.cursor = "default";
