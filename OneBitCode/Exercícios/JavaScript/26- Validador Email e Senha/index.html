@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./style/style.css">
+  <script src="./src/index.js" defer></script>
+</head>
+
+<body>
+  <header class="cabecalho">
+    <img src="./images/logo-onebitcode.svg" alt="logo-onebitcode" class="logo-obc">
+    <nav class='navcabecalho'>
+      <button class="linkcabecalho" href="#">Login</button>
+      <button class="linkcabecalho" href="#">Registro</button>
+      <button class="linkcabecalho" href="#">FAQ</button>
+    </nav>
+  </header>
+  <main>
+    <form id="form">
+      <label for="name">Nome: </label>
+      <input type="text" name="name" id="name">
+      <label for="name" id="errName" class="errorMessage"></label>
+      <label for="email">Email: </label>
+      <input type="email" name="email" id="email">
+      <label for="email" id="errEmail" class="errorMessage"></label>
+      <label for="password">Senha: </label>
+      <input type="password" name="password" id="password">
+      <label for="password" id="errPassword" class="errorMessage"></label>
+      <button type="submit" id="btnSubmit">Confirmar</button>
+    </form>
+  </main>
+</body>
+
+</html>
