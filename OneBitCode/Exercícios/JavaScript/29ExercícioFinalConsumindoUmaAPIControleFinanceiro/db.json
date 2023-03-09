@@ -1,0 +1,29 @@
+{
+  "transactions": [
+    {
+      "id": 2,
+      "name": "Salário",
+      "amount": 3200
+    },
+    {
+      "id": 3,
+      "name": "Conta de Água",
+      "amount": -60
+    },
+    {
+      "id": 4,
+      "name": "Conta de Luz",
+      "amount": -150
+    },
+    {
+      "name": "Red Dead",
+      "amount": -300,
+      "id": 5
+    },
+    {
+      "name": "Freela",
+      "amount": 300,
+      "id": 6
+    }
+  ]
+}
