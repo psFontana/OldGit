@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rumo à Marte</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="./css/style.css">
+
+</head>
+
+<body>
+  <main>
+    <form class="input-group">
+      <div class="logo text-center">
+        <h1 class="text-center">
+          <img src="./images/logoOneBitDark.png" class="img-fluid mt-4 mb-3" id="topLogo" alt="">
+        </h1>
+      </div>
+
+      <div class="nome">
+        <p>1- Qual o seu nome?</p>
+        <div class="input-group mb-3" id="primeiroNome">
+          <span class="input-group-text" id="addon-wrapping">Primeiro Nome: </span>
+          <input type="text" class="form-control" placeholder="Digite aqui..." aria-label="Username"
+            aria-describedby="addon-wrapping">
+        </div>
+        <div class="input-group mb-3" id="segundoNome">
+          <span class="input-group-text" id="addon-wrapping">Segundo Nome: </span>
+          <input type="text" class="form-control" placeholder="Digite aqui..." aria-label="Username"
+            aria-describedby="addon-wrapping">
+        </div>
+      </div>
+
+      <div class="genero">
+        <p>2- Qual o seu gênero?</p>
+        <div class="homemDiv">
+          <input type="radio" name="flexRadioDefault" id="flexRadioDefault1" class="form-check-input">
+          <label for="flexRadioDefault1">Homem</label>
+        </div>
+        <div class="mulherDiv">
+          <input type="radio" name="flexRadioDefault" id="flexRadioDefault2" class="form-check-input">
+          <label for="flexRadioDefault2">Mulher</label>
+        </div>
+        <div class="outroDiv  mb-3">
+          <input type="radio" name="flexRadioDefault" id="flexRadioDefault3" class="form-check-input">
+          <label for="flexRadioDefault3">Prefiro não informar</label>
+        </div>
+
+      </div>
+      <div class="treinamentos">
+        <p>3 - Marque os treinamentos que você fez:</p>
+        <div class="form-check form-switch mb-3">
+          <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault1">
+          <label class="form-check-label" for="flexSwitchCheckDefault1">Treinamento básico de astronauta</label><br>
+          <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault2">
+          <label class="form-check-label" for="flexSwitchCheckDefault2">Treinamento físico básico</label><br>
+          <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault3">
+          <label class="form-check-label" for="flexSwitchCheckDefault3">Treinamento avançado de astronauta</label><br>
+          <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault4">
+          <label class="form-check-label" for="flexSwitchCheckDefault4">Treinamento físico intenso</label>
+        </div>
+      </div>
+      <div>
+        <p>4 - Quais você acha que são suas qualidades?</p>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+          <label class="form-check-label" for="inlineCheckbox1">Proativo</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+          <label class="form-check-label" for="inlineCheckbox2">Resistente</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+          <label class="form-check-label" for="inlineCheckbox3">Não vomito fácil</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option4">
+          <label class="form-check-label" for="inlineCheckbox4">Não temo marciano</label>
+        </div>
+        <div class="form-check form-check-inline mb-3">
+          <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="option5">
+          <label class="form-check-label" for="inlineCheckbox5">Já vi todos os Star Wars</label>
+        </div>
+        <div class="text-center mb-3">
+          <button class="btn btn-outline-success btnSuccess">Enviar</button>
+        </div>
+      </div>
+
+    </form>
+  </main>
+  <footer>
+    <p class="copyright mt-4">Feito por Lucas Queiroga &copy; OneBitCode todos os direitos reservados - 2021</p>
+  </footer>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+
+</body>
+
+</html>
