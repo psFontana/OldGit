@@ -1,0 +1,94 @@
+a {
+  position: relative;
+  padding: 10px 10px;
+  display: block;
+  text-decoration: none;
+  text-transform: uppercase;
+  width: 150px;
+  overflow: hidden;
+  border-radius: 50px;
+  text-align: center;
+  margin-top: 200px;
+}
+
+a span {
+  position: relative;
+  color: #fff;
+  font-size: 20px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  letter-spacing: 2px;
+  z-index: 1;
+}
+
+a .liquid {
+  position: absolute;
+  top: -90px;
+  left: 0;
+  width: 300px;
+  height: 200px;
+  background: #4973ff;
+  box-shadow: inset 0 0 50px rgba(220, 0, 0, 0.5);
+  transition: 0.1s;
+}
+
+a .liquid::after,
+a .liquid::before {
+  content: "";
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  transform: translate(-65%, 65%);
+  background: #fff;
+  margin-bottom: 210px;
+  transition: 0.4s;
+}
+
+a .liquid::before {
+  border-radius: 50%;
+  background: white;
+  animation: animate 5s linear infinite;
+}
+
+a .liquid::after {
+  border-radius: 40%;
+  background: rgba(199, 199, 199, 0.5);
+  animation: animate 10s linear infinite;
+}
+
+a:hover .liquid,
+.liquid::after {
+  background: #4973ff;
+  transition: 1s;
+}
+a:hover .liquid::after {
+  background-color: rgba(255, 255, 255, 0.048);
+  width: 0;
+  transition: 1s;
+}
+
+a:hover .liquid::before {
+  top: 200%;
+  width: 0;
+  transition: 1s;
+}
+
+@keyframes animate {
+  0% {
+    transform: translate(-50%, -75%) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(-50%, -75%) rotate(360deg);
+  }
+}
+
+@keyframes animate {
+  0% {
+    transform: translate(-80%, 65%) rotate(60deg);
+  }
+  100% {
+    transform: translate(-80%, 65%) rotate(360deg);
+  }
+}
