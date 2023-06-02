@@ -1,0 +1,59 @@
+.produto-img {
+  width: 350px;
+  height: 350px;
+}
+
+.principal {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas: "a b c";
+}
+
+.produtos-1 {
+  grid-area: a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: default;
+}
+
+.produtos-2 {
+  grid-area: b;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: default;
+}
+
+.produtos-3 {
+  grid-area: c;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: default;
+}
+
+.btn-comprar {
+  height: 45px;
+  font-size: 20px;
+  color: white;
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 15px;
+  cursor: pointer;
+  margin-bottom: 40px;
+  padding: 10px;
+}
+
+.btn-comprar:hover {
+  background-color: #ed00eb;
+}
+
+.logo-refri {
+  width: 300px;
+  height: 150px;
+  cursor: pointer;
+}
