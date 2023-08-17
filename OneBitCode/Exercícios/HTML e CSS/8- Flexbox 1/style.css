@@ -29,7 +29,7 @@
   padding: 10px;
   border: 2px solid white;
   background-color: black;
-  color: white;
+  /*color: white;*/
   border-radius: 10px;
   font-size: 20px;
   transition: 0.4s;
@@ -38,4 +38,30 @@
 .navitem:hover {
   border-color: #f04;
   cursor: pointer;
+}
+
+.container {
+  height: 30vh;
+  display: flex;
+  justify-content: space-around;
+}
+
+.logo-rockka1 {
+  left: 25px;
+}
+
+.logo-rockka2 {
+  right: 25px;
+}
+
+.logo-rockka {
+  width: calc(100% / 4);
+  transition: 0.4s;
+  position: fixed;
+}
+
+.logo-rockka:hover {
+  cursor: pointer;
+  width: calc(100%);
+  z-index: 1;
 }
