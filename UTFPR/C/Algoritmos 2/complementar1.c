@@ -39,7 +39,7 @@ int main(void){
   scanf("%i", &N);
   int X[N];
   
- int Y[(N+1)/2];  
+  int Y[(N+1)/2];  
 
   for (int i = 0; i < N; i++)
   {
