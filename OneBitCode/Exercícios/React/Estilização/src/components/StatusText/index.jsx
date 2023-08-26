@@ -1,5 +1,5 @@
 export default () => {
-  const status = true;
+  const status = false;
 
   return (
     <h2 style={{ color: status ? "#00ff9f" : "#f64648" }}>
