@@ -8,4 +8,4 @@ export default () => {
   );
 };
 
-//esse tipo de "dinamismo" só é possível assim, em arquivo separado não da.
+//esse tipo de "dinamismo" só é possível assim, em arquivo separado não existe a variável.
