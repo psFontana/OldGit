@@ -29,7 +29,7 @@ int main() {
 int main() {
     int n;
     scanf("%i", &n);
-    int v[n], v2[n];
+    int v[n];
 
     for (int i = 0; i < n; i++)
     {
@@ -44,7 +44,7 @@ int main() {
         if (v[i] == v[j] && i != j)
         {
           achou = 1;
-          continue;
+          break;
         }
       }    
       if(!achou){
