@@ -122,4 +122,3 @@ void buscar_cliente(struct cliente* vet, int tam){
     }
   }  
 }
-
