@@ -1,0 +1,6 @@
+{
+  "compilerOptions": {
+    "outFile": "main.js", // Nome do arquivo apos o tsc.
+    "target": "ESNEXT" // Definição da versão do arquivo js para a mais atual.
+  }
+}
