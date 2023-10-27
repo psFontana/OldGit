@@ -90,23 +90,23 @@ struct endereco
   int numero;
 };
 
-struct cliente
+typedef struct cliente
 {
   int id;
   char nome[64], telefone[64];
   struct endereco ender;
-};
+}cliente;
 
 void ler_cliente(struct cliente* vet, int tam){
 
   for (int i = 0; i < tam; i++)
   {
-    scanf( "%i", vet[i].id);  
+    scanf( "%i", &vet[i].id);  
     scanf(" %[^\n]s", vet[i].nome);  
     scanf(" %[^\n]s", vet[i].ender.rua);  
     scanf(" %[^\n]s", vet[i].ender.estado); 
     scanf(" %[^\n]s", vet[i].ender.cidade); 
-    scanf(" %i", vet[i].ender.numero); 
+    scanf(" %i", &vet[i].ender.numero); 
     scanf(" %[^\n]s", vet[i].telefone); 
   }  
 }
@@ -118,9 +118,7 @@ void buscar_cliente(struct cliente* vet, int tam){
   {
     if (vet[i].id == idd)
     {
-      printf("%i - %s\n%s, %i\n%s - %s\nTel: %s", vet[i].id, vet[i].nome, vet[i].ender.rua, vet[i].ender.numero, vet[i].ender.cidade, vet[i].ender.cidade, vet[i].telefone);
+      printf("%i - %s\n%s, %i\n%s - %s\nTel: %s", vet[i].id, vet[i].nome, vet[i].ender.rua, vet[i].ender.numero, vet[i].ender.cidade, vet[i].ender.estado, vet[i].telefone);
     }
-     
   }  
 }
-
