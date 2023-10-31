@@ -51,6 +51,15 @@ text = inputAny;
 
 // Criação de nossos próprios tipos e interfaces;
 
+//    Tipo literal: as variaveis literais só podem ser os valores definidos, qualquer outra coisa da erro.
+let option: "yes" | "no";
+type Planets = "Terra" | "Marte" | "Júpiter";
+let planet: Planets;
+function checkPlanet(planet: Planets) {
+  if (planet === "Terra") {
+    console.log("Estamos no planeta: " + planet + "\nNossa terra natal :)");
+  }
+}
 // Checagem de erros pela IDE enquanto escrevemos o código;
 
 // Função de autocompletar da IDE;
