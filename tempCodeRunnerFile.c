@@ -1,15 +1,14 @@
-  char palavra[100];
-  scanf("%s", palavra);
-  int vogais = contaVogal(palavra);
-  int consoantes = strlen(palavra) - vogais;
-  if (vogais > consoantes)
-  {
-    printf("Ha mais vogais que consoantes.");
-  }else if (consoantes > vogais)
-  {
-    printf("Ha mais consoantes que vogais.");
-  }else{
-    printf("Empate!");
+canf("%d", &n);        
+  p = aloca_matriz_quadrada(n);  
+      
+  for (i = 0; i < n; i++) {
+      for (j = 0; j < n; j++) {
+          p[i][j] = (i*n) + (j+1);
+      }
   }
-
-  printf("%s", palavra);
+  for (i = 0; i < n; i++) {
+      for (j = 0; j < n; j++) {
+          printf("%d ", p[i][j]);
+      }
+      printf("\n");
+  }
