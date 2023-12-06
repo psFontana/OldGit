@@ -60,29 +60,60 @@
 //   }
 // }
 
-int **aloca_matriz_quadrada(int n){
-  int **mat = (int**)calloc(n, sizeof(int*));
-  for (int i = 0; i < n; i++)
+// int **aloca_matriz_quadrada(int n){
+//   int **mat = (int**)calloc(n, sizeof(int*));
+//   for (int i = 0; i < n; i++)
+//   {
+//     mat[i] = (int*) calloc(n, sizeof(int));
+//   }
+//   return mat;
+// }
+
+// int main(void){
+//   int n, i, j, **p;
+//   scanf("%d", &n);        
+//   p = aloca_matriz_quadrada(n);  
+      
+//   for (i = 0; i < n; i++) {
+//       for (j = 0; j < n; j++) {
+//           p[i][j] = (i*n) + (j+1);
+//       }
+//   }
+//   for (i = 0; i < n; i++) {
+//       for (j = 0; j < n; j++) {
+//           printf("%d ", p[i][j]);
+//       }
+//       printf("\n");
+//   }
+// }
+
+// char string[100];
+
+// void inverter(int pos){
+//   if (string[pos] == '\0')
+//   {
+//     return;
+//   }
+//   inverter(pos+1);
+//   printf("%c", string[pos]);
+// }
+
+// int main(void){
+//   scanf("%s", string);
+//   inverter(0);
+// }
+
+int multiplicacao_recursiva(int n1, int n2){
+  if (n1 == 1)
   {
-    mat[i] = (int*) calloc(n, sizeof(int));
+    return n2;
   }
-  return mat;
+
+  return multiplicacao_recursiva(n1-1, n2) + n2;
 }
 
 int main(void){
-  int n, i, j, **p;
-  scanf("%d", &n);        
-  p = aloca_matriz_quadrada(n);  
-      
-  for (i = 0; i < n; i++) {
-      for (j = 0; j < n; j++) {
-          p[i][j] = (i*n) + (j+1);
-      }
-  }
-  for (i = 0; i < n; i++) {
-      for (j = 0; j < n; j++) {
-          printf("%d ", p[i][j]);
-      }
-      printf("\n");
-  }
+  int v1, v2;
+  scanf("%d %d", &v1, &v2);
+  printf("Multiplicacao recursiva: %d", multiplicacao_recursiva(v1,v2));
 }
