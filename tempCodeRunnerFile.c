@@ -1,15 +1,6 @@
-  char palavra[100];
-  scanf("%s", palavra);
-  int vogais = contaVogal(palavra);
-  int consoantes = strlen(palavra) - vogais;
-  if (vogais > consoantes)
-  {
-    printf("Ha mais vogais que consoantes.");
-  }else if (consoantes > vogais)
-  {
-    printf("Ha mais consoantes que vogais.");
-  }else{
-    printf("Empate!");
+int somatorio(int n){
+  if(n == 1){
+    return 1;
   }
-
-  printf("%s", palavra);
+  return somatorio(n-1) + n;
+}
