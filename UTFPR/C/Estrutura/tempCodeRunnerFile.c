@@ -1,7 +1,3 @@
-	// if (palindromo)
-	// {
-	// 	printf("\n\nÉ palíndromo! :D");
-	// }else{
-	// 	printf("\n\nNão é palíndromo :c");
-	// }
-	
+	if (string[contador] != pilhastr->topo->letra){
+			verificador = 0;
+		}

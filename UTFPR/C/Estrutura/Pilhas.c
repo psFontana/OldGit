@@ -251,9 +251,9 @@ int main(){
 
 	while (pilhastr->qtde != 0)
 	{
-		// if (string[contador] != pilhastr->topo->letra){
-		// 	verificador = 0;
-		// }
+		if(string[contador] != pilhastr->topo->letra){
+			verificador = 0;
+		}
 		
 		string[contador] = pilhastr->topo->letra;	
 		removerPilhaDinamicaStr(pilhastr);
