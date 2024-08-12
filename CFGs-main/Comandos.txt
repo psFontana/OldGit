@@ -1,0 +1,1 @@
++sdr_spew_level 0 +net_client_steamdatagram_enable_override -1 +net_steamcnx_allowrelay 0 +net_steamcnx_enabled 0 -noubershader -novid -tickrate 128 -nojoy +fps_max 0 +mat_disable_fancy_blending 1 +cl_forcepreload 1 -limitvsconst -forcenovsync +r_dynamic 0
