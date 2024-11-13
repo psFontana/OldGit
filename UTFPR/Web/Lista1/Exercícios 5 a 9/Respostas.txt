@@ -1,0 +1,17 @@
+5- Width representa a largura do elemento, enquanto max-width define a largura máxima que ele pode alcançar.
+O width é usado quando queremos que um elemento tenha uma largura fixa, independentemente da largura da tela do usuário. Por exemplo: width: 50vw; faz com que o elemento ocupe 50% da largura total da tela.
+Já o max-width é utilizado quando se precisa de responsividade, pois permite que o elemento se ajuste em telas menores, enquanto em telas maiores ele respeita o limite máximo definido.
+Quando utilizados juntos, o elemento pode crescer ou diminuir conforme a referência definida por width, até atingir o limite estabelecido por max-width.
+
+6- Margin é a propriedade que define a distância entre a borda de dois elementos. Portanto, quando esse valor é positivo, seja ele 25px ou 10vw, os elementos manterão se afastarão na distância fixa que foi definida, já quando é negativo os elementos se aproximarão nessa quantidade definida.
+A margem positiva é a mais utilizada, como exemplo eu posso citar sites que usam "cards" como na atividade de casas desta mesma lista, nela as imagens das casas não ficam grudadas, há um espaçamento entre elas, o que pode ser definido com uma margem positiva.
+Já a margem negativa tem um uso mais específico, posso citar como exemplo o exercício que foi proposto para que exercitássemos a propriedade z-index, caso utilizassemos margin negativa os elementos iriam se sobrepor e com o z-index definiriamos qual está acima de qual
+
+7- box-sizing é a propriedade que define como serão calculadas as alturas e larguras dos elementos, normalmente em width e height, para complementar a resposta irei comparar os 2 tipos mais comuns de serem encontrados:
+"box-sizing: content-box;" -> é o padrão da linguagem, nela as propriedades padding e borda são adicionadas ao "content" do elemento, o que pode gerar aumento ou diminuição imprevistas dos conteúdos em si.
+"box-sizing: border-box;" -> é a mais popular entre os projetos modernos, nela os elementos são divididos em 4 partes : margin, border, padding e content. Portanto o padding e o border estão inclusos já no tamanho do elemento (width e height) não afetando o tamanho total do elemento, apenas a sua posição.
+
+8- A borda, é definida pela propriedade "border" no CSS, você pode simplesmente usar "border" para aplicar a borda em todos os lados ou escolher um lado expecífico utilizando as propriedades "border-[lado]" (border-top; border-right; border-bottom; border-left), nela você escolhe a largura da borda, seu tipo (solid, dashed, ou dotted por exemplo) e a cor. Caso queira definir apenas em um lado, como na direita por exemplo, pode-se usar a propriedade "border-right: 1px solid black", por exemplo
+
+9- Para a "div A" -> "margin: 5% 10%"
+Para a "div B" -> "padding: 5px 6px 8px 7px"

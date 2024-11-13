@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+  height: 20vh;
+  background-color: rgb(61, 60, 60);
+}
+
+main {
+  display: flex;
+  height: 70vh;
+}
+
+.menu {
+  background-color: red;
+  width: 33.3vw;
+}
+
+.corpo {
+  width: 66.6vw;
+  background-color: green;
+}
+
+footer {
+  height: 10vh;
+}

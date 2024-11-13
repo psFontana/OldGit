@@ -1,0 +1,46 @@
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
+
+div {
+  height: 22.5vh;
+  display: grid;
+  place-content: center;
+  border: 2px solid black;
+  font-size: 1.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.vermelho {
+  background-color: red;
+  width: 50%;
+  float: left;
+  color: white;
+}
+
+.amarelo {
+  background-color: yellow;
+  width: 40%;
+  float: right;
+}
+
+.verde {
+  background-color: greenyellow;
+  width: 25%;
+  float: left;
+  color: white;
+}
+
+.preto {
+  background-color: black;
+  width: 62.5%;
+  float: right;
+  color: white;
+}
+
+.cinza {
+  width: 100%;
+  background-color: lightgray;
+}

@@ -1,0 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+button {
+  display: block;
+}
+label span {
+  color: red;
+}
+div + div {
+  background-color: aqua;
+}
+#divConteudo > div:first-child {
+  background-color: blue;
+}

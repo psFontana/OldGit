@@ -1,0 +1,86 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.img2,
+.img3 {
+  display: none;
+}
+
+.img1,
+.img2,
+.img3,
+.img4 {
+  width: 100px;
+}
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .logo {
+    display: flex;
+    width: 60%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+}
+nav {
+  display: flex;
+  justify-content: space-around;
+  width: 80vw;
+  button,
+  a {
+    margin-top: 20px;
+    background-color: blue;
+    color: white;
+    text-decoration: none;
+    width: 17vw;
+  }
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 90vw;
+    margin-top: 20px;
+  }
+  p {
+    margin-bottom: 40px;
+  }
+}
+
+@media (max-height: 500px) {
+  .logo {
+    width: 80vw !important;
+    br {
+      display: none;
+    }
+  }
+  .img2,
+  .img3,
+  .img4,
+  .img1 {
+    display: block;
+  }
+  .casaDiv {
+    text-align: center;
+  }
+  .casa {
+    width: 18vw;
+  }
+  main {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  nav {
+    flex-direction: column;
+    width: 18vw;
+  }
+}

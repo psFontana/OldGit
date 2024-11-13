@@ -1,0 +1,17 @@
+#id1 #id2 p {
+  color: red;
+  background-color: yellowgreen;
+}
+#id1 .cd2 #ip1 {
+  color: black;
+}
+#id1 p {
+  background-color: blue;
+}
+body div p {
+  color: green;
+}
+div p {
+  background-color: orange;
+  color: white !important ;
+}

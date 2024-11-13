@@ -1,0 +1,6 @@
+Há varias maneiras para definir o estilo de um elemento, para decidir qual irá ser adotada pelo navegador, elas possuem prioridades entre si.
+a propriedade "!important" no css é a que tem maior prioridade, quando utilizada ela sobrescreverá todas as outras estilizações já feitas para aquele elemento
+após isso, a propriedade inlyne (quando se é colocado o estilo dentro da tag HTML) é a que prevalece sob as demais
+depois vem a estilização no ID da tag
+por penúltimo, há a estilização de classes
+e por fim, a estilização das proprias tags é a que tem menor prioridade

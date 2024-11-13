@@ -1,0 +1,14 @@
+html {
+  display: grid;
+  place-content: center;
+  height: 100vh;
+  background-color: #c6c6c6;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.title {
+  text-align: center;
+}
+.explicacao p {
+  margin-left: 60px;
+}
