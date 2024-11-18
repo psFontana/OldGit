@@ -1,0 +1,1 @@
+document.getElementById("lbl").style.color = "pink"
