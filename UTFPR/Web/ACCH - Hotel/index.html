@@ -2,111 +2,240 @@
 <html lang="en" data-bs-theme="dark">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/main.css">
-    <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/main.css">
+  <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">UTFPR Hoteis</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
-                    aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarScroll">
-                    <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Reservar</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                Link
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" aria-disabled="true">Link</a>
-                        </li>
-                    </ul>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
-                </div>
+  <header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">UTFPR Hoteis</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+          aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarScroll">
+          <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Reservar</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Link
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" aria-disabled="true">Link</a>
+            </li>
+          </ul>
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <div class="descricao w-100">
+      <h1 class="fs-1 mt-3">Opções de Quartos</h1>
+      <div class="d-flex justify-content-evenly descricao-items w-100">
+        <div class="d-flex flex-column descricao-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 391.87" id="1125224371" class="svg u_1125224371"
+            alt="Transporte" data-icon-custom="true" data-icon-name="Transporte Localização.svg">
+            <g id="Camada_2" data-name="Camada 2">
+              <g id="Camada_1-2" data-name="Camada 1">
+                <path
+                  d="M220.37,138.78c-2.2,6.22,1.93,10.85,3.85,15.75,13,33.24,20.84,67.9,28.51,102.61.82,3.69,3.2,8.43-1.7,10.88s-7.33-2.35-9.92-5.08c-12-12.63-24.68-24.23-41.34-30.33-4.21-1.54-8.85-2-13.35-2.56-2.36-.27-5.61-.51-6.6,2.3-1.35,3.86,2,5.25,4.77,6.45,23.48,10.23,37.72,29.25,46.25,52.12,8.42,22.56,24,37.05,44.6,47.53,11,5.61,25,37.71,21.7,49.41-.61,2.13-1.68,3.83-3.88,4-3,.22-4.62-1.88-5.24-4.49-1.54-6.42-2.83-12.9-4.29-19.33-4.41-19.38-14.66-27.66-35.17-27.69q-93.7-.14-187.42.06c-19,0-42.65,16.69-49.82,34.59-1.52,3.79-.85,10.82-7.69,8.23-5.48-2.07-3.49-8-2.13-12.14,5.29-16,17.06-27,31.8-33.07,13.78-5.65,17-14,16.81-27.84-.73-50.79-.56-101.59-.08-152.38.11-11.55-1.6-18.92-15.38-17.1-3.38.45-7.73.31-8.85-4-1.51-5.77,3.81-7.87,7.19-10.5Q88.91,82.75,145,39.58c14.87-11.49,30-22.65,44.48-34.62,7.56-6.26,13.49-6.87,21.24-.27,12,10.19,24.85,19.31,37.18,29.09,7,5.57,9.75,3.44,9.73-4.8a9.64,9.64,0,0,1,0-1.52c1-6.81-3.56-16.13,3.16-20,8.85-5.09,19.84-2.32,29.88-1.68,6.52.42,5.69,6.19,5.74,10.57.17,13.7.45,27.42-.06,41.1-.36,9.44,2.46,16,10.47,21.83,20.16,14.56,39.72,30,59.29,45.32,3.71,2.91,10.09,5.24,8.52,11.36-1.65,6.44-8,5.3-12.88,4.83-10.05-1-12.34,3.41-13.34,13.07-2.66,25.67,6.74,48.89,12.34,72.91,7.59,32.56,10.54,65.27,1.51,98-2.14,7.76.57,10.84,6.63,14.28,13.49,7.63,25.41,17.08,29.82,32.95,1.17,4.19,3.05,10-3,11.7-5.38,1.51-6-3.83-7-7.77-3.57-14.14-14.93-21.12-26.14-28.23-2.2-1.39-4.75-2.69-7-1-3,2.25-1.95,5.56-.65,8.31,2.83,5.95,6.08,11.71,8.9,17.66,1.13,2.38,1.15,5.11-1.69,6.52-2.67,1.33-4.6-.09-6.55-2.1-10.11-10.38-13-27.53-7.5-41.27,16-39.84,10.06-79.8.15-119.72-1-3.94-2-7.88-3.27-11.73-3.94-12-10-13.73-17.41-4-4.47,5.89-7.19,6.17-11.45.75-7.49-9.53-14.22-9-19.39,2-3.07,6.55-6.33,7.51-11,1.71-8.54-10.68-14.51-11.15-16.46,4.15-.39,3.06-.42,6.61-4.05,7.33-4.71.92-5.73-3.37-7-6.49-8.38-20.7-16.59-41.48-27.93-60.8C228,144.93,226.91,139.34,220.37,138.78ZM60.53,233.89c0,26.88.4,53.78-.18,80.65-.26,11.61,3.21,15.9,15.55,15.73,48.18-.66,96.37-.17,144.56-.34,5.94,0,14.12,3,17.39-1.55,4.55-6.37-5.62-9.21-7.47-14.7-1.28-3.82-4.13-7.21-4.93-11.07-2.72-13.06-10.86-16.45-23.29-15.8-16.7.87-33.49-.19-50.2.5-10.84.45-15.8-2.79-15.63-14.46.5-33,.58-66,0-98.91-.18-11,4.22-14.29,14.34-14.05,17.24.41,34.49.29,51.73.06,3.65,0,8.75,2.06,10.53-3.26,1.42-4.24-2-7.62-3.64-11.23-2.68-6.06-8.44-4.6-13.3-4.61-40.58-.07-81.16.31-121.74-.22-10.87-.14-14.12,3.69-13.91,14.13C60.89,181.12,60.53,207.51,60.53,233.89Zm227.57-104c17.25,0,34.51,0,51.76,0,2.86,0,6.73,1.44,8.16-2,2-4.74-3-5.61-5.56-7.59-44.14-34.14-88.53-68-132.3-102.56-8.47-6.7-13.58-4.76-20.86.94C146.19,52.4,102.76,85.79,59.52,119.42c-2.88,2.24-8.92,3-6.84,8.39,1.53,4,6.29,2.12,9.6,2.13,44.67.09,89.43,1.71,133.94-.86,15.19-.88,29.42-2.51,44.79.2S272.36,129.86,288.1,129.87Zm-51.59,114,3.25-2.19q-8.53-31.4-17.08-62.77c-1.49-5.48-4.58-8.72-10.76-8.68q-27.42.19-54.85,0c-6.82-.05-10.28,2.57-10.22,9.86q.32,42.66.15,85.32c0,7.58,3,11.17,10.84,11,14.21-.26,28.44-.06,42.66-.1,2.89,0,6.5,1.11,7.73-2.79,1.08-3.41-1.76-5.49-3.7-7.76-8.82-10.27-19.42-17.8-32.68-21.22-4.52-1.17-9.31-2.34-10.17-7.76-1-6,3.61-9.26,8-11.81,10.89-6.38,22.2-5.51,33.8-1.64C216.08,227.51,225.91,236.3,236.51,243.85ZM288.27,141v-.09c-11.17,0-22.36-.37-33.51.17-4.89.23-13.17-3.86-13.82,4.06-.49,5.86,3.68,13.93,11.18,14.35,12.45.7,11.39,8.64,11.65,17,.14,4.35-2.84,12.5,5.48,11.07,11.33-1.95,23.39,7.95,34.1-2.49,1.29-1.27,4.94-.57,7.38-.13,23.33,4.12,27.69.63,27.56-22.36a79.59,79.59,0,0,1,0-9.14c1-9.08-2.41-13-12-12.55C313.69,141.43,301,141,288.27,141Zm-2-103.07h.1c0-4-.14-8.09,0-12.12.29-6.7-2-10.51-9.48-10.29-6.77.19-8.68,3.92-8.57,9.77.14,7.06-.59,14.29.72,21.14s7.59,12.51,13.83,12c6.59-.59,2.49-8.34,3.28-12.88C286.61,43,286.26,40.44,286.26,37.91Z">
+                </path>
+                <path
+                  d="M228.53,77.93c.34,17-12.4,30.27-29.16,30.42a29.91,29.91,0,0,1-1.14-59.8C215.17,48.36,228.19,61,228.53,77.93Zm-27.42-18.8c-11.67-.62-21,8-21.5,18.47s8,20.25,18.32,20.06c11.76-.21,19.29-6.83,20-18.44C218.73,67.16,210.73,61.28,201.11,59.13Z">
+                </path>
+              </g>
+            </g>
+          </svg>
+          <ul class="pt-4">
+            <li>Quartos aconchegantes</li>
+  <li>Vista para a cidade</li>
+  <li>Serviço de quarto 24 horas</li>
+  <li>Camas king size</li>
+  <li>Café da manhã incluído</li>
+  <li>Área de lazer com piscina</li>
+  <li>Estacionamento privativo</li>
+          </ul>
+        </div>
+        <div class="d-flex flex-column descricao-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 303.84" id="predios" class="svg u_1387037428"
+            alt="Quartos" data-icon-custom="true" data-icon-name="Quartos.svg">
+            <g id="Camada_2" data-name="Camada 2">
+              <g id="Camada_1-2" data-name="Camada 1">
+                <path
+                  d="M198.46,303.53q-94,0-188-.07c-3.77,0-9.57,2.11-10.41-3.6-.95-6.44,5.21-4.67,8.87-5.42,6.74-1.39,5.08-6.82,5.09-11.09.12-30.41.88-60.85-.31-91.21-.57-14.71,5-18.12,18.25-17.56,19.78.83,39.63-.23,59.42.42,10.81.35,14.33-3.25,14.22-14.27-.49-48.37.24-96.75-.32-145.13C105.18,3.1,109.81-.1,121.49,0q78.78.72,157.57.11C290.32,0,294.45,3.5,294.32,15.19c-.51,47.91.31,95.84-.45,143.75-.2,13.28,4.38,16.61,16.72,16.1,20.23-.85,40.54.09,60.8-.37,10.67-.24,14.61,3.68,14.39,14.59-.6,30.85-.34,61.72-.24,92.58,0,5.2-1.67,11.79,6.61,12.85,3.64.47,8.58.2,7.76,5.31-.74,4.6-5.78,3.56-9.33,3.56q-58.05.07-116.1,0h-76Zm-68.78-9.73a29.41,29.41,0,0,1-4.16-13.71c-1.33-30.71-1.4-30.4,29-29.78,9.4.19,12.9,3,13,12.71.13,10.37-5.47,25.15,1.27,30,7.36,5.29,21.25,1.53,32.29,1.69,1.84,0,3.69-.07,5.53-.09,24.84-.27,24.84-.26,24.77-25.22-.05-18.78-.05-18.78,18.71-18.89,21.8-.14,21.79-.14,21.82,21.2,0,4.14.14,8.28.09,12.42,0,3.93-7.21,10,3.37,10.62,7.92.47,8.83-4.39,8.82-10.65q-.09-130.65.1-261.3c0-8.78-2.87-12.21-12-12.15q-71.89.49-143.79,0c-9.38-.06-13.06,2.87-13,12.68q.39,130,0,259.91C115.51,292.24,118.21,296.43,129.68,293.8Zm164.43-55.12c0,15.17.48,30.36-.14,45.51-.55,13.36,8.86,10,16,10.5,10.23.75,5.91-5.76,5.59-10.88-.52-8.24-.16-16.54-.19-24.81,0-5.51,2.39-7.85,8.18-8.61,31.11-4.09,33-2.58,32.05,28.77,0,1.37,0,2.76,0,4.13.25,4.48-5.59,11.53,5.26,11.47,8-.05,14.5-.08,14.31-11.24q-.74-43.42-.08-86.88c.13-9-2.9-12.22-11.89-12-19.29.5-38.61.47-57.91.14-8.19-.14-11.66,2.59-11.37,11.13C294.46,210.16,294.11,224.42,294.11,238.68Zm-188.67,1c0-14.27-.27-28.55.11-42.81.21-7.85-1.94-12.14-10.69-12-20.25.29-40.51.23-60.77,0-7-.06-9.9,2.7-9.86,9.82.19,29.92.37,59.85-.09,89.76-.17,10.92,6.71,10.1,13.71,10.23,11.11.19,4.82-6.74,4.69-11.25-.17-5.52.41-11.11-.25-16.56-1.47-12.21,2.47-17.2,15.78-16.69,30.24,1.17,25-2.74,25.64,25.89a56.71,56.71,0,0,1,0,6.9c-.55,5.32-5.16,12.37,6.1,11.85,8.41-.39,16.85,1,15.92-12.37C104.71,268.26,105.47,253.94,105.44,239.66Zm25.88,31.63c-2.76,10.75,1.07,15.16,12.48,15.22,12.07.05,19.18-2.31,18.46-16.58-.51-10-2.34-15.21-14-14.64C137,255.83,126.88,255.29,131.32,271.29Zm204.18-15c-15.3-5.23-14.68,4.69-14.78,15.6-.09,9.24.89,14.85,12.31,14.65,10.92-.19,18.7-.67,17.67-15.19C350,261,350.38,252.21,335.5,256.34ZM78.15,270.78c2.81-11.95-1.75-15.87-13.57-15.37-10.18.44-18.34,0-16.89,14.13.92,9-.85,17.6,13.21,16.77C72,285.65,82.33,286.61,78.15,270.78Zm159.29.2c-3.18,13.16,3.5,15.68,15,15.62,10.57-.06,14.74-2.91,14.3-14.23-.41-10.8-.07-18-15-17.2C239.38,255.81,234.69,259,237.44,271Z">
+                </path>
+                <path
+                  d="M147.39,87.33c20.27.32,20.27.32,19.92,24.68-.24,16.69-.43,16.82-24.65,16.5-17.43-.24-17.43-.24-17.09-25.34C125.79,87,125.79,87,147.39,87.33ZM146,92.78c-10.8-2-15.84,1.43-15.63,13.67.2,11.29,2.44,16.38,15.35,16.42s16.57-4,16.59-16.62S156.55,91.2,146,92.78Z">
+                </path>
+                <path
+                  d="M272,107.94c.26,10.54,3.09,21.69-14.68,20.78-26-1.34-26-.52-26.14-19.25-.14-22.27-.05-21,25.94-22.65C276.68,85.55,271.69,97.79,272,107.94ZM252.82,92.8c-11.31-2.36-16.61.81-16.13,13.77.41,11,1.84,16.72,14.88,16.32,10.76-.32,15.94-2.22,15.05-14.28C265.91,99,267.79,89,252.82,92.8Z">
+                </path>
+                <path
+                  d="M125.66,215.58c.08-20.05.08-20.27,16.26-20,26.64.51,25.32-4.2,25.43,24.88.06,16.72-.06,16.72-25.55,16.63C125.57,237.09,125.57,237.09,125.66,215.58Zm5.46,1.53c-3.45,14.78,5.69,14.53,16.61,15.2,14.52.88,13.36-7.74,14.19-17.42,1.14-13.2-6.25-13.56-16.13-14C133.37,200.22,128.52,204.82,131.12,217.11Z">
+                </path>
+                <path
+                  d="M146.46,73.75c-20.74.2-20.74.2-20.84-17.15-.14-24.06-.14-24.06,16.49-24.2,25.1-.22,25.1-.22,25.21,15.87C167.48,73.55,167.48,73.55,146.46,73.75Zm-1.53-5.43c10.26,1.54,17.58.08,17.19-13.61-.32-11.36-2.07-18-15.88-17.46-11.64.43-16.42,3.42-15.74,15.86C131.06,63.29,131.78,70.83,144.93,68.32Z">
+                </path>
+                <path
+                  d="M219.45,216.94c.26,19.91.26,19.91-16,20.13-25.53.35-25.53.35-25.72-16.34-.27-24.67-.14-25.22,14.29-25C221.4,196.19,219.07,192.05,219.45,216.94Zm-19.91,14.7c12.76,3.12,14.54-3.42,15.15-14.81.77-14.56-5.71-15.53-17.71-16.11-15.39-.74-12.69,8.83-13.44,17.62C182.5,230.44,188.57,233.81,199.54,231.64Z">
+                </path>
+                <path
+                  d="M145.67,182.17c-19.91.1-19.91.1-20-16.26-.13-24.56-.13-24.56,15.92-24.57,25.68,0,25.68,0,25.76,19.17C167.45,182.06,167.45,182.06,145.67,182.17Zm.81-5.62c11.78,2.14,16.36-2.69,15.81-15-.45-10-2.39-15.1-14-14.91-12,.21-18.45,1.73-18,16.37C130.71,175.55,135.7,178.26,146.48,176.55Z">
+                </path>
+                <path
+                  d="M219.41,162.9c.21,19,.21,19-16.87,19.19-24.53.19-24.53.19-24.77-21.26-.21-19.28-.21-19.28,18.56-19.49C219.17,141.09,219.17,141.09,219.41,162.9Zm-5.5-1.55c3.75-14.39-5.34-14.48-15.6-14.52-9.63-.05-15.53,1.16-15.18,13.46.33,11.91,2.64,17.35,16.24,17C211.47,176.88,216.89,173.9,213.91,161.35Z">
+                </path>
+                <path
+                  d="M272,53.48C272.05,63.71,275.74,75,257.58,74c-26.25-1.45-26.31-.43-26.39-15.84C231,32.47,231,32.47,247.36,32.47,272.07,32.47,272.07,32.47,272,53.48ZM251.69,68.17c13.39,3.51,15-4,15.09-14.94.13-11.22-2.51-16-15.23-16.15s-15,4.8-14.81,16C236.88,64,238.13,71.5,251.69,68.17Z">
+                </path>
+                <path
+                  d="M198.39,87.32c23.28.24,20.57-4.14,21.27,26,.23,9.84-1.47,15.49-13.39,15.23-28.67-.62-28.68-.16-28.53-22.54C177.86,87.25,177.86,87.25,198.39,87.32Zm15.57,20c3.78-14.85-5.35-14.84-16.11-15.16-10.45-.3-15,2.58-14.62,13.68.39,10.23,1,17.5,14.74,16.82C209.15,122.15,217.59,121.87,214,107.36Z">
+                </path>
+                <path
+                  d="M231.53,217.35c.73-23.49-3.88-21.42,27.71-21.83,21.12-.28,11.9,15.85,12.59,24.77,1.35,17.48.19,16.86-27.49,17.06C226.68,237.48,232.32,225.57,231.53,217.35Zm5.9-.95c-1.94,10.26-.09,16.28,12.95,16,11.2-.25,17.17-1.89,16.44-14.88-.57-10.2-.57-17.33-14.52-16.92C240.28,200.94,234.88,204,237.43,216.4Z">
+                </path>
+                <path
+                  d="M199.71,32.47c20.16.19,20.16.19,19.82,26.12-.21,15.47-.25,14.42-26.64,15.5-17.34.7-15.34-9.6-15.2-20.28C178,32.27,177.92,32.27,199.71,32.47Zm14.46,19.05c3.45-15-7.16-13.51-17.33-14.16-14.89-.94-12.68,9-13.48,18.23-1.33,15.19,9,12.25,18.06,13.18C215.32,70.19,215,61.63,214.17,51.52Z">
+                </path>
+                <path
+                  d="M272,161.63c.38,20,.28,21.21-15.66,19.87-8.89-.74-25,9.65-24.92-12,.11-27.78-.18-28,13.81-28C275.25,141.43,271.74,138.93,272,161.63Zm-34.65.76c-3.79,14.31,5.52,14,16.16,14.68,13.56.9,12.46-6.79,13.15-16.15,1-13.95-6.72-13.75-16.84-14.09C238.06,146.44,235.4,151.8,237.35,162.39Z">
+                </path>
+                <path
+                  d="M335.94,237.14c-20-.14-19.57-.15-20-25.95-.21-11.52,2.66-16.47,15.36-15.89,25.95,1.18,26,.55,25.8,22.22C356.89,237.29,356.89,237.29,335.94,237.14Zm.89-5.71c14.91,4.65,14-5.68,14.69-16.19,1-13.65-6.71-14-17-14.54-13.79-.79-12.93,7.38-13.19,16.64C321,228,323.4,234.81,336.83,231.43Z">
+                </path>
+                <path
+                  d="M84.52,217c-.17,20.34-.17,20.34-25.28,20.08C43.41,237,43.41,237,43.6,216.27c.19-20.85.22-20.07,27.1-21C90.78,194.6,82.6,208.87,84.52,217Zm-5,1c.41-9.41,1.51-17.94-12.53-17.3-10.82.49-18.33.65-18,15,.25,11.9,2.46,17.19,15.94,16.64C76.08,231.94,81.5,229.37,79.5,218.06Z">
+                </path>
+              </g>
+            </g>
+          </svg>
+          <ul class="pt-4">
+            <li>100% livre de fumo</li>
+            <li>Wi-fi</li>
+            <li>SmartTV LED</li>
+            <li>Ar condicionado</li>
+            <li>Amenidades (shampoo, condicionador, sabonete)</li>
+            <li>Toalhas, lençóis fornecidos</li>
+            <li>Unidades térreas</li>
+          </ul>
+        </div>
+        <div class="d-flex flex-column descricao-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 234.34" id="1816038993" class="svg u_1816038993"
+            alt="Pet Friendly" data-icon-custom="true" data-icon-name="Diferenciais.svg">
+            <g id="Camada_2" data-name="Camada 2">
+              <g id="Camada_1-2" data-name="Camada 1">
+                <path
+                  d="M183.82,234c-56.08,0-112.16-.31-168.24.25C3.51,234.4,0,230.35.05,218.67q.63-86.25,0-172.5c-.09-11.82,4.1-15.73,15.76-15.7q168.94.36,337.9-.12c11.81,0,15.6,4.21,15.51,15.89-.45,57-.56,114.06.08,171.08.14,13.31-4.43,17.14-17.24,17-56.06-.51-112.13-.22-168.19-.22Zm.56-11.38q64.83,0,129.68,0c7.9,0,14.61.39,16.2-10.66,1.31-9.09,9.2-14.79,17.85-16.56s10-6.29,9.89-14c-.35-31.83-.46-63.66,0-95.48.14-8.76-1.59-14.26-10.9-16.6-8.81-2.22-15.46-8.3-17.27-17.26-1.64-8.1-6.15-9.46-13.08-9.46q-132.54.06-265.08-.1c-6,0-10.7.74-12.31,8.48-2.07,10-8.76,16.71-19.14,18.85-6.82,1.4-8.93,5.36-8.87,12.19.3,33.25.38,66.51.05,99.76-.07,7.94,2.24,12,10.34,13.91,8.83,2.06,15.66,8.35,17.36,17.2,1.74,9.06,6.83,9.75,14.15,9.72C97,222.55,140.67,222.64,184.38,222.65Zm173.54-5.36c-.12-6.47-.32-10.67-5.57-10.52-6.53.18-10.5,4.57-11.41,10.47-.81,5.34,4.06,5.24,7.82,5.33C354.1,222.69,358.07,221.1,357.92,217.29ZM22.28,42.73c-7-.25-11.2,1.47-10.71,8.62.27,3.81-.14,8.39,5.51,7.5a12.91,12.91,0,0,0,11-11.29C28.81,43.07,24.5,43,22.28,42.73ZM28.13,217.4a13.1,13.1,0,0,0-10-10.69c-4.76-1.18-6.55,2.18-6.55,6.74,0,5.45,1.51,9.24,7.92,9.07C23.37,222.43,27.29,222.73,28.13,217.4ZM357.7,50.59c.72-5.17-2.38-7.9-8.15-7.73-3.54.11-8.91-.66-8.62,4.49a11.71,11.71,0,0,0,10.69,11.32C356.7,59.33,357.93,55.83,357.7,50.59Z">
+                </path>
+                <path
+                  d="M215.26.3C271.35.3,327.44.59,383.53.07,395.76,0,400.14,3.28,400,16.15c-.61,56.56-.22,113.13-.2,169.7,0,1.9.11,3.81,0,5.7-.35,4.55.84,10.78-6.11,10.62-5.73-.13-5.27-5.72-5.5-9.9-.18-3.32-.06-6.65-.06-10,0-51.34-.28-102.68.34-154,.15-13-3.8-16.94-17.07-16.88-107.42.53-214.85.29-322.28.29a8.41,8.41,0,0,1-1.42,0c-5.54-1-14.94,3-15.26-5.39C32.05-2.73,41.6.63,47,.53,68.84.15,90.72.38,112.58.38q51.35,0,102.68,0Z">
+                </path>
+                <path
+                  d="M183.92,152.79c2.25-9.09-3.23-13.19-12.29-15.82-14-4.08-25.29-11.31-25-28.41.22-15.83,7.76-26.07,25.33-32,7.1-2.42,12.18-5,11.17-13.58a3.72,3.72,0,0,1,3.32-4c2.2-.36,4.47.9,4.36,2.56-.94,14.7,11.19,13.56,19.8,17.31,5.08,2.21,14.16,2.59,12.54,10.89-1.32,6.82-3.89,15.75-15.37,8.92-4.83-2.88-12.11-8.94-17-.52-5.3,9,.1,22.16,9.48,25.24,15,4.93,28.84,10.54,29.33,29.87.43,16.91-7.87,28.57-25.51,32.71-7.66,1.79-14,3-12.66,13a4.36,4.36,0,0,1-4,5.07c-3.62.14-4.88-2.91-4.55-5.89,1-9.07-4.29-11.08-11.82-12.29-6-1-11.87-3.36-17.52-5.79-6.81-2.93-12.47-5.81-7.34-15.8,4.9-9.52,9.59-6.38,15.64-2.73a37.3,37.3,0,0,0,6.5,2.84C182.66,169.57,183.8,168.81,183.92,152.79Zm5.83,3.41c1.16,4.39-2.32,11.87,5.95,11.65,5.86-.16,10.91-4.36,10.58-11.06-.33-6.91-5.5-11.8-11.77-11.82C187.39,145,191.5,152.31,189.75,156.2Zm-5.87-50.33c-1.6-3.86,3.29-11.43-5.46-11.29-5.53.09-9.33,4.21-9.38,10.23-.06,6.44,3.56,11.25,9.7,11.61C186.57,116.87,182.84,110,183.88,105.87Z">
+                </path>
+              </g>
+            </g>
+          </svg>
+          <ul class="pt-4">
+            <li>Serviço de quarto 24 horas</li>
+            <li>Recepção bilíngue</li>
+            <li>Transfer aeroporto-hotel</li>
+            <li>Academia completa</li>
+            <li>Salão de eventos</li>
+            <li>Restaurante gourmet</li>
+            <li>Piscina aquecida</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="carrossel mt-3">
+      <h1 class="fs-1 text-center">Imagens</h1>
+      <div id="carouselExampleCaptions" class="carousel slide">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+            aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+            aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+            aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="https://dirgrad.dv.utfpr.edu.br/site/wp-content/uploads/2022/05/bloco_k-1920x692.jpg"
+              class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Quartos Modernos!</h5>
+              <p>Nossos edifícios possuem uma arquitetura moderna, para seu maior conforto!</p>
             </div>
-        </nav>
-    </header>
-    <main>
-        <div class="carrossel mt-3">
-            <h1 class="fs-1 text-center">Imagens</h1>            
-            <div id="carouselExampleCaptions" class="carousel slide">
-                <div class="carousel-indicators">
-                  <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                  <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                  <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                </div>
-                <div class="carousel-inner">
-                  <div class="carousel-item active">
-                    <img src="https://dirgrad.dv.utfpr.edu.br/site/wp-content/uploads/2022/05/bloco_k-1920x692.jpg" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                      <h5>Quartos Modernos!</h5>
-                      <p>Nossos edifícios possuem uma arquitetura moderna, para seu maior conforto!</p>
-                    </div>
-                  </div>
-                  <div class="carousel-item">
-                    <img src="https://www.utfpr.edu.br/campus/doisvizinhos/sobre/dois.JPG/@@images/image" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                      <h5>Ar Limpo!</h5>
-                      <p>Todo o local é muito ligado à natureza!</p>
-                    </div>
-                  </div>
-                  <div class="carousel-item">
-                    <img src="https://rbj.com.br/wp-content/uploads/2022/06/image-1920x1280.jpeg" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                      <h5>Pontos de Foto</h5>
-                      <p>Nosso hotel pousada também conta com vários pontos lindíssimos para que você tire suas fotos!</p>
-                    </div>
-                  </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Next</span>
-                </button>
-              </div>
+          </div>
+          <div class="carousel-item">
+            <img src="https://www.utfpr.edu.br/campus/doisvizinhos/sobre/dois.JPG/@@images/image" class="d-block w-100"
+              alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Ar Limpo!</h5>
+              <p>Todo o local é muito ligado à natureza!</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="https://rbj.com.br/wp-content/uploads/2022/06/image-1920x1280.jpeg" class="d-block w-100"
+              alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Pontos de Foto</h5>
+              <p>Nosso hotel pousada também conta com vários pontos lindíssimos para que você tire suas fotos!</p>
+            </div>
+          </div>
         </div>
-        <div class="mt-3">
-            <h1 class="fs-1 text-center">Localização</h1>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3594.9931725897345!2d-53.10019272375759!3d-25.704650077387786!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94f048f00dd26185%3A0x3965e767d865130a!2sUTFPR%20-%20Dois%20Vizinhos!5e0!3m2!1spt-BR!2sbr!4v1732036668423!5m2!1spt-BR!2sbr" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            <p class="text-center m-0 fs-5">Estrada para Boa Esperança, Km 04</p>
-            <p class="text-center m-0 fs-5">85660-00 Dois Vizinhos PR Brasil</p>
-            <p class="text-center m-0 fs-5">+55 (46) 3536-8900</p>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+          data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+          data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+    <div class="mt-3">
+      <h1 class="fs-1 text-center">Localização</h1>
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3594.9931725897345!2d-53.10019272375759!3d-25.704650077387786!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94f048f00dd26185%3A0x3965e767d865130a!2sUTFPR%20-%20Dois%20Vizinhos!5e0!3m2!1spt-BR!2sbr!4v1732036668423!5m2!1spt-BR!2sbr"
+        style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <p class="text-center m-0 fs-5">Estrada para Boa Esperança, Km 04</p>
+      <p class="text-center m-0 fs-5">85660-00 Dois Vizinhos PR Brasil</p>
+      <p class="text-center m-0 fs-5">+55 (46) 3536-8900</p>
 
-        </div>
-    </main>
-    <footer>
+    </div>
+  </main>
+  <footer>
 
-    </footer>
+  </footer>
 </body>
 
 </html>
