@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grid</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      height: 100vh;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 1fr 2fr 3fr;
+      gap: 2px;
+
+      .content {
+        border: 2px solid black;
+        display: grid;
+        place-items: center;
+      }
+
+      #a {
+        grid-column: 1/3;
+      }
+
+      #b {
+        grid-column: 1/4;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="a" class="content">
+    <h1>a</h1>
+  </div>
+  <div id="b" class="content">
+    <h1>b</h1>
+  </div>
+  <div id="c" class="content">
+    <h1>c</h1>
+  </div>
+  <div id="d" class="content">
+    <h1>d</h1>
+  </div>
+  <div id="e" class="content">
+    <h1>e</h1>
+  </div>
+  <div id="f" class="content">
+    <h1>f</h1>
+  </div>
+  <div id="g" class="content">
+    <h1>g</h1>
+  </div>
+  <div id="h" class="content">
+    <h1>h</h1>
+  </div>
+</body>
+
+</html>
