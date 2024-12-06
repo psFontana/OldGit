@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #define MAX_NOS 100  // Define o tamanho máximo do grafo
 #define SEM_ARESTA -1
@@ -59,35 +60,59 @@ void exibirGrafo(Grafo *g) {
 
 
 // Função para encontrar a menor distância entre dois nós
-void encontrarMenorCaminho(Grafo *g, int origem, int destino) { 
-    
-  int distancia = INFINITO;
-    if (origem <= g->numNos && destino <= g->numNos)    
+void encontrarMenorCaminho(Grafo *g, int origem, int destino) {
+    if (origem >= g->numNos || destino >= g->numNos || origem < 0 || destino < 0)
     {
-      distancia = g->matriz[origem][destino] == SEM_ARESTA ? INFINITO : g->matriz[origem][destino];
-      int distanciaa = 0;
-      for (int i = 0; i < g->numNos; i++)
-      {
-        if (g->matriz[origem][i] != SEM_ARESTA)
-        {
-          for (int j = 0; j <= destino; j++)
-          {
-            if (g->matriz[i][j] != SEM_ARESTA)
-            {
-              distanciaa += g->matriz[i][j];
-            }
-          }
-        }
-      }
-    
-    distancia = distancia < distanciaa ? distancia : distanciaa;
-    }else{
-      printf("Insira somente nós existentes!!");
+        printf("Insira somente nós válidos!");
+        return;
     }
-    
-    if (distancia == INFINITO) {
+    int dist[g->numNos];
+    bool visitado[MAX_NOS] = {false};
+
+    for (int i = 0; i < g->numNos; i++)
+    {
+        dist[i] = g->matriz[origem][i] == SEM_ARESTA ? INFINITO : g->matriz[origem][i];
+    }
+    dist[origem] = 0;
+
+    for (int i = 0; i < g->numNos; i++)
+    {
+        int noAtual = SEM_ARESTA;
+        for (int j = 0; j < g->numNos; j++)
+        {
+            if (!visitado[j] && (noAtual == SEM_ARESTA || dist[j] < dist[noAtual]))
+            {
+                noAtual = j;
+            }            
+        }
+        if (noAtual == SEM_ARESTA || dist[noAtual] == INFINITO)
+        {
+            break;
+        }
+        visitado[noAtual] = true;
+
+        
+
+        for (int j = 0; j < g->numNos; j++)
+        {
+            if(g->matriz[noAtual][j] != SEM_ARESTA && !visitado[j]){
+                int novaDistancia = dist[noAtual] + g->matriz[noAtual][j];
+                if (novaDistancia < dist[j])
+                {
+                    dist[j] = novaDistancia;
+                }
+                
+            }
+        }
+        
+    }
+    int distancia = dist[destino];
+    if (distancia == INFINITO)
+    {
         printf("Não há caminho do nó %d para o nó %d.\n", origem, destino);
-    } else {
+    }
+    else
+    {
         printf("A menor distância do nó %d para o nó %d é %d.\n", origem, destino, distancia);
     }
 }
@@ -101,13 +126,15 @@ int main(void){
   inserirNo(&g); // 1
   inserirNo(&g); // 2
   inserirNo(&g); // 3
+  inserirNo(&g); // 4
 
   // Inserir arestas
   inserirAresta(&g, 0, 1, 10);
   inserirAresta(&g, 1, 2, 5);
-  inserirAresta(&g, 0, 2, 50);
-  inserirAresta(&g, 2, 3, 1);
+  inserirAresta(&g, 2, 3, 50);
+  inserirAresta(&g, 3, 4, 1);
+  inserirAresta(&g, 0, 3, 100);
 
   // Encontrar menor caminho
-  encontrarMenorCaminho(&g, 0, 3);
+  encontrarMenorCaminho(&g, 0, 4);
 }
