@@ -43,84 +43,57 @@ class Tag {
   }
 }
 
-class TagResponsability {
+class TagDecorator {
   constructor(tag) {
     this.tag = tag;
-    this.nextResponsability = null;
   }
 
   setAttribute(key, value) {
     this.tag.setAttribute(key, value);
-    if (this.nextResponsability) {
-      this.nextResponsability.setAttribute(key, value);
-    }
     return this;
   }
 
   appendChild(child) {
     this.tag.appendChild(child);
-    if (this.nextResponsability) {
-      this.nextResponsability.appendChild(child);
-    }
     return this;
   }
 
   render() {
     return this.tag.render();
   }
-
-  setNext(Responsability) {
-    this.nextResponsability = Responsability;
-    return this;
-  }
 }
 
-class StyleResponsability extends TagResponsability {
+class StyleDecorator extends TagDecorator {
   setStyle(style) {
     const existingStyle = this.tag.attributes["style"] || "";
     this.tag.setAttribute("style", `${existingStyle} ${style}`.trim());
-    if (this.nextResponsability) {
-      this.nextResponsability.setStyle(style);
-    }
     return this;
   }
 }
 
-class ClassResponsability extends TagResponsability {
+class ClassDecorator extends TagDecorator {
   addClass(className) {
     const existingClass = this.tag.attributes["class"] || "";
     this.tag.setAttribute("class", `${existingClass} ${className}`.trim());
-    if (this.nextResponsability) {
-      this.nextResponsability.addClass(className);
-    }
     return this;
   }
 }
 
-class LinkResponsability extends TagResponsability {
+class LinkDecorator extends TagDecorator {
   setHref(href) {
     this.tag.setAttribute("href", href);
-    if (this.nextResponsability) {
-      this.nextResponsability.setHref(href);
-    }
     return this;
   }
 }
 
-class ImageResponsability extends TagResponsability {
+class ImageDecorator extends TagDecorator {
   setSrc(src) {
     this.tag.setAttribute("src", src);
-    if (this.nextResponsability) {
-      this.nextResponsability.setSrc(src);
-    }
     return this;
   }
 
   setAlt(alt) {
     this.tag.setAttribute("alt", alt);
-    if (this.nextResponsability) {
-      this.nextResponsability.setAlt(alt);
-    }
     return this;
   }
 }
@@ -131,7 +104,7 @@ const link = new Tag("a");
 const title = new Tag("h1");
 const container = new Tag("div");
 
-const styledParagraph = new StyleResponsability(paragraph)
+const styledParagraph = new StyleDecorator(paragraph)
   .setStyle("color: red; font-size: 14px")
   .setAttribute("id", "firstP")
   .appendChild(
@@ -140,21 +113,21 @@ const styledParagraph = new StyleResponsability(paragraph)
       .appendChild("Texto interno")
   );
 
-const styledImage = new ImageResponsability(image)
+const styledImage = new ImageDecorator(image)
   .setSrc("./minhaImagem.png")
   .setAlt("imagemQualquer")
   .setAttribute("id", "firstImg");
 
-const styledLink = new LinkResponsability(link)
+const styledLink = new LinkDecorator(link)
   .setHref("https://www.google.com")
   .setAttribute("id", "firstA");
 
-const styledTitle = new StyleResponsability(title)
+const styledTitle = new StyleDecorator(title)
   .setStyle("font-size: 24px;")
   .setAttribute("id", "firstH1")
   .appendChild("Título decorado");
 
-const styledContainer = new StyleResponsability(container)
+const styledContainer = new StyleDecorator(container)
   .setStyle("border: 1px solid black; padding: 10px;")
   .setAttribute("id", "main")
   .appendChild(styledTitle)
