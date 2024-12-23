@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="node_modules/bootstrap/dist/css/reservar.css">
   <link rel="stylesheet" href="node_modules/bootstrap/dist/css/main.css">
   <script defer type="module" src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script defer src="node_modules/bootstrap/dist/js/reservar.js"></script>
   <title>Reservar</title>
 </head>
 
@@ -15,7 +16,7 @@
   <header>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="./index.html">UTFPR Hoteis</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -23,19 +24,19 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="./index.html">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
+              <a class="nav-link" href="#">Reservar</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
-                Dropdown
+                Admin
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="./admin/index.html">Visualizar reservas</a></li>
+                <li><a class="dropdown-item" href="./admin/images.html">Alterar imagens</a></li>
                 <li>
                   <hr class="dropdown-divider">
                 </li>
@@ -54,12 +55,30 @@
       </div>
     </nav>
   </header>
-  <main>
-    <form action="">
-      <label for="nome">Nome:</label>
-      <input type="text">
+  <main class="container mt-5">
+    <form class="row g-3" id="reserva">
+      <div class="col-md-6">
+        <label for="nome" class="form-label" aria-label="Nome Completo:">Nome:</label>
+        <input type="text" class="form-control" name="nome" id="nome" placeholder="Fulano de Tal" required>
+      </div>
+      <div class="col-md-6">
+        <label for="telefone" class="form-label" aria-label="Telefone:">Telefone:</label>
+        <input type="tel" class="form-control" name="telefone" id="telefone" placeholder="(XX) XXXXX-XXXX" required>
+      </div>
+      <div class="col-md-6">
+        <label for="email" class="form-label" aria-label="E-mail:">E-mail:</label>
+        <input type="email" class="form-control" name="email" id="email" placeholder="seuemail@exemplo.com" required>
+      </div>
+      <div class="col-md-6">
+        <label for="comprovante" class="form-label" aria-label="Comprovante de pagamento:">Comprovante:</label>
+        <input type="file" class="form-control" name="comprovante" id="comprovante" required>
+      </div>
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary w-100">CONFIRMAR</button>
+      </div>
     </form>
-  </main>
+    <div id="feedback" class="alert d-none"></div>
+  </main>  
 </body>
 
 </html>
