@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
       sortedData.forEach((entry, index) => {
         const row = document.createElement("tr");
         row.innerHTML = `
-          <td>${index + 1}</td>
+          <td>${entry.id}</td>
           <td>${entry.nome}</td>
           <td>${entry.telefone}</td>
           <td>${entry.email}</td>
