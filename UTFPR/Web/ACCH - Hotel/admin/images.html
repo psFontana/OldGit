@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerenciar Conteúdo</title>
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+  <script defer type="module" src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script defer src="../node_modules/bootstrap/dist/js/images.js"></script>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">UTFPR Hotéis</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+          aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarScroll">
+          <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="../index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Visualizar Reservas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="manage.html">Gerenciar Conteúdo</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container mt-5">
+    <h1>Gerenciar Conteúdo</h1>
+
+    <section class="mt-4">
+      <h2>Gerenciar Fotos do Hotel</h2>
+      <form id="addPhotoForm" class="mb-3">
+        <div class="mb-3">
+          <label for="photoUrl" class="form-label">URL da Imagem</label>
+          <input type="url" id="photoUrl" class="form-control" placeholder="Insira a URL da imagem" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Adicionar Imagem</button>
+      </form>
+
+      <div id="photoList" class="mt-4">
+        <h3>Imagens Existentes</h3>
+        <ul class="list-group">
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span>Exemplo de Imagem</span>
+            <button class="btn btn-danger btn-sm">Remover</button>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="mt-5">
+      <h2>Gerenciar Dados do Site</h2>
+      <form id="editDataForm" class="mb-3">
+        <div class="mb-3">
+          <label for="siteDescription" class="form-label">Descrição do Site</label>
+          <textarea id="siteDescription" class="form-control" rows="4" placeholder="Atualize a descrição do site"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="contactInfo" class="form-label">Informações de Contato</label>
+          <textarea id="contactInfo" class="form-control" rows="4" placeholder="Atualize as informações de contato"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+      </form>
+    </section>
+  </main>
+</body>
+
+</html>
