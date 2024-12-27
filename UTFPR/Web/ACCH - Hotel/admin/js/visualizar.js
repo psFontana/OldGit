@@ -19,6 +19,9 @@ document.addEventListener("DOMContentLoaded", () => {
           <td>${entry.nome}</td>
           <td>${entry.telefone}</td>
           <td>${entry.email}</td>
+          <td>${entry.quarto}</td>
+          <td>${entry.pessoas}</td>
+          <td>${entry.valor}</td>
           <td>${entry.comprovanteNome}</td>
         `;
         tableBody.appendChild(row);
