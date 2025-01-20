@@ -38,11 +38,13 @@ function fifo() {
 
 function lru() {
     let verificacao = -1;
+
     for (let i = 0; i < 3; i++) {
         if (document.querySelectorAll(".lruDiv .container .number")[i].children[0].innerText === numero.value) {
             verificacao = i;
         }
     }
+
     if (verificacao == -1 || document.querySelectorAll(".lruDiv .container .number")[verificacao].classList.contains("n-3")) {
         if (document.querySelectorAll(".lruDiv .container .number")[0].classList.contains("n-3")) {
             document.querySelectorAll(".lruDiv .container .number")[0].children[0].innerText = numero.value
@@ -74,7 +76,7 @@ function lru() {
                 document.querySelectorAll(".lruDiv .container .number")[2].classList.remove("n-2")
                 document.querySelectorAll(".lruDiv .container .number")[2].classList.add("n-3")
             }
-        } else if(document.querySelectorAll(".lruDiv .container .number")[2].classList.contains("n-3")){
+        } else if (document.querySelectorAll(".lruDiv .container .number")[2].classList.contains("n-3")) {
             document.querySelectorAll(".lruDiv .container .number")[2].children[0].innerText = numero.value
             document.querySelectorAll(".lruDiv .container .number")[2].classList.remove("n-3")
             document.querySelectorAll(".lruDiv .container .number")[2].classList.add("n-1")
@@ -83,7 +85,7 @@ function lru() {
                 document.querySelectorAll(".lruDiv .container .number")[0].classList.add("n-2")
                 document.querySelectorAll(".lruDiv .container .number")[1].classList.remove("n-2")
                 document.querySelectorAll(".lruDiv .container .number")[1].classList.add("n-3")
-            }else{
+            } else {
                 document.querySelectorAll(".lruDiv .container .number")[1].classList.remove("n-1")
                 document.querySelectorAll(".lruDiv .container .number")[1].classList.add("n-2")
                 document.querySelectorAll(".lruDiv .container .number")[2].classList.remove("n-2")
@@ -120,3 +122,17 @@ function add() {
     fifo()
     lru()
 }
+
+let intervalId = null;
+document.getElementById("auto").addEventListener("change", () => {
+    if (document.getElementById("auto").checked) {
+        console.log("Modo automático ativado");
+        intervalId = setInterval(() => {
+            numero.value = Math.round(Math.random() * 20)
+            add()
+        }, 2000);
+    } else {
+        clearInterval(intervalId);
+        intervalId = null;
+    }
+});

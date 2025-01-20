@@ -12,8 +12,12 @@ const boxes = document.querySelectorAll('.box');
 let currentIndex = 0;
 
 function addNumber() {
-    alteraNumeros()
     let number = document.getElementById("numero").value
+    if ([...boxes].some(box => box.innerHTML === number)) {
+        alert("Número duplicado! Não é permitido inserir o mesmo número.");
+        return;
+    }
+    alteraNumeros()
     boxes[0].innerHTML = number;
 }
 
