@@ -5,16 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teste</title>
-    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="style.css">
     <script  defer src="index.js"></script>
 </head>
 
 <body>
-    <h1>Olá mundo!</h1>
-    <div class="controle">
-        <input type="number" name="numero" id="numero">
-        <button>Adicionar Número</button>
-
+    <h1 class="m">Comparador FIFO VS LRU</h1>
+    <div class="controle mb">
+        <div>
+            <input type="number" name="numero" id="numero">
+            <button type="button" onclick="add()">Adicionar Número</button>
+        </div>
+        <div class="checkbox-wrapper-8">
+            <input class="toggle toggle-input" id="auto" type="checkbox"/>
+            <label class="toggle-button" data-tg-off="OFF" data-tg-on="ON" for="auto"></label>
+            <label for="auto"><h3 style="width: 100%; margin: 5%;">Modo Automático</h3></label>
+          </div>       
     </div>
     <main>
         <div class="fifoDiv">
