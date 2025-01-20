@@ -127,7 +127,7 @@
 
         let points = [];
         let headPosition = 0;
-        let direction = 1;
+        let direction = 1; // 1 for right, -1 for left
         let isRunning = true;
 
         addPointBtn.addEventListener('click', () => {
@@ -204,6 +204,8 @@
                 sstfMoveHead();
             } else if (selectedAlgorithm === 'C-SCAN') {
                 cscanMoveHead();
+            } else if (selectedAlgorithm === 'SCAN') {
+                scanMoveHead();
             } else if (selectedAlgorithm === 'LOOK') {
                 lookMoveHead();
             } else if (selectedAlgorithm === 'C-LOOK') {
@@ -272,6 +274,35 @@
             draw();
         }
 
+        function scanMoveHead() {
+            if (!isRunning || points.length === 0) return;
+
+            if (direction === 1) {
+                headPosition += 2;
+                if (headPosition >= canvas.width) {
+                    headPosition = canvas.width - 1; // Mover para o final
+                    direction = -1; // Mudar direção
+                }
+            } else {
+                headPosition -= 2;
+                if (headPosition < 0) {
+                    headPosition = 0; // Mover para o início
+                    direction = 1; // Mudar direção
+                }
+            }
+
+            // Processar pontos na direção atual
+            points = points.filter(point => {
+                if (Math.abs(point - headPosition) < 3) {
+                    log(`Processed point: ${point}`);
+                    return false;
+                }
+                return true;
+            });
+
+            draw();
+        }
+
         function lookMoveHead() {
             if (!isRunning || points.length === 0) return;
 
@@ -282,14 +313,14 @@
                 if (nextPoint) {
                     headPosition = Math.min(headPosition + 2, nextPoint);
                 } else {
-                    direction = -1;
+                    direction = -1; // Mudar direção
                 }
             } else {
                 const nextPoint = points.reverse().find(point => point < headPosition);
                 if (nextPoint) {
                     headPosition = Math.max(headPosition - 2, nextPoint);
                 } else {
-                    direction = 1;
+                    direction = 1; // Mudar direção
                 }
             }
 
@@ -308,14 +339,14 @@
                 if (nextPoint) {
                     headPosition = Math.min(headPosition + 2, nextPoint);
                 } else {
-                    headPosition = points[0];
+                    headPosition = points[0]; // Voltar para o primeiro ponto
                 }
             } else {
                 const nextPoint = points.reverse().find(point => point < headPosition);
                 if (nextPoint) {
                     headPosition = Math.max(headPosition - 2, nextPoint);
                 } else {
-                    headPosition = points[points.length - 1];
+                    headPosition = points[points.length - 1]; // Voltar para o último ponto
                 }
             }
 
