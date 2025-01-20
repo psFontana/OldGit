@@ -21,9 +21,9 @@ function addNumber() {
 }
 
 function alteraNumeros() {
-    let ultimo = boxes[limite-1].innerHTML;
-    for(let i = limite-1; i > 0; i--){
-        boxes[i].innerHTML = boxes[i-1].innerHTML;
+    let ultimo = boxes[limite - 1].innerHTML;
+    for (let i = limite - 1; i > 0; i--) {
+        boxes[i].innerHTML = boxes[i - 1].innerHTML;
     }
     boxes[0].innerHTML = ultimo
 }
