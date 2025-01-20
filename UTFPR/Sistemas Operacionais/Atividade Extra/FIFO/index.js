@@ -11,9 +11,6 @@ for (let i = 0; i < limite; i++) {
 const boxes = document.querySelectorAll('.box');
 let currentIndex = 0;
 
-
-
-
 function addNumber() {
     alteraNumeros()
     let number = document.getElementById("numero").value
