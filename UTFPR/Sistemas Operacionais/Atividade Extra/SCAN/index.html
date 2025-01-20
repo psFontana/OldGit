@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disk Scheduling - SCAN</title>
+    <style>
+        :root {
+            --bg-color: #212529;
+            --border-color: rgba(102, 102, 102, .3);
+            --font-color: #f1f5f9;
+            --primary-color: #4dff91;
+            --primary-color-o: rgba(77, 255, 145, .5);
+            --error-color: #ff0043;
+            --error-color-o: rgba(255, 0, 67, .4);
+        }
+
+        .controls {
+            text-align: center;
+        }
+
+        input {
+            background-color: var(--bg-color);
+            border: 2px solid var(--border-color);
+            border-radius: 0.5rem;
+            color: var(--font-color);
+            font-size: 1.75rem;
+            padding: 1rem;
+            text-align: center;
+            width: 100px;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: "Ubuntu", sans-serif;
+            margin: 20px;
+            background-color: var(--bg-color);
+            color: var(--font-color);
+            text-align: center;
+        }
+
+        button {
+            background-color: var(--primary-color-o);
+            border: 1px solid var(--border-color);
+            border-radius: 0.25rem;
+            font-weight: 700;
+            padding: 0.5rem 1rem;
+            transition: 0.15s;
+            height: 100%;
+            color: var(--font-color);
+            text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+        }
+
+        button:hover {
+            cursor: pointer;
+            background-color: var(--bg-color);
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        #reset {
+            background-color: var(--error-color);
+        }
+
+        #reset:hover {
+            background-color: var(--bg-color);
+            color: var(--error-color);
+            border-color: var(--error-color);
+        }
+
+        canvas {
+            border: 2px solid var(--border-color);
+            display: block;
+            border-radius: 2.5em;
+        }
+
+
+        .log {
+            width: 600px;
+            height: 400px;
+            overflow-y: auto;
+            border: 2px solid var(--border-color);
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 2.5em;
+            scrollbar-width: none;
+        }
+
+        .log-entry {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Disk Scheduling - SCAN</h1>
+    <div class="controls">
+        <input type="number" name="numero" id="numero" max="600" maxlength="600">
+        <button type="button" id="add-point">Add Point</button>
+        <button type="button" id="add-point-rdm">Add Random Point</button>
+        <button type="button" id="reset">Reset</button>
+    </div>
+    <div style="display: flex; align-items: center; justify-content: space-evenly; width: 90vw; margin-top: 20px;">
+        <canvas id="diskCanvas" width="600" height="400"></canvas>
+        <div class="log" id="log"></div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('diskCanvas');
+        const ctx = canvas.getContext('2d');
+        const logDiv = document.getElementById('log');
+        const addRdmPointBtn = document.getElementById('add-point-rdm');
+        const addPointBtn = document.getElementById('add-point')
+        const resetBtn = document.getElementById('reset');
+
+        let points = [];
+        let headPosition = 0;
+        let direction = 1;
+        let isRunning = true;
+
+        addPointBtn.addEventListener('click', () => {
+            const numero = document.getElementById('numero').value
+            if (numero > 600 || numero < 0) {
+                alert('Insira somente números entre 0 e 600, por favor');
+                return
+            }
+            points.push(numero);
+            log(`Added point: ${numero}`)
+        })
+
+        addRdmPointBtn.addEventListener('click', () => {
+            const newPoint = Math.floor(Math.random() * 600);
+            points.push(newPoint);
+            log(`Added point: ${newPoint}`);
+        });
+
+        resetBtn.addEventListener('click', () => {
+            points = [];
+            headPosition = 0;
+            direction = 1;
+            isRunning = true;
+            logDiv.innerHTML = '';
+            log('Simulation reset.');
+        });
+
+        function log(message) {
+            const entry = document.createElement('p');
+            entry.textContent = message;
+            entry.className = 'log-entry';
+            logDiv.appendChild(entry);
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = '#f1f5f9';
+            ctx.beginPath();
+            ctx.moveTo(0, canvas.height / 2);
+            ctx.lineTo(canvas.width, canvas.height / 2);
+            ctx.stroke();
+
+            points.forEach(point => {
+                ctx.beginPath();
+                ctx.arc(point, canvas.height / 2, 5, 0, Math.PI * 2);
+                ctx.fillStyle = '#ff0043';
+                ctx.fill();
+            });
+
+            ctx.beginPath();
+            ctx.arc(headPosition, canvas.height / 2, 10, 0, Math.PI * 2);
+            ctx.fillStyle = '#4dff91';
+            ctx.fill();
+        }
+
+        function moveHead() {
+            if (!isRunning) return;
+
+            headPosition += direction * 2;
+
+            if (headPosition >= canvas.width || headPosition <= 0) {
+                direction *= -1;
+            }
+
+            points = points.filter(point => {
+                if (Math.abs(point - headPosition) < 3) {
+                    log(`Processed point: ${point}`);
+                    return false;
+                }
+                return true;
+            });
+
+            draw();
+            requestAnimationFrame(moveHead);
+        }
+
+        draw();
+        moveHead();
+    </script>
+</body>
+
+</html>
