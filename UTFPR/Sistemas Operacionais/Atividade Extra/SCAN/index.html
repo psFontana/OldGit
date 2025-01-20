@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Disk Scheduling - SCAN</title>
+    <title>Disk Scheduling</title>
     <style>
         :root {
             --bg-color: #212529;
@@ -78,7 +78,6 @@
             border-radius: 2.5em;
         }
 
-
         .log {
             width: 600px;
             height: 400px;
@@ -97,12 +96,20 @@
 </head>
 
 <body>
-    <h1>Disk Scheduling - SCAN</h1>
+    <h1>Disk Scheduling</h1>
     <div class="controls">
-        <input type="number" name="numero" id="numero" max="600" maxlength="600">
+        <input type="number" name="numero" id="numero" max="600">
         <button type="button" id="add-point">Add Point</button>
         <button type="button" id="add-point-rdm">Add Random Point</button>
         <button type="button" id="reset">Reset</button>
+        <select id="algorithm">
+            <option value="SCAN">SCAN</option>
+            <option value="FCFS">FCFS</option>
+            <option value="SSTF">SSTF</option>
+            <option value="C-SCAN">C-SCAN</option>
+            <option value="LOOK">LOOK</option>
+            <option value="C-LOOK">C-LOOK</option>
+        </select>
     </div>
     <div style="display: flex; align-items: center; justify-content: space-evenly; width: 90vw; margin-top: 20px;">
         <canvas id="diskCanvas" width="600" height="400"></canvas>
@@ -114,8 +121,9 @@
         const ctx = canvas.getContext('2d');
         const logDiv = document.getElementById('log');
         const addRdmPointBtn = document.getElementById('add-point-rdm');
-        const addPointBtn = document.getElementById('add-point')
+        const addPointBtn = document.getElementById('add-point');
         const resetBtn = document.getElementById('reset');
+        const algorithmSelect = document.getElementById('algorithm');
 
         let points = [];
         let headPosition = 0;
@@ -123,28 +131,29 @@
         let isRunning = true;
 
         addPointBtn.addEventListener('click', () => {
-            const numero = document.getElementById('numero').value
-            if (numero > 600 || numero < 0) {
+            const numero = parseInt(document.getElementById('numero').value);
+            if (isNaN(numero) || numero < 0 || numero > 600) {
                 alert('Insira somente números entre 0 e 600, por favor');
-                return
+                return;
             }
             points.push(numero);
-            log(`Added point: ${numero}`)
-        })
+            log(`Added point: ${numero}`);
+            draw();
+        });
 
         addRdmPointBtn.addEventListener('click', () => {
-            const newPoint = Math.floor(Math.random() * 600);
+            const newPoint = Math.floor(Math.random() * 601);
             points.push(newPoint);
             log(`Added point: ${newPoint}`);
+            draw();
         });
 
         resetBtn.addEventListener('click', () => {
-            points = [];
-            headPosition = 0;
-            direction = 1;
-            isRunning = true;
-            logDiv.innerHTML = '';
-            log('Simulation reset.');
+            resetSimulation();
+        });
+
+        algorithmSelect.addEventListener('change', () => {
+            resetSimulation();
         });
 
         function log(message) {
@@ -176,13 +185,80 @@
             ctx.fill();
         }
 
+        function resetSimulation() {
+            points = [];
+            headPosition = 0;
+            direction = 1;
+            isRunning = true;
+            logDiv.innerHTML = '';
+            log('Simulation reset.');
+            draw();
+        }
+
         function moveHead() {
-            if (!isRunning) return;
+            const selectedAlgorithm = algorithmSelect.value;
 
-            headPosition += direction * 2;
+            if (selectedAlgorithm === 'FCFS') {
+                fcfsMoveHead();
+            } else if (selectedAlgorithm === 'SSTF') {
+                sstfMoveHead();
+            } else if (selectedAlgorithm === 'C-SCAN') {
+                cscanMoveHead();
+            } else if (selectedAlgorithm === 'LOOK') {
+                lookMoveHead();
+            } else if (selectedAlgorithm === 'C-LOOK') {
+                clookMoveHead();
+            }
 
-            if (headPosition >= canvas.width || headPosition <= 0) {
-                direction *= -1;
+            requestAnimationFrame(moveHead);
+        }
+
+        function fcfsMoveHead() {
+            if (!isRunning || points.length === 0) return;
+            const point = points[0];
+            if (headPosition < point) {
+                headPosition = Math.min(headPosition + 2, point);
+            } else if (headPosition > point) {
+                headPosition = Math.max(headPosition - 2, point);
+            } else {
+                points.shift();
+                log(`Processed point: ${point}`);
+            }
+            draw();
+        }
+
+        function sstfMoveHead() {
+            if (!isRunning || points.length === 0) return;
+
+            const closestPoint = points.reduce((prev, curr) =>
+                Math.abs(curr - headPosition) < Math.abs(prev - headPosition) ? curr : prev
+            );
+
+            if (headPosition < closestPoint) {
+                headPosition = Math.min(headPosition + 2, closestPoint);
+            } else if (headPosition > closestPoint) {
+                headPosition = Math.max(headPosition - 2, closestPoint);
+            } else {
+                points = points.filter(point => point !== closestPoint);
+                log(`Processed point: ${closestPoint}`);
+            }
+
+            draw();
+        }
+
+        function cscanMoveHead() {
+            if (!isRunning || points.length === 0) return;
+
+            if (direction === 1) {
+                headPosition += 2;
+                if (headPosition >= canvas.width) {
+                    headPosition = 0;
+                }
+            } else {
+                headPosition -= 2;
+                if (headPosition < 0) {
+                    headPosition = canvas.width - 1;
+                }
             }
 
             points = points.filter(point => {
@@ -194,7 +270,58 @@
             });
 
             draw();
-            requestAnimationFrame(moveHead);
+        }
+
+        function lookMoveHead() {
+            if (!isRunning || points.length === 0) return;
+
+            points.sort((a, b) => a - b);
+
+            if (direction === 1) {
+                const nextPoint = points.find(point => point > headPosition);
+                if (nextPoint) {
+                    headPosition = Math.min(headPosition + 2, nextPoint);
+                } else {
+                    direction = -1;
+                }
+            } else {
+                const nextPoint = points.reverse().find(point => point < headPosition);
+                if (nextPoint) {
+                    headPosition = Math.max(headPosition - 2, nextPoint);
+                } else {
+                    direction = 1;
+                }
+            }
+
+            points = points.filter(point => Math.abs(point - headPosition) < 3);
+
+            draw();
+        }
+
+        function clookMoveHead() {
+            if (!isRunning || points.length === 0) return;
+
+            points.sort((a, b) => a - b);
+
+            if (direction === 1) {
+                const nextPoint = points.find(point => point > headPosition);
+                if (nextPoint) {
+                    headPosition = Math.min(headPosition + 2, nextPoint);
+                } else {
+                    headPosition = points[0];
+                }
+            } else {
+                const nextPoint = points.reverse().find(point => point < headPosition);
+                if (nextPoint) {
+                    headPosition = Math.max(headPosition - 2, nextPoint);
+                } else {
+                    headPosition = points[points.length - 1];
+                }
+            }
+
+            points = points.filter(point => Math.abs(point - headPosition) < 3);
+
+            draw();
         }
 
         draw();
