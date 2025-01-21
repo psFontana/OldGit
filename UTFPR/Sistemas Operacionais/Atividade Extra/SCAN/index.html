@@ -108,7 +108,6 @@
             <option value="SSTF">SSTF</option>
             <option value="C-SCAN">C-SCAN</option>
             <option value="LOOK">LOOK</option>
-            <option value="C-LOOK">C-LOOK</option>
         </select>
     </div>
     <div style="display: flex; align-items: center; justify-content: space-evenly; width: 90vw; margin-top: 20px;">
@@ -127,7 +126,7 @@
 
         let points = [];
         let headPosition = 0;
-        let direction = 1; // 1 for right, -1 for left
+        let direction = 1;
         let isRunning = true;
 
         addPointBtn.addEventListener('click', () => {
@@ -208,8 +207,6 @@
                 scanMoveHead();
             } else if (selectedAlgorithm === 'LOOK') {
                 lookMoveHead();
-            } else if (selectedAlgorithm === 'C-LOOK') {
-                clookMoveHead();
             }
 
             requestAnimationFrame(moveHead);
@@ -280,18 +277,17 @@
             if (direction === 1) {
                 headPosition += 2;
                 if (headPosition >= canvas.width) {
-                    headPosition = canvas.width - 1; // Mover para o final
-                    direction = -1; // Mudar direção
+                    headPosition = canvas.width - 1;
+                    direction = -1;
                 }
             } else {
                 headPosition -= 2;
                 if (headPosition < 0) {
-                    headPosition = 0; // Mover para o início
-                    direction = 1; // Mudar direção
+                    headPosition = 0;
+                    direction = 1;
                 }
             }
 
-            // Processar pontos na direção atual
             points = points.filter(point => {
                 if (Math.abs(point - headPosition) < 3) {
                     log(`Processed point: ${point}`);
@@ -309,48 +305,28 @@
             points.sort((a, b) => a - b);
 
             if (direction === 1) {
+
                 const nextPoint = points.find(point => point > headPosition);
                 if (nextPoint) {
+
                     headPosition = Math.min(headPosition + 2, nextPoint);
                 } else {
-                    direction = -1; // Mudar direção
+
+                    direction = -1;
                 }
             } else {
+
                 const nextPoint = points.reverse().find(point => point < headPosition);
                 if (nextPoint) {
+
                     headPosition = Math.max(headPosition - 2, nextPoint);
                 } else {
-                    direction = 1; // Mudar direção
+
+                    direction = 1;
                 }
             }
 
-            points = points.filter(point => Math.abs(point - headPosition) < 3);
-
-            draw();
-        }
-
-        function clookMoveHead() {
-            if (!isRunning || points.length === 0) return;
-
-            points.sort((a, b) => a - b);
-
-            if (direction === 1) {
-                const nextPoint = points.find(point => point > headPosition);
-                if (nextPoint) {
-                    headPosition = Math.min(headPosition + 2, nextPoint);
-                } else {
-                    headPosition = points[0]; // Voltar para o primeiro ponto
-                }
-            } else {
-                const nextPoint = points.reverse().find(point => point < headPosition);
-                if (nextPoint) {
-                    headPosition = Math.max(headPosition - 2, nextPoint);
-                } else {
-                    headPosition = points[points.length - 1]; // Voltar para o último ponto
-                }
-            }
-
-            points = points.filter(point => Math.abs(point - headPosition) < 3);
+            points = points.filter(point => Math.abs(point - headPosition) >= 3);
 
             draw();
         }
