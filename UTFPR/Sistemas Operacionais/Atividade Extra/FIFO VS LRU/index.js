@@ -88,8 +88,8 @@ function lru() {
             } else {
                 document.querySelectorAll(".lruDiv .container .number")[1].classList.remove("n-1")
                 document.querySelectorAll(".lruDiv .container .number")[1].classList.add("n-2")
-                document.querySelectorAll(".lruDiv .container .number")[2].classList.remove("n-2")
-                document.querySelectorAll(".lruDiv .container .number")[2].classList.add("n-3")
+                document.querySelectorAll(".lruDiv .container .number")[0].classList.remove("n-2")
+                document.querySelectorAll(".lruDiv .container .number")[0].classList.add("n-3")
             }
         }
     } else {
@@ -126,7 +126,6 @@ function add() {
 let intervalId = null;
 document.getElementById("auto").addEventListener("change", () => {
     if (document.getElementById("auto").checked) {
-        console.log("Modo automático ativado");
         intervalId = setInterval(() => {
             numero.value = Math.round(Math.random() * 20)
             add()

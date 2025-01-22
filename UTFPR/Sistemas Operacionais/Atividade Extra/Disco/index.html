@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Disk Scheduling</title>
+    <title>Disk Search</title>
     <style>
         :root {
             --bg-color: #212529;
@@ -16,28 +16,34 @@
             --error-color-o: rgba(255, 0, 67, .4);
         }
 
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         .controls {
             text-align: center;
         }
 
-        input {
+        input, select {
             background-color: var(--bg-color);
             border: 2px solid var(--border-color);
             border-radius: 0.5rem;
             color: var(--font-color);
-            font-size: 1.75rem;
-            padding: 1rem;
+            font-size: 1em;
+            padding: 1rem 0;
             text-align: center;
             width: 100px;
         }
 
         body {
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             font-family: "Ubuntu", sans-serif;
-            margin: 20px;
             background-color: var(--bg-color);
             color: var(--font-color);
             text-align: center;
@@ -76,15 +82,15 @@
             border: 2px solid var(--border-color);
             display: block;
             border-radius: 2.5em;
+            padding: 10px 0;
         }
 
         .log {
-            width: 600px;
-            height: 400px;
+            width: 604px;
+            height: 424px;
             overflow-y: auto;
             border: 2px solid var(--border-color);
             padding: 10px;
-            margin-top: 20px;
             border-radius: 2.5em;
             scrollbar-width: none;
         }
@@ -108,9 +114,10 @@
             <option value="SSTF">SSTF</option>
             <option value="C-SCAN">C-SCAN</option>
             <option value="LOOK">LOOK</option>
+            <option value="C-LOOK">C-LOOK</option>
         </select>
     </div>
-    <div style="display: flex; align-items: center; justify-content: space-evenly; width: 90vw; margin-top: 20px;">
+    <div style="display: flex; align-items: center; justify-content: space-evenly; width: 100vw; margin-top: 20px;">
         <canvas id="diskCanvas" width="600" height="400"></canvas>
         <div class="log" id="log"></div>
     </div>
@@ -141,7 +148,7 @@
         });
 
         addRdmPointBtn.addEventListener('click', () => {
-            const newPoint = Math.floor(Math.random() * 601);
+            const newPoint = Math.floor(Math.random() * 600);
             points.push(newPoint);
             log(`Added point: ${newPoint}`);
             draw();
@@ -202,13 +209,15 @@
             } else if (selectedAlgorithm === 'SSTF') {
                 sstfMoveHead();
             } else if (selectedAlgorithm === 'C-SCAN') {
-                cscanMoveHead();
+                cScanMoveHead();
             } else if (selectedAlgorithm === 'SCAN') {
                 scanMoveHead();
+            } else if (selectedAlgorithm === 'C-LOOK') {
+                cLookMoveHead();
             } else if (selectedAlgorithm === 'LOOK') {
-                lookMoveHead();
+                lookMoveHead()
             }
-
+            // Loop
             requestAnimationFrame(moveHead);
         }
 
@@ -220,6 +229,7 @@
             } else if (headPosition > point) {
                 headPosition = Math.max(headPosition - 2, point);
             } else {
+                // Retira apenas 1º ponto
                 points.shift();
                 log(`Processed point: ${point}`);
             }
@@ -238,6 +248,7 @@
             } else if (headPosition > closestPoint) {
                 headPosition = Math.max(headPosition - 2, closestPoint);
             } else {
+                // Retira apenas o ponto processado
                 points = points.filter(point => point !== closestPoint);
                 log(`Processed point: ${closestPoint}`);
             }
@@ -245,28 +256,34 @@
             draw();
         }
 
-        function cscanMoveHead() {
+        function cScanMoveHead() {
             if (!isRunning || points.length === 0) return;
 
-            if (direction === 1) {
+            if (direction === 1) { // Movendo para a direita
                 headPosition += 2;
+
+                // Verifica se atingiu o limite do canvas
                 if (headPosition >= canvas.width) {
-                    headPosition = 0;
+                    direction = 0; // Altera direção para "voltar ao início"
+                } else {
+                    // Coleta pontos enquanto está movendo para a direita
+                    points = points.filter(point => {
+                        if (Math.abs(point - headPosition) < 3) {
+                            log(`Processed point: ${point}`);
+                            return false;
+                        }
+                        return true;
+                    });
                 }
-            } else {
+            } else { // Movendo de volta para o início
                 headPosition -= 2;
+
+                // Verifica se atingiu o início do canvas
                 if (headPosition < 0) {
-                    headPosition = canvas.width - 1;
+                    headPosition = 0; // Garante que não passe do limite
+                    direction = 1; // Altera direção para "movendo para a direita"
                 }
             }
-
-            points = points.filter(point => {
-                if (Math.abs(point - headPosition) < 3) {
-                    log(`Processed point: ${point}`);
-                    return false;
-                }
-                return true;
-            });
 
             draw();
         }
@@ -295,6 +312,41 @@
                 }
                 return true;
             });
+
+            draw();
+        }
+
+        function cLookMoveHead() {
+            if (!isRunning || points.length === 0) return;
+
+            // Ordena os pontos para garantir o funcionamento correto do C-LOOK
+            points.sort((a, b) => a - b);
+
+            if (direction === 1) { // Movendo para a direita
+                headPosition += 2;
+
+                // Verifica se o "head" ultrapassou o maior ponto
+                if (headPosition > Math.max(...points)) {
+                    direction = -1; // Muda a direção para voltar ao menor ponto
+                } else {
+                    // Coleta os pontos no caminho
+                    points = points.filter(point => {
+                        if (Math.abs(point - headPosition) < 3) {
+                            log(`Processed point: ${point}`);
+                            return false;
+                        }
+                        return true;
+                    });
+                }
+            } else if (direction === -1) { // Caminhando para o menor ponto
+                headPosition -= 2;
+
+                // Verifica se o "head" alcançou o menor ponto
+                if (headPosition <= Math.min(...points)) {
+                    headPosition = Math.min(...points); // Garante precisão no ponto
+                    direction = 1; // Muda a direção para mover para a direita novamente
+                }
+            }
 
             draw();
         }

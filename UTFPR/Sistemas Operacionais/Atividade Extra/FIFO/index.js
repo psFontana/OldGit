@@ -1,30 +1,30 @@
 const container = document.getElementById("container");
-let limite = prompt("Gostaria de gerar uma fila de quantos números?")
+let tam = prompt("Gostaria de gerar uma fila de quantos números?")
 
-for (let i = 0; i < limite; i++) {
-    let div = document.createElement("div")
+for (let i = 0; i < tam; i++) {
+    let div = document.createElement("div");
     div.classList = "box";
     div.id = `box${i}`;
-    container.appendChild(div)
+    container.appendChild(div);
 }
 
 const boxes = document.querySelectorAll('.box');
-let currentIndex = 0;
 
 function addNumber() {
-    let number = document.getElementById("numero").value
+    let number = document.getElementById("numero").value;
+    if (number === "") return;
+    
     if ([...boxes].some(box => box.innerHTML === number)) {
-        alert("Número duplicado! Não é permitido inserir o mesmo número.");
+        alert("Este número já está na fila!");
         return;
     }
-    alteraNumeros()
-    boxes[0].innerHTML = number;
-}
+    alteraNumeros(tam - 1)
 
-function alteraNumeros() {
-    let ultimo = boxes[limite - 1].innerHTML;
-    for (let i = limite - 1; i > 0; i--) {
-        boxes[i].innerHTML = boxes[i - 1].innerHTML;
+    function alteraNumeros(limite) {
+        // "Empurra" para baixo
+        for (let i = limite; i > 0; i--) {
+            boxes[i].innerHTML = boxes[i - 1].innerHTML;
+        }
+        boxes[0].innerHTML = number;
     }
-    boxes[0].innerHTML = ultimo
 }
