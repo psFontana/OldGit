@@ -1,48 +1,50 @@
+const { Mutex } = require("async-mutex");
+
 let buffer = [];
 let limite = 5;
 let cheio = false;
+const mutex = new Mutex(); // Mutex para evitar condições de corrida
 
 async function produzir() {
-  console.log("Obtendo acesso - produtor");
-  if (tentarAcesso("produtor")) {
-    while (!cheio) {
-      buffer.push(Math.round(Math.random() * 20));
-      console.log(buffer);
-      cheio = buffer.length == limite ? true : false;
+  const release = await mutex.acquire(); // Obtém o bloqueio do Mutex
+  try {
+    console.log("🔵 Obtendo acesso - produtor");
+    if (!cheio) {
+      while (buffer.length < limite) {
+        buffer.push(Math.round(Math.random() * 20));
+        console.log(`Produzido: ${buffer}`);
+      }
+      cheio = true;
+      console.log("✅ Buffer cheio! Pronto para consumo.");
     }
+  } finally {
+    release(); // Libera o Mutex
   }
   await new Promise((resolve) => setTimeout(resolve, 1000));
 }
 
 async function consumir() {
-  console.log("Obtendo acesso - consumidor");
-  if (tentarAcesso("consumidor")) {
-    while (buffer.length != 0) {
-      buffer.shift();
-      console.log(buffer);
+  const release = await mutex.acquire(); // Obtém o bloqueio do Mutex
+  try {
+    console.log("🟢 Obtendo acesso - consumidor");
+    if (cheio) {
+      while (buffer.length > 0) {
+        buffer.shift();
+        console.log(`Consumido: ${buffer}`);
+      }
+      cheio = false;
+      console.log("📭 Buffer esvaziado!");
     }
-    cheio = false;
+  } finally {
+    release(); // Libera o Mutex
   }
   await new Promise((resolve) => setTimeout(resolve, 500));
 }
 
-function tentarAcesso(who) {
-  if (who == "produtor" && cheio == false) {
-    console.log("Acesso permitido para o produtor");
-    return true;
-  } else if (who == "consumidor" && cheio == true) {
-    console.log("Acesso permitido para o consumidor");
-    return true;
-  } else {
-    console.log("Acesso negado");
-    return false;
-  }
-}
-
 async function iniciar() {
   while (true) {
-    await produzir(); // Chama a função de produzir
-    await consumir(); // Chama a função de consumir
+    await produzir();
+    await consumir();
   }
 }
 
