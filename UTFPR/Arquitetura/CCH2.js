@@ -1,4 +1,3 @@
-// Classe que representa uma Tag HTML
 class Tag {
   constructor(name, id, ...childs) {
     this.id = id;
@@ -11,15 +10,23 @@ class Tag {
   }
 }
 
-// Proxy para controle de renderização
 class TagProxy {
   constructor(tag) {
     this.tag = tag;
   }
 
   render() {
-    console.log(`Renderizando a tag <${this.tag.name}> com id: ${this.tag.id}`);
-    return this.tag.render(); // Chama o método de renderização real
+    try {
+      console.log(
+        `Renderizando a tag <${this.tag.name}> com id: ${this.tag.id}`
+      );
+      return this.tag.render();
+    } catch (error) {
+      console.error(
+        `Erro ao renderizar a tag <${this.tag.name}>: ${error.message}`
+      );
+      return "";
+    }
   }
 }
 
@@ -27,6 +34,7 @@ class Button extends Tag {
   constructor(id, color, ...childs) {
     super("button", id, ...childs);
     this.color = color;
+    this.proxy = new TagProxy(this);
   }
 
   render() {
@@ -39,6 +47,7 @@ class Button extends Tag {
 class Div extends Tag {
   constructor(id, ...childs) {
     super("div", id, ...childs);
+    this.proxy = new TagProxy(this);
   }
 
   render() {
@@ -52,6 +61,7 @@ class H1 extends Tag {
   constructor(id, innerText, ...childs) {
     super("h1", id, ...childs);
     this.innerText = innerText;
+    this.proxy = new TagProxy(this);
   }
 
   render() {
@@ -65,6 +75,7 @@ class Ancora extends Tag {
   constructor(id, src, ...childs) {
     super("a", id, ...childs);
     this.src = src;
+    this.proxy = new TagProxy(this);
   }
 
   render() {
@@ -79,6 +90,7 @@ class Img extends Tag {
     super("img", id, ...childs);
     this.src = src;
     this.alt = alt || id;
+    this.proxy = new TagProxy(this);
   }
 
   render() {
@@ -90,6 +102,7 @@ class P extends Tag {
   constructor(id, innerText, ...childs) {
     super("p", id, ...childs);
     this.innerText = innerText;
+    this.proxy = new TagProxy(this);
   }
 
   render() {
@@ -99,13 +112,10 @@ class P extends Tag {
   }
 }
 
-// Exemplo de uso do Proxy para controle de renderização
 let parag = new P("firstP", "Primeiro Parágrafo");
 let image = new Img("firstImg", "./minhaImagem", "imagemQualquer");
 let ancora = new Ancora("firstA", "https://www.google.com");
 let title = new H1("firstH1", "Título", parag);
 let main = new Div("main", title, image);
 
-// Usando Proxy para renderizar
-let mainProxy = new TagProxy(main);
-mainProxy.render(); // Controla o acesso à renderização da tag "main"
+console.log(main.proxy.render());

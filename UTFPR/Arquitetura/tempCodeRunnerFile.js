@@ -1,89 +1,121 @@
-// Classe base com o método Template
-class ReportGenerator {
-  constructor() {
-    // Não usamos mais o DOM, nem o parâmetro containerId
+class Tag {
+  constructor(name, id, ...childs) {
+    this.id = id;
+    this.name = name;
+    this.children = childs.length > 0 ? childs : [];
   }
 
-  // Método Template
-  generateReport(content) {
-    this.clearContainer();
-    this.openDocument();
-    this.addContent(content);
-    this.saveDocument();
-  }
-
-  clearContainer() {
-    console.log("Limpar conteúdo do relatório...");
-  }
-
-  // Métodos abstratos que as subclasses devem implementar
-  openDocument() {
-    throw new Error("Este método deve ser implementado pela subclasse.");
-  }
-
-  addContent(content) {
-    throw new Error("Este método deve ser implementado pela subclasse.");
-  }
-
-  saveDocument() {
-    throw new Error("Este método deve ser implementado pela subclasse.");
+  render() {
+    throw new Error("render não implementado");
   }
 }
 
-// Subclasse para relatórios em PDF (simulação)
-class PDFReport extends ReportGenerator {
-  openDocument() {
-    console.log("<h2>Relatório PDF</h2>");
+class TagProxy {
+  constructor(tag) {
+    this.tag = tag;
   }
 
-  addContent(content) {
-    console.log(`<p>${content}</p>`);
-  }
-
-  saveDocument() {
-    console.log("<p><strong>Relatório PDF gerado com sucesso.</strong></p>");
-  }
-}
-
-// Subclasse para relatórios em HTML
-class HTMLReport extends ReportGenerator {
-  openDocument() {
-    console.log("<h2>Relatório HTML</h2>");
-  }
-
-  addContent(content) {
-    console.log(`<p>${content}</p>`);
-  }
-
-  saveDocument() {
-    console.log("<p><strong>Relatório HTML gerado com sucesso.</strong></p>");
+  render() {
+    try {
+      console.log(
+        `Renderizando a tag <${this.tag.name}> com id: ${this.tag.id}`
+      );
+      return this.tag.render();
+    } catch (error) {
+      console.error(
+        `Erro ao renderizar a tag <${this.tag.name}>: ${error.message}`
+      );
+      return "";
+    }
   }
 }
 
-// Função para gerar relatório baseado na escolha do usuário
-function generateUserReport(format, content) {
-  let report;
-  if (format === "PDF") {
-    report = new PDFReport();
-  } else if (format === "HTML") {
-    report = new HTMLReport();
-  } else {
-    alert("Formato inválido! Escolha PDF ou HTML.");
-    return;
+class Button extends Tag {
+  constructor(id, color, ...childs) {
+    super("button", id, ...childs);
+    this.color = color;
+    this.proxy = new TagProxy(this);
   }
 
-  report.generateReport(content);
+  render() {
+    return `<button id="${this.id}" style="color:${this.color}">${this.children
+      .map((child) => child.render())
+      .join("")}</button>`;
+  }
 }
 
-// Exemplo de uso
+class Div extends Tag {
+  constructor(id, ...childs) {
+    super("div", id, ...childs);
+    this.proxy = new TagProxy(this);
+  }
 
-// Instanciando a classe HTMLReport
-let sla = new HTMLReport();
+  render() {
+    return `<div id="${this.id}">${this.children
+      .map((child) => child.render())
+      .join("")}</div>`;
+  }
+}
 
-// Adicionando conteúdo ao relatório
-sla.addContent(
-  "Este é um conteúdo longo para testar a geração de relatório HTML."
-);
+class H1 extends Tag {
+  constructor(id, innerText, ...childs) {
+    super("h1", id, ...childs);
+    this.innerText = innerText;
+    this.proxy = new TagProxy(this);
+  }
 
-// Chamando a função para gerar o relatório com o conteúdo adicionado
-generateUserReport("HTML", "Este é o conteúdo gerado para o relatório HTML.");
+  render() {
+    return `<h1 id="${this.id}">${this.innerText} ${this.children
+      .map((child) => child.render())
+      .join("")}</h1>`;
+  }
+}
+
+class Ancora extends Tag {
+  constructor(id, src, ...childs) {
+    super("a", id, ...childs);
+    this.src = src;
+    this.proxy = new TagProxy(this);
+  }
+
+  render() {
+    return `<a id="${this.id}" href="${this.src}">${this.children
+      .map((child) => child.render())
+      .join("")}</a>`;
+  }
+}
+
+class Img extends Tag {
+  constructor(id, src, alt, ...childs) {
+    super("img", id, ...childs);
+    this.src = src;
+    this.alt = alt || id;
+    this.proxy = new TagProxy(this);
+  }
+
+  render() {
+    return `<img src="${this.src}" id="${this.id}" alt="${this.alt}" />`;
+  }
+}
+
+class P extends Tag {
+  constructor(id, innerText, ...childs) {
+    super("p", id, ...childs);
+    this.innerText = innerText;
+    this.proxy = new TagProxy(this);
+  }
+
+  render() {
+    return `<p id="${this.id}">${this.innerText} ${this.children
+      .map((child) => child.render())
+      .join("")}</p>`;
+  }
+}
+
+let parag = new P("firstP", "Primeiro Parágrafo");
+let image = new Img("firstImg", "./minhaImagem", "imagemQualquer");
+let ancora = new Ancora("firstA", "https://www.google.com");
+let title = new H1("firstH1", "Título", parag);
+let main = new Div("main", title, image);
+
+console.log(main.proxy.render());
