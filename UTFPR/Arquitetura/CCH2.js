@@ -5,11 +5,13 @@ class Tag {
     this.children = childs.length > 0 ? childs : [];
   }
 
+  // Método abstrato que deve ser implementado pelas subclasses
   render() {
     throw new Error("render não implementado");
   }
 }
 
+// Proxy de Proteção que controla o acesso ao método render
 class TagProxy extends Tag {
   constructor(tag) {
     super(tag.name, tag.id, ...tag.children);
@@ -22,11 +24,12 @@ class TagProxy extends Tag {
       return this.tag.render();
     } catch (error) {
       console.error(`Erro ao renderizar a tag <${this.tag.name}>: ${error.message}`);
-      return "";
+      return ""; // Evita que o erro quebre a aplicação
     }
   }
 }
 
+// Classe para o elemento <button>
 class Button extends Tag {
   constructor(id, color, ...childs) {
     super("button", id, ...childs);
@@ -40,6 +43,7 @@ class Button extends Tag {
   }
 }
 
+// Classe para o elemento <div>
 class Div extends Tag {
   constructor(id, ...childs) {
     super("div", id, ...childs);
@@ -52,6 +56,7 @@ class Div extends Tag {
   }
 }
 
+// Classe para o elemento <h1>
 class H1 extends Tag {
   constructor(id, innerText, ...childs) {
     super("h1", id, ...childs);
@@ -65,6 +70,7 @@ class H1 extends Tag {
   }
 }
 
+// Classe para o elemento <a> (âncora)
 class Ancora extends Tag {
   constructor(id, src, ...childs) {
     super("a", id, ...childs);
@@ -78,11 +84,12 @@ class Ancora extends Tag {
   }
 }
 
+// Classe para o elemento <img>
 class Img extends Tag {
   constructor(id, src, alt) {
     super("img", id);
     this.src = src;
-    this.alt = alt || id;
+    this.alt = alt || id; // Se alt não for definido, usa o id
   }
 
   render() {
@@ -90,6 +97,7 @@ class Img extends Tag {
   }
 }
 
+// Classe para o elemento <p> (parágrafo)
 class P extends Tag {
   constructor(id, innerText, ...childs) {
     super("p", id, ...childs);
@@ -103,11 +111,18 @@ class P extends Tag {
   }
 }
 
+// Exemplos de uso do padrão Proxy
 let parag = new P("firstP", "Primeiro Parágrafo");
 let image = new Img("firstImg", "./minhaImagem", "imagemQualquer");
 let ancora = new Ancora("firstA", "https://www.google.com", parag);
 let title = new H1("firstH1", "Título", ancora);
 let main = new Div("main", title, image);
 
+// O Proxy controla a renderização, adicionando logs e tratamento de erros
 let proxyMain = new TagProxy(main);
 console.log(proxyMain.render());
+
+// Conclusão:
+// O padrão Proxy foi fundamental para adicionar controle de erros e registros
+// de log sem modificar a lógica de renderização das classes de tags HTML.
+// Isso promove um código mais modular, seguro e de fácil manutenção.
