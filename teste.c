@@ -89,3 +89,18 @@ int main(){
 
 
 
+=SEERRO(
+   (SOMARPRODUTO((D$1:X$1>=DATAM($C$1;-6))*(D$1:X$1<=$C$1)*(D4:X4="P")) +
+    SOMARPRODUTO((D$1:X$1>=DATAM($C$1;-6))*(D$1:X$1<=$C$1)*(D4:X4="J"))) /
+   (SOMARPRODUTO((D$1:X$1>=DATAM($C$1;-6))*(D$1:X$1<=$C$1)*(D4:X4="P")) +
+    SOMARPRODUTO((D$1:X$1>=DATAM($C$1;-6))*(D$1:X$1<=$C$1)*(D4:X4="J")) +
+    SOMARPRODUTO((D$1:X$1>=DATAM($C$1;-6))*(D$1:X$1<=$C$1)*(D4:X4="F")));
+0)
+
+=SEERRO(
+  (CONT.SES(D4:X4;"P";D$1:X$1;">="&DATAM($C$1;-6);D$1:X$1;"<="&$C$1) +
+   CONT.SES(D4:X4;"J";D$1:X$1;">="&DATAM($C$1;-6);D$1:X$1;"<="&$C$1)) /
+  (CONT.SES(D4:X4;"P";D$1:X$1;">="&DATAM($C$1;-6);D$1:X$1;"<="&$C$1) +
+   CONT.SES(D4:X4;"J";D$1:X$1;">="&DATAM($C$1;-6);D$1:X$1;"<="&$C$1) +
+   CONT.SES(D4:X4;"F";D$1:X$1;">="&DATAM($C$1;-6);D$1:X$1;"<="&$C$1));
+0)

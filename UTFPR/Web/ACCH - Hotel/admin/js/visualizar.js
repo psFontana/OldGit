@@ -21,6 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
           <td>${entry.email}</td>
           <td>${entry.quarto}</td>
           <td>${entry.pessoas}</td>
+          <td>${entry.checkin}</td>
+          <td>${entry.dias}</td>
           <td>${entry.valor}</td>
           <td>${entry.comprovanteNome}</td>
         `;
