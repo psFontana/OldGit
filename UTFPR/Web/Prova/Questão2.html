@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Questão 2</title>
+</head>
+
+<body>
+  <h1>Portal de Notícias</h1>
+  <p>As últimas notícias em um só lugar</p>
+  <hr>
+  <div>
+    <a href="#">Início</a><span> | </span><a href="#" class="letraB">Política</a><span> | </span><a
+      href="#">Esportes</a><span> |
+    </span><a href="#" class="letraB">Tecnologia</a><span> | </span><a href="#">Contato</a>
+  </div>
+  <hr>
+  <h2>Notícias Recentes</h2>
+  <h3>Título da Notícia 1</h3>
+  <p><b>Publicado em</b>: 19 de fevereiro de 2025</p>
+  <p>Texto da Notícia..</p>
+  <a href="#">Leia mais</a>
+  <div id="letraA"></div>
+  <p id="letraC">&copy; 2025 Portal de Notícias - Todos os direitos reservados.</p>
+
+  <script>
+    // 3.a
+    let hr1 = document.createElement("hr")
+    let titulo = document.createElement("h3")
+    titulo.innerText = "Título da Notícia 2"
+    let data = document.createElement("p")
+    data.innerHTML = "<b>Publicado em</b>: 19 de fevereiro de 2025"
+    let texto = document.createElement("p")
+    texto.innerText = "Texto da Notícia..."
+    let link = document.createElement("a")
+    link.href = "#"
+    link.innerText = "Leia mais"
+    let hr2 = document.createElement("hr")
+    document.getElementById("letraA").appendChild(hr1)
+    document.getElementById("letraA").appendChild(titulo)
+    document.getElementById("letraA").appendChild(data)
+    document.getElementById("letraA").appendChild(texto)
+    document.getElementById("letraA").appendChild(link)
+    document.getElementById("letraA").appendChild(hr2)
+
+    // 3.b
+    document.querySelectorAll(".letraB").forEach(link => {
+      link.style.backgroundColor = "blue"
+      link.style.color = "white"
+    })
+
+    // 3.c
+    document.getElementById("letraC").remove()
+  </script>
+
+</html>

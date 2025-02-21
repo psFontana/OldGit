@@ -1,0 +1,1 @@
+Como na questão diz: todos os botões que estiverem dentro da mesma div devem ser apagados. Subentende-se que o próprio botão clicado deve ser apagado..

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Questão 1</title>
+</head>
+
+<body>
+  <div><button type="button" id="D1B1">D1B1</button><button type="button" id="D1B2">D1B2</button><button type="button"
+      id="D1B3">D1B3</button><button type="button" id="D1B4">D1B4</button><button type="button" id="D1B5">D1B5</button>
+  </div>
+  <div><button type="button" id="D2B1">D2B1</button><button type="button" id="D2B2">D2B2</button><button type="button"
+      id="D2B3">D2B3</button><button type="button" id="D2B4">D2B4</button><button type="button" id="D2B5">D2B5</button>
+  </div>
+  <div><button type="button" id="D3B1">D3B1</button><button type="button" id="D3B2">D3B2</button><button type="button"
+      id="D3B3">D3B3</button><button type="button" id="D3B4">D3B4</button><button type="button" id="D3B5">D3B5</button>
+  </div>
+  <div><button type="button" id="D4B1">D4B1</button><button type="button" id="D4B2">D4B2</button><button type="button"
+      id="D4B3">D4B3</button><button type="button" id="D4B4">D4B4</button><button type="button" id="D4B5">D4B5</button>
+  </div>
+  <div><button type="button" id="D5B1">D5B1</button><button type="button" id="D5B2">D5B2</button><button type="button"
+      id="D5B3">D5B3</button><button type="button" id="D5B4">D5B4</button><button type="button" id="D5B5">D5B5</button>
+  </div>
+</body>
+
+<style>
+  * {
+    border: 0;
+    margin: 0;
+  }
+
+  div {
+    background-color: rgb(160, 99, 8);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100vh;
+    width: 17vw;
+    align-items: center;
+
+    button {
+      width: 15vw;
+      height: 15vh;
+      font-size: 1.3em;
+    }
+
+    button:hover {
+      cursor: pointer;
+    }
+  }
+
+  body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: gray;
+  }
+</style>
+
+<script>
+  document.querySelectorAll("button").forEach(button => {
+    button.addEventListener("click", (ev) => {
+      let div = ev.target.parentElement;
+      div.querySelectorAll("button").forEach(btn => {
+        if (btn !== event.target) {
+          btn.remove();
+        }
+      });
+    });
+  });
+</script>
+
+</html>
