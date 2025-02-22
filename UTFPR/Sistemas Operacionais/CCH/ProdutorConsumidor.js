@@ -1,54 +1,56 @@
-const { Mutex } = require("async-mutex");
+class Buffer {
+  constructor(tamanho) {
+      this.tamanho = tamanho;
+      this.buffer = [];
+      this.produtoresEsperando = [];
+      this.consumidoresEsperando = [];
+  }
 
-let buffer = [];
-let limite = 5;
-const mutex = new Mutex(); // Mutex para evitar condições de corrida
-
-async function produzir() {
-  const release = await mutex.acquire(); // Obtém o bloqueio do Mutex
-  try {
-    console.log("🔵 Obtendo acesso - produtor");
-    if (buffer.length < limite) {
-      console.log("🟢 Acesso concedido - produtor");
-      while (buffer.length < limite) {
-        buffer.push(Math.round(Math.random() * 20));
-        console.log(`Produzido: ${buffer}`);
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Simula tempo de produção
+  async produzir(item) {
+      if (this.buffer.length >= this.tamanho) {
+          await new Promise(resolve => this.produtoresEsperando.push(resolve));
       }
-      console.log("✅ Buffer cheio! Pronto para consumo.");
-    } else {
-      console.log("🔴 Acesso negado - produtor");
-    }
-  } finally {
-    release(); // Libera o Mutex
-  }
-}
-
-async function consumir() {
-  const release = await mutex.acquire(); // Obtém o bloqueio do Mutex
-  try {
-    console.log("🔵 Obtendo acesso - consumidor");
-    if (buffer.length == limite) {
-      console.log("🟢 Acesso concedido - consumidor");
-      while (buffer.length > 0) {
-        buffer.shift();
-        console.log(`Consumido: ${buffer}`);
-        await new Promise((resolve) => setTimeout(resolve, 500)); // Simula tempo de consumo
+      this.buffer.push(item);
+      const timestamp = new Date().toISOString();
+      console.log(`[${timestamp}] Produzido: ${item} | Buffer: [${this.buffer.join(', ')}]`);
+      if (this.consumidoresEsperando.length > 0) {
+          this.consumidoresEsperando.shift()();
       }
-      console.log("📭 Buffer consumido!");
-    } else {
-      console.log("🔴 Acesso negado - consumidor");
-    }
-  } finally {
-    release(); // Libera o Mutex
+  }
+
+  async consumir() {
+      if (this.buffer.length === 0) {
+          await new Promise(resolve => this.consumidoresEsperando.push(resolve));
+      }
+      const item = this.buffer.shift();
+      const timestamp = new Date().toISOString();
+      console.log(`[${timestamp}] Consumido: ${item} | Buffer: [${this.buffer.join(', ')}]`);
+      if (this.produtoresEsperando.length > 0) {
+          this.produtoresEsperando.shift()();
+      }
+      return item;
   }
 }
 
-async function iniciar() {
-  while (true) {
-    await consumir();
-    await produzir();
+const buffer = new Buffer(5);
+
+async function produtor(id) {
+  for (let i = 0; i < 10; i++) {
+      await buffer.produzir(`Item ${i} do Produtor ${id}`);
+      await new Promise(resolve => setTimeout(resolve, Math.random() * 1000));
   }
 }
 
-iniciar();
+async function consumidor(id) {
+  for (let i = 0; i < 10; i++) {
+      await buffer.consumir();
+      await new Promise(resolve => setTimeout(resolve, Math.random() * 1500));
+  }
+}
+
+const produtores = [produtor(1), produtor(2)];
+const consumidores = [consumidor(1), consumidor(2)];
+
+Promise.all([...produtores, ...consumidores]).then(() => {
+  console.log('Produção e consumo concluídos.');
+});

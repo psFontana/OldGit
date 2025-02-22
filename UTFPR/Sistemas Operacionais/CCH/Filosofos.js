@@ -1,84 +1,61 @@
-const { Mutex } = require("async-mutex");
-
 class Garfo {
     constructor(id) {
         this.id = id;
-        this.mutex = new Mutex(); // Cada garfo tem um Mutex para evitar conflitos
+        this.disponivel = true;
+    }
+
+    async pegar() {
+        while (!this.disponivel) {
+            await new Promise(resolve => setTimeout(resolve, 100));
+        }
+        this.disponivel = false;
+    }
+
+    async largar() {
+        this.disponivel = true;
     }
 }
 
 class Filosofo {
-    constructor(id) {
+    constructor(id, garfoEsquerda, garfoDireita) {
         this.id = id;
-        this.garfoEsquerda = null;
-        this.garfoDireita = null;
-    }
-
-    setGarfos(g1, g2) {
-        this.garfoEsquerda = g1;
-        this.garfoDireita = g2;
+        this.garfoEsquerda = garfoEsquerda;
+        this.garfoDireita = garfoDireita;
     }
 
     async comer() {
-        const releaseDireita = await this.garfoDireita.mutex.acquire(); // Tenta bloquear o garfo direito
-        const releaseEsquerda = await this.garfoEsquerda.mutex.acquire(); // Tenta bloquear o garfo esquerdo
+        while (true) {
+            const tempoPensando = Math.random() * 1000;
+            console.log(`[${new Date().toISOString()}] Filósofo ${this.id} está pensando...`);
+            await new Promise(resolve => setTimeout(resolve, tempoPensando));
 
-        try {
-            console.log(`O filósofo ${this.id} vai comer.`);
-            await new Promise((resolve) => setTimeout(resolve, 1000)); // Simula tempo de comer
-            console.log(`O filósofo ${this.id} terminou de comer.`);
-        } finally {
-            releaseDireita(); // Libera o garfo direito
-            releaseEsquerda(); // Libera o garfo esquerdo
-        }
-    }
+            console.log(`[${new Date().toISOString()}] Filósofo ${this.id} quer comer...`);
+            await this.garfoEsquerda.pegar();
+            console.log(`[${new Date().toISOString()}] Filósofo ${this.id} pegou o garfo da esquerda (${this.garfoEsquerda.id})`);
 
-    async pensar() {
-        console.log(`O filósofo ${this.id} está pensando.`);
-        await new Promise((resolve) => setTimeout(resolve, 2000)); // Simula tempo de pensamento
-    }
+            await this.garfoDireita.pegar();
+            console.log(`[${new Date().toISOString()}] Filósofo ${this.id} pegou o garfo da direita (${this.garfoDireita.id})`);
 
-    async tentarComerOuPensar() {
-        const garfoDireitoDisponivel = this.garfoDireita.mutex.isLocked() === false;
-        const garfoEsquerdoDisponivel = this.garfoEsquerda.mutex.isLocked() === false;
+            console.log(`[${new Date().toISOString()}] Filósofo ${this.id} está comendo com os garfos (${this.garfoDireita.id}) e (${this.garfoEsquerda.id})...`);
+            const tempoComendo = Math.random() * 1000;
+            await new Promise(resolve => setTimeout(resolve, tempoComendo));
 
-        if (garfoDireitoDisponivel && garfoEsquerdoDisponivel) {
-            await this.comer(); // Tenta comer se ambos os garfos estiverem disponíveis
-        } else {
-            await this.pensar(); // Caso contrário, pensa
+            await this.garfoDireita.largar();
+            console.log(`[${new Date().toISOString()}] Filósofo ${this.id} devolveu o garfo da direita (${this.garfoDireita.id})`);
+
+            await this.garfoEsquerda.largar();
+            console.log(`[${new Date().toISOString()}] Filósofo ${this.id} devolveu o garfo da esquerda (${this.garfoEsquerda.id})`);
         }
     }
 }
 
-// Criando garfos
-const garfo1 = new Garfo(1);
-const garfo2 = new Garfo(2);
-const garfo3 = new Garfo(3);
-const garfo4 = new Garfo(4);
-const garfo5 = new Garfo(5);
+const numFilosofos = 5;
+const garfos = Array.from({ length: numFilosofos }, (_, i) => new Garfo(i));
+const filosofos = garfos.map((garfo, i) => new Filosofo(i, garfo, garfos[(i + 1) % numFilosofos]));
 
-// Criando filósofos
-const filosofo1 = new Filosofo(1);
-const filosofo2 = new Filosofo(2);
-const filosofo3 = new Filosofo(3);
-const filosofo4 = new Filosofo(4);
-const filosofo5 = new Filosofo(5);
-
-// Associando garfos aos filósofos
-filosofo1.setGarfos(garfo1, garfo2);
-filosofo2.setGarfos(garfo2, garfo3);
-filosofo3.setGarfos(garfo3, garfo4);
-filosofo4.setGarfos(garfo4, garfo5);
-filosofo5.setGarfos(garfo5, garfo1);
-
-// Função que simula a ação de tentar comer ou pensar de todos os filósofos
-async function iniciarSimulacao() {
-    const filosofos = [filosofo1, filosofo2, filosofo3, filosofo4, filosofo5];
-
-    while (true) {
-        const promises = filosofos.map(filosofo => filosofo.tentarComerOuPensar());
-        await Promise.all(promises); // Todos filósofos tentam comer ou pensar ao mesmo tempo
-    }
+async function iniciarJantar() {
+    const promessasJantar = filosofos.map(filosofo => filosofo.comer());
+    await Promise.all(promessasJantar);
 }
 
-iniciarSimulacao();
+iniciarJantar();
