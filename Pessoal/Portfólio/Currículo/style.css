@@ -1,0 +1,53 @@
+* {
+    margin: 0;
+    padding: 0;
+    background-color: #212529;
+    color: #f1f5f9;
+    font-family: "open sans", sans-serif;
+}
+
+section {
+    height: 100vh;
+}
+
+.sabout{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    .foto img{
+        height: 100vh;
+        border-radius: 1.5em;
+    }
+    #tabout{
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        justify-content: center;
+        gap: 1.5em;
+        align-items: center;
+        height: 100%;
+        h1{
+            font-size: 3.5em;
+        }
+        h2{
+            display: flex;
+            text-align: center;
+            font-size: 2.3em;
+        }
+        #nome{
+            font-weight: normal;
+            text-align: center;
+            justify-content: center;
+        }
+        #ocupacao{
+            margin-left: 3.5em;
+            color: #ff0043
+        }
+    }
+    p{
+        width: 80%;
+        font-size: 1.2em;
+        text-align: justify;
+        font-family: consolas;
+    }
+}
