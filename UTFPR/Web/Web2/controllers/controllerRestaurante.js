@@ -15,7 +15,7 @@ module.exports = {
 
       // Cria no NoSQL usando o mesmo id
       await RestauranteNoSQL.create({
-        id: novoRestaurante.id, // use _id para o MongoDB
+        id: novoRestaurante.id,
         nome: novoRestaurante.nome
       });
 
