@@ -1,4 +1,5 @@
 const db = require('../config/db_sequelize');
+const PedidoNoSQL = require('../models/noSql/pedidos');
 
 module.exports = {
   // Página de criação
@@ -10,12 +11,25 @@ module.exports = {
   async postCreate(req, res) {
     try {
       const { id_usuario, id_restaurante, data } = req.body;
-      await db.Pedido.create({
+      // Cria no relacional
+      const novoPedido = await db.Pedido.create({
         id_usuario,
         id_restaurante,
         data,
         status: 'iniciado'
       });
+
+      // Cria no NoSQL usando o mesmo id
+      await PedidoNoSQL.create({
+        id: novoPedido.id,
+        id_usuario,
+        id_restaurante,
+        pratos: [], 
+        total: 0,   
+        status: 'iniciado',
+        data: data || new Date()
+      });
+
       res.redirect('/pedidoList');
     } catch (error) {
       console.error('Erro ao criar pedido:', error);
@@ -63,6 +77,12 @@ module.exports = {
         { where: { id } }
       );
 
+      // Atualiza no NoSQL também
+      await PedidoNoSQL.updateOne(
+        { id: id },
+        { id_usuario, id_restaurante, status, data }
+      );
+
       res.redirect('/pedidoList');
     } catch (error) {
       console.error('Erro ao atualizar pedido:', error);
@@ -74,6 +94,10 @@ module.exports = {
   async getDelete(req, res) {
     try {
       await db.Pedido.destroy({ where: { id: req.params.id } });
+
+      // Remove do NoSQL também
+      await PedidoNoSQL.deleteOne({ id: req.params.id });
+
       await db.sequelize.query(`ALTER SEQUENCE pedidos_id_seq RESTART WITH 1`);
       res.redirect('/pedidoList');
     } catch (error) {

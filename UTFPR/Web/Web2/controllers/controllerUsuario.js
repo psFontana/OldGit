@@ -1,4 +1,5 @@
 const db = require('../config/db_sequelize');
+const UsuarioNoSQL = require('../models/noSql/usuario');
 
 module.exports = {
   // Página de login
@@ -35,7 +36,20 @@ module.exports = {
   // Ação de criação
   async postCreate(req, res) {
     try {
-      await db.Usuario.create(req.body);
+      // Cria no relacional
+      const novoUsuario = await db.Usuario.create(req.body);
+
+      // Cria no NoSQL usando o mesmo id
+      await UsuarioNoSQL.create({
+        id: novoUsuario.id,
+        nome: novoUsuario.nome,
+        nascimento: novoUsuario.nascimento,
+        email: novoUsuario.email,
+        senha: novoUsuario.senha,
+        enderecos: [],
+        restaurantes: []
+      });
+
       res.redirect('/usuarioList');
     } catch (error) {
       console.error("Erro ao criar usuário:", error);
@@ -99,6 +113,12 @@ module.exports = {
         where: { id: req.body.id }
       });
 
+      // Atualiza no NoSQL também
+      await UsuarioNoSQL.updateOne(
+        { id: req.body.id },
+        dadosAtualizados
+      );
+
       res.redirect('/usuarioList');
     } catch (error) {
       console.error("Erro ao atualizar usuário:", error);
@@ -112,7 +132,10 @@ module.exports = {
       await db.Usuario.destroy({
         where: { id: req.params.id }
       });
-      // Reiniciar a sequência com base no maior id atual
+
+      // Remove do NoSQL também
+      await UsuarioNoSQL.deleteOne({ id: req.params.id });
+
       await db.sequelize.query(`ALTER SEQUENCE "public"."usuarios_id_seq" RESTART WITH 1;`);
       res.redirect('/usuarioList');
     } catch (error) {

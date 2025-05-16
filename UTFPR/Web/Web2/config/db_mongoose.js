@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const url = 'mongodb://localhost:27017/seuBanco'; // substitua pelo seu endereço e nome do banco
+const url = 'mongodb://localhost:27017/Web2_PF';
 
 mongoose.connect(url, {
     useNewUrlParser: true,

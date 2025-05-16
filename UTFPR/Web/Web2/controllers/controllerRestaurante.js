@@ -1,4 +1,5 @@
 const db = require('../config/db_sequelize');
+const RestauranteNoSQL = require('../models/noSql/restaurante');
 
 module.exports = {
   // Página de criação de restaurante
@@ -9,7 +10,15 @@ module.exports = {
   // Ação de criação de restaurante
   async postCreate(req, res) {
     try {
-      await db.Restaurante.create(req.body);
+      // Cria no relacional
+      const novoRestaurante = await db.Restaurante.create(req.body);
+
+      // Cria no NoSQL usando o mesmo id
+      await RestauranteNoSQL.create({
+        id: novoRestaurante.id, // use _id para o MongoDB
+        nome: novoRestaurante.nome
+      });
+
       res.redirect('/restauranteList');
     } catch (error) {
       console.error('Erro ao criar restaurante:', error);
@@ -57,6 +66,12 @@ module.exports = {
         { where: { id } }
       );
 
+      // Atualiza no NoSQL também
+      await RestauranteNoSQL.updateOne(
+        { id: id },
+        { nome }
+      );
+
       res.redirect('/restauranteList');
     } catch (error) {
       console.error('Erro ao atualizar restaurante:', error);
@@ -70,6 +85,10 @@ module.exports = {
       await db.Restaurante.destroy({
         where: { id: req.params.id }
       });
+
+      // Remove do NoSQL também
+      await RestauranteNoSQL.deleteOne({ id: req.params.id });
+
       await db.sequelize.query(`ALTER SEQUENCE restaurantes_id_seq RESTART WITH 1`);
       res.redirect('/restauranteList');
     } catch (error) {
