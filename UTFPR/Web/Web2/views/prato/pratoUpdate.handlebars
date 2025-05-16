@@ -1,0 +1,8 @@
+<form action="/pratoUpdate" method="post">
+    <input type="hidden" name="id" value="{{prato.id}}">
+    Nome: <input type="text" name="nome" value="{{prato.nome}}"><br><br>
+    Descrição: <input type="text" name="descricao" value="{{prato.descricao}}"><br><br>
+    Preço: <input type="number" step="0.01" name="preco" value="{{prato.preco}}"><br><br>
+    Restaurante ID: <input type="number" name="restauranteId" value="{{prato.restauranteId}}"><br><br>
+    <input type="submit" value="Atualizar">
+</form>

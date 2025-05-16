@@ -1,0 +1,18 @@
+<table border="1px">
+    <tr>
+        <td>CEP</td>
+        <td>Número</td>
+        <td>Complemento</td>
+        <td>Editar</td>
+        <td>Deletar</td>
+    </tr>
+    {{#each enderecos}}
+    <tr>
+        <td>{{cep}}</td>
+        <td>{{numero}}</td>
+        <td>{{complemento}}</td>
+        <td><a href="/enderecosUpdate/{{id}}">Editar</a></td>
+        <td><a href="/enderecosDelete/{{id}}">Deletar</a></td>
+    </tr>
+    {{/each}}
+</table>

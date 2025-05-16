@@ -1,0 +1,20 @@
+<form action="/usuarioUpdate" method="post">
+    <input type="hidden" name="id" value="{{usuario.id}}">
+    Nome: <input type="text" name="nome" value="{{usuario.nome}}">
+    <br><br>
+    Email: <input type="email" name="email" value="{{usuario.email}}">
+    <br><br>
+    Nascimento: <input type="date" name="nascimento" value="{{usuario.nascimento}}">
+    <br><br>
+    Senha: <input type="password" name="senha" value="{{usuario.senha}}">
+    <br><br>
+    Perfil:
+    <select name="perfil">
+        <option value="admin" {{#if perfil_admin}}selected{{/if}}>Admin</option>
+        <option value="dono" {{#if perfil_dono}}selected{{/if}}>Dono</option>
+        <option value="cliente" {{#if perfil_cliente}}selected{{/if}}>Cliente</option>
+
+    </select>
+    <br><br>
+    <input type="submit" value="Editar">
+</form>

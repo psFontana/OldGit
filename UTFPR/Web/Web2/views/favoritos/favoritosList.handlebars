@@ -1,0 +1,16 @@
+<table border="1px">
+    <tr>
+        <td>Usuário</td>
+        <td>Restaurante</td>
+        <td>Editar</td>
+        <td>Deletar</td>
+    </tr>
+    {{#each favoritos}}
+    <tr>
+        <td>{{id_usuario}}</td>
+        <td>{{id_restaurante}}</td>
+        <td><a href="/favoritosUpdate/{{id}}">Editar</a></td>
+        <td><a href="/favoritosDelete/{{id}}">Deletar</a></td>
+    </tr>
+    {{/each}}
+</table>

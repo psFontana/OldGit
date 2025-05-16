@@ -1,0 +1,14 @@
+<table border="1px">
+    <tr>
+        <td>Nome</td>
+        <td>Editar</td>
+        <td>Deletar</td>
+    </tr>
+    {{#each restaurantes}}
+    <tr>
+        <td>{{nome}}</td>
+        <td><a href="/restauranteUpdate/{{id}}">Editar</a></td>
+        <td><a href="/restauranteDelete/{{id}}">Deletar</a></td>
+    </tr>
+    {{/each}}
+</table>

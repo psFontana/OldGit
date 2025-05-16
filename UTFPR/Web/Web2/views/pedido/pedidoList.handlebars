@@ -1,0 +1,20 @@
+<table border="1px">
+    <tr>
+        <td>Usuário ID</td>
+        <td>Restaurante ID</td>
+        <td>Data</td>
+        <td>Status</td>
+        <td>Editar</td>
+        <td>Deletar</td>
+    </tr>
+    {{#each pedidos}}
+    <tr>
+        <td>{{id_usuario}}</td>
+        <td>{{id_restaurante}}</td>
+        <td>{{data}}</td>
+        <td>{{status}}</td>
+        <td><a href="/pedidoUpdate/{{id}}">Editar</a></td>
+        <td><a href="/pedidoDelete/{{id}}">Deletar</a></td>
+    </tr>
+    {{/each}}
+</table>

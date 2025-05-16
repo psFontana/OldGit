@@ -1,0 +1,22 @@
+<table border="1px">
+	<tr>
+		<td>Nome</td>
+		<td>Email</td>
+		<td>Nascimento</td>
+		<td>Senha</td>
+		<td>Perfil</td>
+		<td>Editar</td>
+		<td>Deletar</td>
+	</tr>
+	{{#each usuarios}}
+	<tr>
+		<td>{{nome}}</td>
+		<td>{{email}}</td>
+		<td>{{nascimento}}</td>
+		<td>{{senha}}</td>
+		<td>{{perfil}}</td>
+		<td><a href="usuarioUpdate/{{id}}">Editar</a></td>
+		<td><a href="usuarioDelete/{{id}}">Deletar</a></td>
+	</tr>
+	{{/each}}
+</table>

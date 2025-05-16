@@ -1,0 +1,7 @@
+<form action="/enderecosUpdate" method="post">
+    <input type="hidden" name="id" value="{{endereco.id}}">
+    CEP: <input type="text" name="cep" value="{{endereco.cep}}" required><br><br>
+    Número: <input type="text" name="numero" value="{{endereco.numero}}" required><br><br>
+    Complemento: <input type="text" name="complemento" value="{{endereco.complemento}}" required><br><br>
+    <input type="submit" value="Atualizar">
+</form>

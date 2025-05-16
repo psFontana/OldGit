@@ -1,0 +1,8 @@
+<form action="/pedidoUpdate" method="post">
+    <input type="hidden" name="id" value="{{pedido.id}}">
+    Usuário ID: <input type="number" name="id_usuario" value="{{pedido.id_usuario}}"><br><br>
+    Restaurante ID: <input type="number" name="id_restaurante" value="{{pedido.id_restaurante}}"><br><br>
+    Data: <input type="date" name="data" value="{{pedido.data}}"><br><br>
+    Status: <input type="text" name="status" value="{{pedido.status}}"><br><br>
+    <input type="submit" value="Atualizar">
+</form>
