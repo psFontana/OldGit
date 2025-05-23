@@ -1,5 +1,6 @@
 const routes = require('./routers/route');
 const handlebars = require('express-handlebars');
+const cookieParser = require('cookie-parser');
 const express = require('express');
 const app = express();
 const db = require('./config/db_sequelize'); // Importar o db
@@ -11,6 +12,7 @@ app.set('view engine', 'handlebars');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 app.use(routes);
 

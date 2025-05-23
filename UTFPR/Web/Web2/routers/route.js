@@ -17,8 +17,17 @@ route.get("/", (req, res) => res.redirect("/login"));
 route.get("/login", controllerUsuario.getLogin);
 route.post("/login", controllerUsuario.postLogin);
 
+route.get("/logout", controllerUsuario.getLogout);
+
+
 // Página home (após login) com menu
-route.get("/home", (req, res) => res.render("home"));
+route.get("/home", function (req, res) {
+  if (req.cookies.userData) {
+    res.render('home')
+  }
+  else
+    res.redirect('/');
+});
 
 // ---------- Usuário ----------
 route.get("/usuarioCreate", controllerUsuario.getCreate);
