@@ -1,14 +1,14 @@
-const express = require('express');
+const express = require("express");
 const route = express.Router();
 
 // Controllers
-const controllerUsuario = require('../controllers/controllerUsuario.js');
-const controllerRestaurante = require('../controllers/controllerRestaurante.js');
-const controllerPrato = require('../controllers/controllerPrato.js');
-const controllerEnderecos = require('../controllers/controllerEnderecos.js');
-const controllerPedido = require('../controllers/controllerPedido.js');
-const controllerFavorito = require('../controllers/controllerFavoritos.js');
-const controllerUsuarioEndereco = require('../controllers/controllerUsuarioEndereco.js');
+const controllerUsuario = require("../controllers/controllerUsuario.js");
+const controllerRestaurante = require("../controllers/controllerRestaurante.js");
+const controllerPrato = require("../controllers/controllerPrato.js");
+const controllerEnderecos = require("../controllers/controllerEnderecos.js");
+const controllerPedido = require("../controllers/controllerPedido.js");
+const controllerFavorito = require("../controllers/controllerFavoritos.js");
+const controllerUsuarioEndereco = require("../controllers/controllerUsuarioEndereco.js");
 
 // Redireciona raiz para login
 route.get("/", (req, res) => res.redirect("/login"));
@@ -17,8 +17,21 @@ route.get("/", (req, res) => res.redirect("/login"));
 route.get("/login", controllerUsuario.getLogin);
 route.post("/login", controllerUsuario.postLogin);
 
+route.get("/logout", controllerUsuario.getLogout);
+
 // Página home (após login) com menu
-route.get("/home", (req, res) => res.render("home"));
+// Cookies:
+// route.get("/home", function (req, res) {
+//   if (req.cookies.controllerUsuarioEndereco) {
+//     res.render("home");
+//   } else res.redirect("/");
+// });
+
+route.get("/home", function (req, res) {
+  if (req.session.login) {
+    res.render("home");
+  } else res.redirect("/");
+});
 
 // ---------- Usuário ----------
 route.get("/usuarioCreate", controllerUsuario.getCreate);
