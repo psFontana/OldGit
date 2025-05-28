@@ -15,7 +15,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(session({ secret: "seilaman", cookie: { maxAge: 30 * 60 * 1000 } }));
 
-
 app.use(routes);
 
 // Sincronizar modelos com o banco de dados, FORÇANDO a recriação
