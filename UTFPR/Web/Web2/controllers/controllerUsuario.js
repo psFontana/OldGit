@@ -61,6 +61,29 @@ module.exports = {
     res.redirect("/");
   },
 
+  async getLogout(req, res) {
+    res.cookie("userData",
+      req.cookies.userData, { maxAge: 0, httpOnly: true });
+    res.redirect('/');
+  },
+  async postLogin(req, res) {
+    var user = {
+      login: req.body.login
+    }
+    db.Usuario.findAll(
+      { where: { login: req.body.login, senha: req.body.senha } }
+    ).then(usuarios => {
+      if (usuarios.length > 0) {
+        res.cookie("userData", user,
+          { maxAge: 30 * 60 * 1000, httpOnly: true });
+        res.render('home');
+      } else
+        res.redirect('/');
+    }).catch((err) => {
+      console.log(err);
+    });
+  },
+
   // Página de cadastro
   async getCreate(req, res) {
     res.render("usuario/usuarioCreate");

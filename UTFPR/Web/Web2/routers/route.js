@@ -19,6 +19,8 @@ route.post("/login", controllerUsuario.postLogin);
 
 route.get("/logout", controllerUsuario.getLogout);
 
+route.get("/logout", controllerUsuario.getLogout);
+
 // Página home (após login) com menu
 // Cookies:
 // route.get("/home", function (req, res) {
