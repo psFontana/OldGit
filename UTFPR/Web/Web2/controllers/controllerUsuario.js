@@ -30,23 +30,30 @@ module.exports = {
   //     });
   // },
 
-  async postLogin(req, res) {
-    let user = {
-      email: req.body.email,
-    };
-    db.Usuario.findAll({
+async postLogin(req, res) {
+  try {
+    const usuarios = await db.Usuario.findAll({
       where: { email: req.body.email, senha: req.body.senha },
-    })
-      .then((usuarios) => {
-        if (usuarios.length > 0) {
-          req.session.login = req.body.email;
-          res.render("home");
-        } else res.redirect("/");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  },
+    });
+
+    if (usuarios.length > 0) {
+      const usuario = usuarios[0];
+
+      // Armazena o usuário na sessão
+      req.session.usuario = usuario.dataValues; // Armazena o objeto do usuário
+
+      console.log("Usuário logado:", req.session.usuario.email);
+      console.log("Perfil do Usuário:", req.session.usuario.perfil);
+
+      res.redirect("/home"); // Redireciona para a rota home
+    } else {
+      res.redirect("/");
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Erro ao realizar login");
+  }
+},
 
   // Cookies:
   // async getLogout(req, res) {
@@ -81,6 +88,7 @@ module.exports = {
         senha: novoUsuario.senha,
         enderecos: [],
         restaurantes: [],
+        perfil: novoUsuario.perfil
       });
 
       res.redirect("/usuarioList");
@@ -165,10 +173,7 @@ module.exports = {
 
       // Remove do NoSQL também
       await UsuarioNoSQL.deleteOne({ id: req.params.id });
-
-      await db.sequelize.query(
-        `ALTER SEQUENCE "public"."usuarios_id_seq" RESTART WITH 1;`
-      );
+      
       res.redirect("/usuarioList");
     } catch (error) {
       console.error("Erro ao deletar usuário:", error);

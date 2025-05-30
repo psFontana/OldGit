@@ -7,8 +7,9 @@ const UsuarioSchema = new Schema({
   nascimento: { type: Date, required: true },
   email: { type: String, required: true, unique: true },
   senha: { type: String, required: true },
-  enderecos: [{ type: Schema.Types.ObjectId, ref: 'Endereco' }],
-  restaurantes: [{ type: Schema.Types.ObjectId, ref: 'Restaurante' }]
+  enderecos: [{ type: Schema.Types.Number, ref: 'Endereco' }],
+  restaurantes: [{ type: Schema.Types.Number, ref: 'Restaurante' }],
+  perfil: { type: String, enum: ['admin', 'dono', 'cliente'], default: 'cliente' },
 });
 
 module.exports = mongoose.model("Usuario", UsuarioSchema);

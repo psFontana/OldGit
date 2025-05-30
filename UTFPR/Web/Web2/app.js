@@ -1,13 +1,15 @@
-const routes = require("./routers/route");
+const db = require("./config/db_sequelize"); // Importar o db
+const mongoose = require("./config/db_mongoose");
 const handlebars = require("express-handlebars");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const sessionControl = require("./middlewares/sessionControl");
+const routes = require("./routers/route");
 const express = require("express");
 const app = express();
-const db = require("./config/db_sequelize"); // Importar o db
-const mongoose = require("./config/db_mongoose");
 
-app.engine("handlebars", handlebars.engine({ defaultLayout: "main" }));
+app.engine("handlebars", handlebars.engine());
+
 app.set("view engine", "handlebars");
 
 app.use(express.json());
@@ -15,6 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(session({ secret: "seilaman", cookie: { maxAge: 30 * 60 * 1000 } }));
 
+app.use(sessionControl);
 app.use(routes);
 
 // Sincronizar modelos com o banco de dados, FORÇANDO a recriação
