@@ -1,18 +1,40 @@
-<form action="/usuarioCreate" method="post">
-    Nome: <input type="text" name="nome">
-    <br><br>
-    Email: <input type="email" name="email">
-    <br><br>
-    Nascimento: <input type="date" name="nascimento">
-    <br><br>
-    Senha: <input type="password" name="senha">
-    <br><br>
-    Perfil:
-    <select name="perfil">
-      <option value="admin">Administrador</option>
-      <option value="dono">Dono de Restaurante</option>
-      <option value="cliente">Cliente</option>
-    </select>
-    <br><br>
-    <input type="submit" value="Cadastrar">
-</form>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Cadastrar Novo Usuário</h5>
+                </div>
+                <div class="card-body">
+                    <form action="/usuarioCreate" method="post">
+                        <div class="mb-3">
+                            <label for="nome" class="form-label">Nome:</label>
+                            <input type="text" class="form-control" id="nome" name="nome" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email:</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="nascimento" class="form-label">Nascimento:</label>
+                            <input type="date" class="form-control" id="nascimento" name="nascimento" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="senha" class="form-label">Senha:</label>
+                            <input type="password" class="form-control" id="senha" name="senha" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="perfil" class="form-label">Perfil:</label>
+                            <select class="form-select" id="perfil" name="perfil" required>
+                                <option value="admin">Administrador</option>
+                                <option value="dono">Dono de Restaurante</option>
+                                <option value="cliente">Cliente</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary">Cadastrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

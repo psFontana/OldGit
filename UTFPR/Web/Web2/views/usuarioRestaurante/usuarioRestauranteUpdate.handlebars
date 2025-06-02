@@ -1,6 +1,29 @@
-<form action="/usuarioRestauranteUpdate" method="post">
-    <input type="hidden" name="id" value="{{usuarioRestaurante.id}}">
-    Usuário ID: <input type="number" name="id_usuario" value="{{usuarioRestaurante.id_usuario}}"><br><br>
-    Restaurante ID: <input type="number" name="id_restaurante" value="{{usuarioRestaurante.id_restaurante}}"><br><br>
-    <input type="submit" value="Atualizar">
-</form>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Atualizar Dados do Usuário (e Seus Restaurantes)</h5>
+                </div>
+                <div class="card-body">
+                    <form action="/usuarioRestauranteUpdate" method="post">
+                        <input type="hidden" name="id" value="{{usuario.id}}">
+
+                        <div class="mb-3">
+                            <label for="idUsuarioUpdate" class="form-label">Usuário ID:</label>
+                            <input type="text" class="form-control" id="idUsuarioUpdate" value="{{usuario.id}}" disabled>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Restaurantes Vinculados (IDs):</label>
+                            <input type="text" class="form-control" name="restaurantes" value="{{usuario.restaurantes}}" placeholder="IDs de restaurantes separados por vírgula (ex: 1,2,5)">
+                            <small class="form-text text-muted">Para desvincular, remova o ID da lista. Para vincular, adicione o ID.</small>
+                        </div>
+
+                        <button type="submit" class="btn btn-outline-primary">Atualizar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

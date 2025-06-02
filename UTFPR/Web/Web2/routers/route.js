@@ -101,6 +101,6 @@ route.get("/usuarioRestauranteCreate", accessControl(["admin", "dono"]), control
 route.post("/usuarioRestauranteCreate", accessControl(["admin", "dono"]), controllerUsuarioRestaurante.postCreate);
 route.get("/usuarioRestauranteUpdate/:id", accessControl(["admin", "dono"]), controllerUsuarioRestaurante.getUpdate);
 route.post("/usuarioRestauranteUpdate", accessControl(["admin", "dono"]), controllerUsuarioRestaurante.postUpdate);
-route.get("/usuarioRestauranteDelete/:id", accessControl(["admin", "dono"]), controllerUsuarioRestaurante.getDelete);
+route.get('/usuarioRestauranteDelete/:usuarioId/:restauranteId', accessControl(["admin", "dono"]), controllerUsuarioRestaurante.getDelete);
 
 module.exports = route;

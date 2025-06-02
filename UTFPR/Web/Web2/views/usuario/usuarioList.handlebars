@@ -1,22 +1,42 @@
-<table border="1px">
-	<tr>
-		<td>Nome</td>
-		<td>Email</td>
-		<td>Nascimento</td>
-		<td>Senha</td>
-		<td>Perfil</td>
-		<td>Editar</td>
-		<td>Deletar</td>
-	</tr>
-	{{#each usuarios}}
-	<tr>
-		<td>{{nome}}</td>
-		<td>{{email}}</td>
-		<td>{{nascimento}}</td>
-		<td>{{senha}}</td>
-		<td>{{perfil}}</td>
-		<td><a href="usuarioUpdate/{{id}}">Editar</a></td>
-		<td><a href="usuarioDelete/{{id}}">Deletar</a></td>
-	</tr>
-	{{/each}}
-</table>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <h2 class="mb-3">Lista de Usuários</h2>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Nascimento</th>
+                            <th scope="col">Senha</th>
+                            <th scope="col">Perfil</th>
+                            <th scope="col">Editar</th>
+                            <th scope="col">Deletar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each usuarios}}
+                        <tr>
+                            <td>{{id}}</td>
+                            <td>{{nome}}</td>
+                            <td>{{email}}</td>
+                            <td>{{nascimento}}</td>
+                            <td>{{senha}}</td>
+                            <td>{{perfil}}</td>
+                            <td><a href="usuarioUpdate/{{id}}" class="btn btn-sm btn-outline-warning">Editar</a></td>
+                            <td><a href="usuarioDelete/{{id}}" class="btn btn-sm btn-outline-danger">Deletar</a></td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+            {{#unless usuarios}}
+                <div class="alert alert-warning text-center" role="alert">
+                    Nenhum usuário encontrado.
+                </div>
+            {{/unless}}
+        </div>
+    </div>
+</div>

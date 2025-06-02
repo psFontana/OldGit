@@ -1,5 +1,24 @@
-<form action="/favoritosCreate" method="post">
-    Usuário ID: <input type="number" name="id_usuario"><br><br>
-    Restaurante ID: <input type="number" name="id_restaurante"><br><br>
-    <input type="submit" value="Cadastrar">
-</form>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Adicionar Restaurante Favorito</h5>
+                </div>
+                <div class="card-body">
+                    <form action="/favoritosCreate" method="post">
+                        <div class="mb-3">
+                            <label for="idUsuarioFavorito" class="form-label">Usuário ID:</label>
+                            <input type="number" class="form-control" id="idUsuarioFavorito" name="id_usuario" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="idRestauranteFavorito" class="form-label">Restaurante ID:</label>
+                            <input type="number" class="form-control" id="idRestauranteFavorito" name="id_restaurante" required>
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary">Cadastrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

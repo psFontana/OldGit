@@ -1,5 +1,24 @@
-<form action="/usuarioRestauranteCreate" method="post">
-    Usuário ID: <input type="number" name="usuarioId"><br><br>
-    Restaurante ID: <input type="number" name="restauranteId"><br><br>
-    <input type="submit" value="Vincular">
-</form>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Vincular Usuário a Restaurante</h5>
+                </div>
+                <div class="card-body">
+                    <form action="/usuarioRestauranteCreate" method="post">
+                        <div class="mb-3">
+                            <label for="usuarioIdCreate" class="form-label">Usuário ID:</label>
+                            <input type="number" class="form-control" id="usuarioIdCreate" name="usuarioId" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="restauranteIdCreate" class="form-label">Restaurante ID:</label>
+                            <input type="number" class="form-control" id="restauranteIdCreate" name="restauranteId" required>
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary">Vincular</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

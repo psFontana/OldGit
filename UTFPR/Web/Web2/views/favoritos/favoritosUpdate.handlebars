@@ -1,6 +1,25 @@
-<form action="/favoritosUpdate" method="post">
-    <input type="hidden" name="id" value="{{favorito.id}}">
-    Usuário ID: <input type="number" name="id_usuario" value="{{favorito.id_usuario}}"><br><br>
-    Restaurante ID: <input type="number" name="id_restaurante" value="{{favorito.id_restaurante}}"><br><br>
-    <input type="submit" value="Atualizar">
-</form>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Atualizar Favorito</h5>
+                </div>
+                <div class="card-body">
+                    <form action="/favoritosUpdate" method="post">
+                        <input type="hidden" name="id" value="{{favorito.id}}">
+                        <div class="mb-3">
+                            <label for="idUsuarioFavoritoUpdate" class="form-label">Usuário ID:</label>
+                            <input type="number" class="form-control" id="idUsuarioFavoritoUpdate" name="id_usuario" value="{{favorito.id_usuario}}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="idRestauranteFavoritoUpdate" class="form-label">Restaurante ID:</label>
+                            <input type="number" class="form-control" id="idRestauranteFavoritoUpdate" name="id_restaurante" value="{{favorito.id_restaurante}}" required>
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary">Atualizar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

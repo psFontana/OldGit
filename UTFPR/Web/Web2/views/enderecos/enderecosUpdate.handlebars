@@ -1,7 +1,29 @@
-<form action="/enderecosUpdate" method="post">
-    <input type="hidden" name="id" value="{{endereco.id}}">
-    CEP: <input type="text" name="cep" value="{{endereco.cep}}" required><br><br>
-    Número: <input type="text" name="numero" value="{{endereco.numero}}" required><br><br>
-    Complemento: <input type="text" name="complemento" value="{{endereco.complemento}}" required><br><br>
-    <input type="submit" value="Atualizar">
-</form>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Atualizar Endereço</h5>
+                </div>
+                <div class="card-body">
+                    <form action="/enderecosUpdate" method="post">
+                        <input type="hidden" name="id" value="{{endereco.id}}">
+                        <div class="mb-3">
+                            <label for="cepEnderecoUpdate" class="form-label">CEP:</label>
+                            <input type="text" class="form-control" id="cepEnderecoUpdate" name="cep" value="{{endereco.cep}}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="numeroEnderecoUpdate" class="form-label">Número:</label>
+                            <input type="text" class="form-control" id="numeroEnderecoUpdate" name="numero" value="{{endereco.numero}}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="complementoEnderecoUpdate" class="form-label">Complemento:</label>
+                            <input type="text" class="form-control" id="complementoEnderecoUpdate" name="complemento" value="{{endereco.complemento}}" required>
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary">Atualizar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

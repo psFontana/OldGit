@@ -1,5 +1,21 @@
-<form action="/restauranteUpdate" method="post">
-    <input type="hidden" name="id" value="{{restaurante.id}}">
-    Nome: <input type="text" name="nome" value="{{restaurante.nome}}"><br><br>
-    <input type="submit" value="Atualizar">
-</form>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Atualizar Restaurante</h5>
+                </div>
+                <div class="card-body">
+                    <form action="/restauranteUpdate" method="post">
+                        <input type="hidden" name="id" value="{{restaurante.id}}">
+                        <div class="mb-3">
+                            <label for="nome" class="form-label">Nome:</label>
+                            <input type="text" class="form-control" id="nome" name="nome" value="{{restaurante.nome}}" required>
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary">Atualizar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

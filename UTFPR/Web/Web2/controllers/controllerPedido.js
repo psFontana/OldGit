@@ -16,7 +16,7 @@ module.exports = {
         id_usuario,
         id_restaurante,
         data,
-        status: 'iniciado'
+        status: 'Pendente'
       });
 
       // Cria no NoSQL usando o mesmo id
@@ -26,7 +26,7 @@ module.exports = {
         id_restaurante,
         pratos: [], 
         total: 0,   
-        status: 'iniciado',
+        status: 'Pendente',
         data: data || new Date()
       });
 

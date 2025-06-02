@@ -1,8 +1,33 @@
-<form action="/pratoUpdate" method="post">
-    <input type="hidden" name="id" value="{{prato.id}}">
-    Nome: <input type="text" name="nome" value="{{prato.nome}}"><br><br>
-    Descrição: <input type="text" name="descricao" value="{{prato.descricao}}"><br><br>
-    Preço: <input type="number" step="0.01" name="preco" value="{{prato.preco}}"><br><br>
-    Restaurante ID: <input type="number" name="restauranteId" value="{{prato.restauranteId}}"><br><br>
-    <input type="submit" value="Atualizar">
-</form>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Atualizar Prato</h5>
+                </div>
+                <div class="card-body">
+                    <form action="/pratoUpdate" method="post">
+                        <input type="hidden" name="id" value="{{prato.id}}">
+                        <div class="mb-3">
+                            <label for="nomePrato" class="form-label">Nome:</label>
+                            <input type="text" class="form-control" id="nomePrato" name="nome" value="{{prato.nome}}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="descricaoPrato" class="form-label">Descrição:</label>
+                            <input type="text" class="form-control" id="descricaoPrato" name="descricao" value="{{prato.descricao}}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="precoPrato" class="form-label">Preço:</label>
+                            <input type="number" step="0.01" class="form-control" id="precoPrato" name="preco" value="{{prato.preco}}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="restauranteIdPrato" class="form-label">Restaurante ID:</label>
+                            <input type="number" class="form-control" id="restauranteIdPrato" name="restauranteId" value="{{prato.restauranteId}}" required>
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary">Atualizar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,6 +1,28 @@
-<form action="/enderecosCreate" method="post">
-    CEP: <input type="text" name="cep" required><br><br>
-    Número: <input type="text" name="numero" required><br><br>
-    Complemento: <input type="text" name="complemento" required><br><br>
-    <input type="submit" value="Cadastrar">
-</form>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Cadastrar Novo Endereço</h5>
+                </div>
+                <div class="card-body">
+                    <form action="/enderecosCreate" method="post">
+                        <div class="mb-3">
+                            <label for="cepEndereco" class="form-label">CEP:</label>
+                            <input type="text" class="form-control" id="cepEndereco" name="cep" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="numeroEndereco" class="form-label">Número:</label>
+                            <input type="text" class="form-control" id="numeroEndereco" name="numero" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="complementoEndereco" class="form-label">Complemento:</label>
+                            <input type="text" class="form-control" id="complementoEndereco" name="complemento" required>
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary">Cadastrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

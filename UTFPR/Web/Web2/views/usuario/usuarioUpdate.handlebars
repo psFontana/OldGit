@@ -1,20 +1,41 @@
-<form action="/usuarioUpdate" method="post">
-    <input type="hidden" name="id" value="{{usuario.id}}">
-    Nome: <input type="text" name="nome" value="{{usuario.nome}}">
-    <br><br>
-    Email: <input type="email" name="email" value="{{usuario.email}}">
-    <br><br>
-    Nascimento: <input type="date" name="nascimento" value="{{usuario.nascimento}}">
-    <br><br>
-    Senha: <input type="password" name="senha" value="{{usuario.senha}}">
-    <br><br>
-    Perfil:
-    <select name="perfil">
-        <option value="admin" {{#if perfil_admin}}selected{{/if}}>Admin</option>
-        <option value="dono" {{#if perfil_dono}}selected{{/if}}>Dono</option>
-        <option value="cliente" {{#if perfil_cliente}}selected{{/if}}>Cliente</option>
-
-    </select>
-    <br><br>
-    <input type="submit" value="Editar">
-</form>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Atualizar Dados do Usuário</h5>
+                </div>
+                <div class="card-body">
+                    <form action="/usuarioUpdate" method="post">
+                        <input type="hidden" name="id" value="{{usuario.id}}">
+                        <div class="mb-3">
+                            <label for="nome" class="form-label">Nome:</label>
+                            <input type="text" class="form-control" id="nome" name="nome" value="{{usuario.nome}}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email:</label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{usuario.email}}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="nascimento" class="form-label">Nascimento:</label>
+                            <input type="date" class="form-control" id="nascimento" name="nascimento" value="{{usuario.nascimento}}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="senha" class="form-label">Senha:</label>
+                            <input type="password" class="form-control" id="senha" name="senha" value="{{usuario.senha}}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="perfil" class="form-label">Perfil:</label>
+                            <select class="form-select" id="perfil" name="perfil" required>
+                                <option value="admin">Administrador</option>
+                                <option value="dono">Dono de Restaurante</option>
+                                <option value="cliente">Cliente</option>
+                            </select>
+                            </div>
+                        <button type="submit" class="btn btn-outline-primary">Atualizar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,6 +1,25 @@
-<form action="/usuarioEnderecoUpdate" method="post">
-    <input type="hidden" name="id" value="{{usuarioEndereco.id}}">
-    Usuário ID: <input type="number" name="id_usuario" value="{{usuarioEndereco.id_usuario}}"><br><br>
-    Endereço ID: <input type="number" name="id_endereco" value="{{usuarioEndereco.id_endereco}}"><br><br>
-    <input type="submit" value="Atualizar">
-</form>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Atualizar Vínculo Usuário-Endereço</h5>
+                </div>
+                <div class="card-body">
+                    <form action="/usuarioEnderecoUpdate" method="post">
+                        <input type="hidden" name="id" value="{{usuarioEndereco.id}}">
+                        <div class="mb-3">
+                            <label for="id_usuario" class="form-label">Usuário ID:</label>
+                            <input type="number" class="form-control" id="id_usuario" name="id_usuario" value="{{usuarioEndereco.id_usuario}}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_endereco" class="form-label">Endereço ID:</label>
+                            <input type="number" class="form-control" id="id_endereco" name="id_endereco" value="{{usuarioEndereco.id_endereco}}" required>
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary">Atualizar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

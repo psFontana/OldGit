@@ -1,8 +1,42 @@
-<form action="/pedidoUpdate" method="post">
-    <input type="hidden" name="id" value="{{pedido.id}}">
-    Usuário ID: <input type="number" name="id_usuario" value="{{pedido.id_usuario}}"><br><br>
-    Restaurante ID: <input type="number" name="id_restaurante" value="{{pedido.id_restaurante}}"><br><br>
-    Data: <input type="date" name="data" value="{{pedido.data}}"><br><br>
-    Status: <input type="text" name="status" value="{{pedido.status}}"><br><br>
-    <input type="submit" value="Atualizar">
-</form>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Atualizar Pedido</h5>
+                </div>
+                <div class="card-body">
+                    <form action="/pedidoUpdate" method="post">
+                        <input type="hidden" name="id" value="{{pedido.id}}">
+                        <div class="mb-3">
+                            <label for="idUsuarioPedidoUpdate" class="form-label">Usuário ID:</label>
+                            <input type="number" class="form-control" id="idUsuarioPedidoUpdate" name="id_usuario"
+                                value="{{pedido.id_usuario}}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="idRestaurantePedidoUpdate" class="form-label">Restaurante ID:</label>
+                            <input type="number" class="form-control" id="idRestaurantePedidoUpdate"
+                                name="id_restaurante" value="{{pedido.id_restaurante}}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dataPedidoUpdate" class="form-label">Data:</label>
+                            <input type="date" class="form-control" id="dataPedidoUpdate" name="data"
+                                value="{{pedido.data}}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="statusPedidoUpdate" class="form-label">Status:</label>
+                            <select class="form-control" id="statusPedidoUpdate" name="status" required>
+                                <option value="Pendente">Pendente
+                                </option>
+                                <option value="Em Preparação">Em Preparação</option>
+                                <option value="Entregue">Entregue
+                                </option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary">Atualizar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
