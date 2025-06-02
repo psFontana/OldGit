@@ -1,8 +1,8 @@
 const express = require("express");
 const route = express.Router();
 
- // Middlewares
- const sessionControl = require("../middlewares/sessionControl.js");
+// Middlewares
+const sessionControl = require("../middlewares/sessionControl.js");
 const accessControl = require("../middlewares/accessControl.js");
 
 // Controllers
