@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Table, Button, Container, Alert } from "react-bootstrap";
-import api from "../../services/api";
+import api from "../../services/api"; // Certifique-se de que a baseURL está 'http://localhost:8081'
 import { useNavigate } from "react-router-dom";
 
 const UsuarioRestauranteList = () => {
-  const [usuariosRestaurantes, setUsuariosRestaurantes] = useState([]);
+  const [usuariosComRestaurantes, setUsuariosComRestaurantes] = useState([]);
   const [erro, setErro] = useState("");
   const navigate = useNavigate();
 
@@ -12,76 +12,123 @@ const UsuarioRestauranteList = () => {
     const fetchUsuariosRestaurantes = async () => {
       try {
         const response = await api.get("/usuarioRestaurante");
-        setUsuariosRestaurantes(response.data);
+        console.log(response.data); // Verifique os dados retornados
+        // Filtra apenas usuários com restaurantes vinculados
+        const usuariosFiltrados = response.data.filter(
+          (user) => user.restaurantes && user.restaurantes.length > 0
+        );
+        setUsuariosComRestaurantes(usuariosFiltrados);
       } catch (error) {
-        setErro("Erro ao buscar vínculos de usuário-restaurante.");
+        console.error(
+          "Erro ao buscar vínculos:",
+          error.response ? error.response.data : error.message
+        );
+        setErro(
+          "Erro ao buscar vínculos de usuário-restaurante. Verifique o console."
+        );
       }
     };
     fetchUsuariosRestaurantes();
   }, []);
 
-  const handleDelete = async (id) => {
-    if (window.confirm("Tem certeza que deseja deletar este vínculo?")) {
+  const handleDesvincular = async (usuarioId, restauranteId) => {
+    if (
+      window.confirm(
+        `Tem certeza que deseja desvincular o restaurante ID ${restauranteId} do usuário ID ${usuarioId}?`
+      )
+    ) {
       try {
-        await api.delete(`/usuarioRestaurante/${id}`);
-        setUsuariosRestaurantes(
-          usuariosRestaurantes.filter((ur) => ur.id !== id)
+        await api.delete(`/usuarioRestaurante/${usuarioId}/${restauranteId}`);
+        setUsuariosComRestaurantes((prevUsuarios) =>
+          prevUsuarios.map((user) => {
+            if (user.id === usuarioId) {
+              return {
+                ...user,
+                restaurantes: user.restaurantes.filter(
+                  (r) => r.id !== restauranteId
+                ),
+              };
+            }
+            return user;
+          })
         );
+        alert("Restaurante desvinculado com sucesso!");
       } catch (error) {
-        alert("Erro ao deletar vínculo.");
+        console.error(
+          "Erro ao desvincular restaurante:",
+          error.response ? error.response.data : error.message
+        );
+        alert("Erro ao desvincular restaurante.");
       }
     }
   };
 
   return (
-    <Container>
-      <h2>Lista de Vínculos Usuário-Restaurante</h2>
+    <Container className="mt-4">
+      <h2 className="mb-3">Lista de Usuários com Restaurantes Vinculados</h2>
       {erro && <Alert variant="danger">{erro}</Alert>}
-      <Table striped bordered hover className="mt-3">
-        <thead>
-          <tr>
-            <th>Usuário ID</th>
-            <th>Restaurante ID</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {usuariosRestaurantes.length ? (
-            usuariosRestaurantes.map((usuarioRestaurante) => (
-              <tr key={usuarioRestaurante.id}>
-                <td>{usuarioRestaurante.id_usuario}</td>
-                <td>{usuarioRestaurante.id_restaurante}</td>
-                <td>
-                  <Button
-                    variant="warning"
-                    size="sm"
-                    onClick={() =>
-                      navigate(
-                        `/usuario-restaurante/update/${usuarioRestaurante.id}`
-                      )
-                    }
-                  >
-                    Editar
-                  </Button>{" "}
-                  <Button
-                    variant="danger"
-                    size="sm"
-                    onClick={() => handleDelete(usuarioRestaurante.id)}
-                  >
-                    Deletar
-                  </Button>
+      <div className="table-responsive">
+        <Table striped bordered hover className="mt-3">
+          <thead className="table-dark">
+            <tr>
+              <th scope="col">Usuário ID</th>
+              <th scope="col">Nome do Usuário</th>
+              <th scope="col">Restaurantes Vinculados</th>
+              <th scope="col">Ações (Usuário)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {usuariosComRestaurantes.length ? (
+              usuariosComRestaurantes.map((usuario) => (
+                <tr key={usuario.id}>
+                  <td>{usuario.id}</td>
+                  <td>{usuario.nome}</td>
+                  <td>
+                    {usuario.restaurantes && usuario.restaurantes.length > 0 ? (
+                      <ul className="list-unstyled mb-0">
+                        {usuario.restaurantes.map((restaurante) => (
+                          <li key={restaurante.id}>
+                            {restaurante.nome} (ID: {restaurante.id})
+                            <Button
+                              variant="outline-danger"
+                              size="sm"
+                              className="ms-2"
+                              onClick={() =>
+                                handleDesvincular(usuario.id, restaurante.id)
+                              }
+                            >
+                              Desvincular
+                            </Button>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      "Nenhum restaurante vinculado."
+                    )}
+                  </td>
+                  <td>
+                    <Button
+                      variant="outline-info"
+                      size="sm"
+                      onClick={() =>
+                        navigate(`/usuario-restaurante/update/${usuario.id}`)
+                      }
+                    >
+                      Editar Vínculos
+                    </Button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="4" className="text-center">
+                  Nenhum usuário com vínculos encontrado.
                 </td>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="3" className="text-center">
-                Nenhum vínculo encontrado.
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </Table>
+            )}
+          </tbody>
+        </Table>
+      </div>
     </Container>
   );
 };

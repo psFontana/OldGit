@@ -1,4 +1,5 @@
 const db = require("../../config/db_sequelize");
+const RestauranteMongo = require("../../models/noSql/restaurante");
 const Restaurante = db.Restaurante;
 
 module.exports = {
@@ -24,6 +25,14 @@ module.exports = {
   async criar(req, res) {
     try {
       const novo = await Restaurante.create(req.body);
+
+      // Criar também no MongoDB
+      await RestauranteMongo.create({
+        id: novo.id,
+        nome: novo.nome,
+        pratos: [], // Lista vazia por padrão
+      });
+
       res.status(201).json(novo);
     } catch (err) {
       res.status(400).json({ erro: "Erro ao criar restaurante" });
@@ -35,6 +44,9 @@ module.exports = {
       const atualizado = await Restaurante.update(req.body, {
         where: { id: req.params.id },
       });
+
+      await RestauranteMongo.updateOne({ id: req.params.id }, req.body);
+
       res.status(200).json({ mensagem: "Atualizado com sucesso" });
     } catch (err) {
       res.status(400).json({ erro: "Erro ao atualizar restaurante" });
@@ -44,6 +56,8 @@ module.exports = {
   async excluir(req, res) {
     try {
       await Restaurante.destroy({ where: { id: req.params.id } });
+      await RestauranteMongo.deleteOne({ id: req.params.id });
+
       res.status(204).send();
     } catch (err) {
       res.status(500).json({ erro: "Erro ao excluir restaurante" });

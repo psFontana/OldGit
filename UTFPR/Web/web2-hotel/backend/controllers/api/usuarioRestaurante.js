@@ -2,38 +2,52 @@ const UsuarioMongo = require("../../models/noSql/usuario");
 const RestauranteMongo = require("../../models/noSql/restaurante");
 
 module.exports = {
+  // GET /usuarioRestaurante
+  async listar(req, res) {
+    try {
+      const usuarios = await UsuarioMongo.find();
+      const usuariosComRestaurantes = await Promise.all(
+        usuarios.map(async (usuario) => {
+          const restaurantes = await RestauranteMongo.find({
+            id: { $in: usuario.restaurantes || [] },
+          });
+          return {
+            ...usuario.toObject(),
+            restaurantes: restaurantes.map((r) => r.toObject()),
+          };
+        })
+      );
+      return res.json(usuariosComRestaurantes);
+    } catch (error) {
+      console.error("Erro ao listar vínculos:", error);
+      return res.status(500).json({ error: "Erro interno" });
+    }
+  },
+
+  // POST /usuarioRestaurante
   async vincular(req, res) {
     try {
       const { usuarioId, restauranteId } = req.body;
 
-      // Verifica se usuarioId é válido e se restauranteId é um número
-      if (!usuarioId || typeof restauranteId !== "number") {
-        return res.status(400).json({ error: "Dados inválidos" });
+      if (!usuarioId || isNaN(usuarioId) || isNaN(restauranteId)) {
+        return res.status(400).json({ error: "IDs inválidos" });
       }
 
-      // Adicione logs para verificar os IDs recebidos
-      console.log("IDs recebidos:", { usuarioId, restauranteId });
-
-      // Tente encontrar o usuário e o restaurante
       const usuario = await UsuarioMongo.findOne({ id: Number(usuarioId) });
+      if (!usuario)
+        return res.status(404).json({ error: "Usuário não encontrado" });
+
       const restaurante = await RestauranteMongo.findOne({
         id: Number(restauranteId),
       });
+      if (!restaurante)
+        return res.status(404).json({ error: "Restaurante não encontrado" });
 
-      // Adicione logs para verificar o que foi encontrado
-      console.log("Usuário encontrado:", usuario);
-      console.log("Restaurante encontrado:", restaurante);
-
-      if (!usuario || !restaurante) {
-        return res
-          .status(404)
-          .json({ error: "Usuário ou restaurante não encontrado" });
+      // Evita duplicatas
+      if (!usuario.restaurantes.includes(restaurante.id)) {
+        usuario.restaurantes.push(restaurante.id);
+        await usuario.save();
       }
-
-      await UsuarioMongo.updateOne(
-        { id: usuarioId },
-        { $addToSet: { restaurantes: restauranteId } }
-      );
 
       return res
         .status(201)
@@ -44,49 +58,54 @@ module.exports = {
     }
   },
 
-  async listar(req, res) {
+  // PUT /usuarioRestaurante/:usuarioId
+  async atualizarVinculos(req, res) {
     try {
-      const usuarios = await UsuarioMongo.find();
+      const usuarioId = Number(req.params.usuarioId);
+      const { restaurantes } = req.body;
 
-      const usuariosComRestaurantes = await Promise.all(
-        usuarios.map(async (usuario) => {
-          const restaurantes = await RestauranteMongo.find({
-            id: { $in: usuario.restaurantes || [] },
-          });
+      if (!usuarioId || !Array.isArray(restaurantes)) {
+        return res.status(400).json({ error: "Dados inválidos" });
+      }
 
-          return {
-            ...usuario.toObject(),
-            restaurantes: restaurantes.map((r) => r.toObject()),
-          };
-        })
-      );
+      const usuario = await UsuarioMongo.findOne({ id: usuarioId });
+      if (!usuario)
+        return res.status(404).json({ error: "Usuário não encontrado" });
 
-      return res.json(usuariosComRestaurantes);
+      const validos = await RestauranteMongo.find({
+        id: { $in: restaurantes },
+      });
+      if (validos.length !== restaurantes.length)
+        return res
+          .status(404)
+          .json({ error: "Alguns restaurantes não existem" });
+
+      usuario.restaurantes = restaurantes;
+      await usuario.save();
+
+      return res
+        .status(200)
+        .json({ message: "Vínculos atualizados com sucesso" });
     } catch (error) {
-      console.error("Erro ao listar vínculos:", error);
+      console.error("Erro ao atualizar vínculos:", error);
       return res.status(500).json({ error: "Erro interno" });
     }
   },
 
+  // DELETE /usuarioRestaurante/:usuarioId/:restauranteId
   async desvincular(req, res) {
     try {
-      const { usuarioId, restauranteId } = req.body;
+      const usuarioId = Number(req.params.usuarioId);
+      const restauranteId = Number(req.params.restauranteId);
 
-      // Verifica se usuarioId é válido e se restauranteId é um número
-      if (!usuarioId || typeof restauranteId !== "number") {
-        return res.status(400).json({ error: "Dados inválidos" });
-      }
-
-      const usuario = await UsuarioMongo.findOne({ id: Number(usuarioId) });
-
-      if (!usuario) {
+      const usuario = await UsuarioMongo.findOne({ id: usuarioId });
+      if (!usuario)
         return res.status(404).json({ error: "Usuário não encontrado" });
-      }
 
-      await UsuarioMongo.updateOne(
-        { id: usuarioId },
-        { $pull: { restaurantes: restauranteId } }
+      usuario.restaurantes = usuario.restaurantes.filter(
+        (id) => id !== restauranteId
       );
+      await usuario.save();
 
       return res
         .status(200)

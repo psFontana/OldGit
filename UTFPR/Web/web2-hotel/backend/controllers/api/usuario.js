@@ -1,43 +1,54 @@
 const db = require("../../config/db_sequelize");
 const { gerarToken } = require("../../middlewares/authToken");
+const UsuarioNoSQL = require("../../models/noSql/usuario");
 
 module.exports = {
   async login(req, res) {
     const { email, senha } = req.body;
     const usuario = await db.Usuario.findOne({ where: { email, senha } });
 
-    // Se o usuário não for encontrado ou as credenciais forem inválidas, retorna erro 401.
     if (!usuario) {
       return res.status(401).json({ erro: "Credenciais inválidas" });
     }
 
-    // Gera o token JWT usando as informações do usuário (id e perfil).
     const token = gerarToken(usuario);
 
-    // Retorna o token e, CRITICAMENTE, o perfil do usuário na resposta JSON.
-    // Isso permite que o frontend salve o perfil no localStorage.
     res.json({
       token,
-      perfil: usuario.perfil, // <-- Adicionado: Envia o perfil do usuário para o frontend
+      perfil: usuario.perfil,
     });
   },
 
   async listar(req, res) {
-    // Lista todos os usuários.
     const usuarios = await db.Usuario.findAll();
     res.json(usuarios);
   },
 
   async criar(req, res) {
-    // Cria um novo usuário com os dados do corpo da requisição.
-    const novo = await db.Usuario.create(req.body);
-    res.status(201).json(novo);
+    try {
+      const novo = await db.Usuario.create(req.body);
+
+      // Criação no MongoDB
+      await UsuarioNoSQL.create({
+        id: novo.id,
+        nome: novo.nome,
+        nascimento: novo.nascimento,
+        email: novo.email,
+        senha: novo.senha,
+        perfil: novo.perfil,
+        enderecos: [],
+        restaurantes: [],
+      });
+
+      res.status(201).json(novo);
+    } catch (error) {
+      console.error("Erro ao criar usuário:", error);
+      res.status(500).json({ erro: "Erro interno ao criar usuário" });
+    }
   },
 
   async detalhar(req, res) {
-    // Busca um usuário pelo ID.
     const usuario = await db.Usuario.findByPk(req.params.id);
-    // Se o usuário não for encontrado, retorna erro 404.
     if (!usuario) {
       return res.status(404).json({ erro: "Usuário não encontrado" });
     }
@@ -45,18 +56,20 @@ module.exports = {
   },
 
   async atualizar(req, res) {
-    // Atualiza um usuário existente pelo ID com os dados do corpo da requisição.
     const atualizado = await db.Usuario.update(req.body, {
       where: { id: req.params.id },
     });
-    // Retorna o status da atualização (número de linhas afetadas).
+
+    // Atualiza também no MongoDB
+    await UsuarioNoSQL.updateOne({ id: req.params.id }, req.body);
+
     res.json({ atualizado });
   },
 
   async excluir(req, res) {
-    // Exclui um usuário pelo ID.
     await db.Usuario.destroy({ where: { id: req.params.id } });
-    // Retorna status 204 (No Content) indicando sucesso sem conteúdo.
+    await UsuarioNoSQL.deleteOne({ id: req.params.id });
+
     res.status(204).send();
   },
 };
