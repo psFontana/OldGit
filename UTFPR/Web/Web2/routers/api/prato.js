@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const controller = require("../../controllers/api/prato");
-const auth = require("../../middlewares/authToken");
+const controller = require("../../../web2-hotel/backend/controllers/api/prato");
+const auth = require("../../../web2-hotel/backend/middlewares/authToken");
 
 router.post("/", auth.verificarToken, controller.criar);
 router.get("/", auth.verificarToken, controller.listar);

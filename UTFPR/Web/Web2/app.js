@@ -40,12 +40,14 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Middlewares para sessão
 app.use(cookieParser());
-app.use(session({
-  secret: "seilaman",
-  cookie: { maxAge: 30 * 60 * 1000 },
-  resave: false,
-  saveUninitialized: true
-}));
+app.use(
+  session({
+    secret: "seilaman",
+    cookie: { maxAge: 30 * 60 * 1000 },
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 // Middlewares das rotas web com proteção de sessão
 app.use(sessionControl);

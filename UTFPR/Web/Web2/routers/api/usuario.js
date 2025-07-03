@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const controller = require("../../controllers/api/usuario");
-const auth = require("../../middlewares/authToken");
+const controller = require("../../../web2-hotel/backend/controllers/api/usuario");
+const auth = require("../../../web2-hotel/backend/middlewares/authToken");
 
 router.post("/login", controller.login);
 router.get("/usuarios", auth.verificarToken, controller.listar);

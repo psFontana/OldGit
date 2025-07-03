@@ -1,0 +1,1228 @@
+backend>config>db_mongoose.js:
+```
+const mongoose = require("mongoose");
+
+const url = "mongodb://localhost:27017/Web2_PF";
+
+mongoose
+  .connect(url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("🟢 MongoDB conectado!"))
+  .catch((err) => console.error("🔴 Erro ao conectar MongoDB:", err));
+
+module.exports = mongoose;
+```
+
+backend>config>db_sequelize.js:
+```
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize('Web2_PF', 'postgres', 'postgres', {
+  host: 'localhost',
+  dialect: 'postgres'
+});
+
+const db = {};
+
+db.Sequelize = Sequelize;
+db.sequelize = sequelize;
+
+// Models (relacionais)
+db.Enderecos = require('../models/relational/enderecos.js')(sequelize, Sequelize);
+db.Favoritos = require('../models/relational/favoritos.js')(sequelize, Sequelize);
+db.Pedido = require('../models/relational/pedido.js')(sequelize, Sequelize);
+db.Prato = require('../models/relational/prato.js')(sequelize, Sequelize);
+db.Restaurante = require('../models/relational/restaurante.js')(sequelize, Sequelize);
+db.UsuarioEndereco = require('../models/relational/usuario_endereco.js')(sequelize, Sequelize);
+db.Usuario = require('../models/relational/usuario.js')(sequelize, Sequelize);
+
+// Associações
+db.Usuario.belongsToMany(db.Enderecos, { through: db.UsuarioEndereco, foreignKey: 'id_usuario', otherKey: 'id_endereco', as: 'enderecos' });
+
+db.Enderecos.belongsToMany(db.Usuario, { through: db.UsuarioEndereco, foreignKey: 'id_endereco', otherKey: 'id_usuario', as: 'usuarios' });
+
+db.Usuario.hasMany(db.Pedido, { foreignKey: 'id_usuario', as: 'pedidos' });
+
+db.Pedido.belongsTo(db.Usuario, { foreignKey: 'id_usuario', as: 'usuario' });
+
+db.Restaurante.hasMany(db.Pedido, { foreignKey: 'id_restaurante', as: 'pedidos' });
+
+db.Pedido.belongsTo(db.Restaurante, { foreignKey: 'id_restaurante', as: 'restaurante' });
+
+db.Restaurante.hasMany(db.Prato, { foreignKey: 'id_restaurante', as: 'pratos' });
+
+db.Prato.belongsTo(db.Restaurante, { foreignKey: 'id_restaurante', as: 'restaurante' });
+
+db.Usuario.hasMany(db.Favoritos, { foreignKey: 'id_usuario', as: 'favoritos' });
+
+db.Favoritos.belongsTo(db.Usuario, { foreignKey: 'id_usuario', as: 'usuario' });
+
+db.Restaurante.hasMany(db.Favoritos, { foreignKey: 'id_restaurante', as: 'favoritos' });
+
+db.Favoritos.belongsTo(db.Restaurante, { foreignKey: 'id_restaurante', as: 'restaurante' });
+
+module.exports = db;
+```
+
+backend>controllers>controllerEnderecos.js:
+```
+const db = require('../config/db_sequelize');
+
+module.exports = {
+  async getCreate(req, res) {
+    res.render('enderecos/enderecosCreate');
+  },
+
+  async postCreate(req, res) {
+    try {
+      await db.Enderecos.create(req.body);
+      res.redirect('/enderecosList');
+    } catch (error) {
+      console.error('Erro ao criar endereço:', error);
+      res.status(500).send('Erro interno');
+    }
+  },
+
+  async getList(req, res) {
+    try {
+      const enderecos = await db.Enderecos.findAll();
+      res.render('enderecos/enderecosList', { enderecos: enderecos.map(e => e.toJSON()) });
+    } catch (error) {
+      console.error('Erro ao listar endereços:', error);
+      res.status(500).send('Erro interno');
+    }
+  },
+
+  async getUpdate(req, res) {
+    try {
+      const endereco = await db.Enderecos.findByPk(req.params.id);
+      if (endereco) {
+        res.render('enderecos/enderecosUpdate', { endereco: endereco.toJSON() });
+      } else {
+        res.redirect('/enderecosList');
+      }
+    } catch (error) {
+      console.error('Erro ao carregar endereço:', error);
+      res.status(500).send('Erro interno');
+    }
+  },
+
+  async postUpdate(req, res) {
+    try {
+      await db.Enderecos.update(req.body, { where: { id: req.body.id } });
+      res.redirect('/enderecosList');
+    } catch (error) {
+      console.error('Erro ao atualizar endereço:', error);
+      res.status(500).send('Erro interno ao listar');
+    }
+  },
+
+  async getDelete(req, res) {
+    try {
+      await db.Enderecos.destroy({ where: { id: req.params.id } });
+      await db.sequelize.query(`ALTER SEQUENCE enderecos_id_seq RESTART WITH 1`);
+      res.redirect('/enderecosList');
+    } catch (error) {
+      console.error('Erro ao deletar endereço:', error);
+      res.status(500).send('Erro interno');
+    }
+  }
+};
+```
+
+backend>controllers>controllerFavoritos.js:
+```
+const db = require('../config/db_sequelize');
+
+module.exports = {
+  async getCreate(req, res) {
+    res.render('favoritos/favoritosCreate');
+  },
+
+  async postCreate(req, res) {
+    try {
+      await db.Favoritos.create(req.body);
+      res.redirect('/favoritosList');
+    } catch (error) {
+      console.error('Erro ao criar favorito:', error);
+      res.status(500).send('Erro interno');
+    }
+  },
+
+  async getList(req, res) {
+    try {
+      const favoritos = await db.Favoritos.findAll();
+      res.render('favoritos/favoritosList', { favoritos: favoritos.map(f => f.toJSON()) });
+    } catch (error) {
+      console.error('Erro ao listar favoritos:', error);
+      res.status(500).send('Erro interno');
+    }
+  },
+
+  async getDelete(req, res) {
+    try {
+      await db.Favoritos.destroy({ where: { id: req.params.id } });
+      await db.sequelize.query(`ALTER SEQUENCE favoritos_id_seq RESTART WITH 1`);
+      res.redirect('/favoritosList');
+    } catch (error) {
+      console.error('Erro ao deletar favorito:', error);
+      res.status(500).send('Erro interno');
+    }
+  },
+
+  async getUpdate(req, res) {
+    try {
+      const favorito = await db.Favoritos.findByPk(req.params.id);
+      if (favorito) {
+        res.render('favoritos/favoritosUpdate', { favorito: favorito.toJSON() });
+      } else {
+        res.redirect('/favoritosList');
+      }
+    } catch (error) {
+      console.error('Erro ao carregar favorito:', error);
+      res.status(500).send('Erro interno');
+    }
+  },
+
+  async postUpdate(req, res) {
+    try {
+      await db.Favoritos.update(req.body, { where: { id: req.body.id } });
+      res.redirect('/favoritosList');
+    } catch (error) {
+      console.error('Erro ao atualizar favorito:', error);
+      res.status(500).send('Erro interno');
+    }
+  }
+};
+```
+
+backend>controllers>controllerPedido.js:
+```
+const db = require('../config/db_sequelize');
+const PedidoNoSQL = require('../models/noSql/pedidos');
+
+module.exports = {
+  // Página de criação
+  async getCreate(req, res) {
+    res.render('pedido/pedidoCreate');
+  },
+
+  // Ação de criação
+  async postCreate(req, res) {
+    try {
+      const { id_usuario, id_restaurante, data } = req.body;
+      // Cria no relacional
+      const novoPedido = await db.Pedido.create({
+        id_usuario,
+        id_restaurante,
+        data,
+        status: 'Pendente'
+      });
+
+      // Cria no NoSQL usando o mesmo id
+      await PedidoNoSQL.create({
+        id: novoPedido.id,
+        id_usuario,
+        id_restaurante,
+        pratos: [], 
+        total: 0,   
+        status: 'Pendente',
+        data: data || new Date()
+      });
+
+      res.redirect('/pedidoList');
+    } catch (error) {
+      console.error('Erro ao criar pedido:', error);
+      res.status(500).send('Erro interno');
+    }
+  },
+
+  // Listagem de pedidos
+  async getList(req, res) {
+    try {
+      const pedidos = await db.Pedido.findAll();
+      res.render('pedido/pedidoList', {
+        pedidos: pedidos.map(p => p.toJSON())
+      });
+    } catch (error) {
+      console.error('Erro ao listar pedidos:', error);
+      res.status(500).send('Erro interno');
+    }
+  },
+
+  // Página de edição
+  async getUpdate(req, res) {
+    try {
+      const pedido = await db.Pedido.findByPk(req.params.id);
+      if (pedido) {
+        res.render('pedido/pedidoUpdate', {
+          pedido: pedido.toJSON()
+        });
+      } else {
+        res.status(404).send('Pedido não encontrado');
+      }
+    } catch (error) {
+      console.error('Erro ao buscar pedido:', error);
+      res.status(500).send('Erro interno');
+    }
+  },
+
+  // Ação de atualização
+  async postUpdate(req, res) {
+    try {
+      const { id, id_usuario, id_restaurante, data, status } = req.body;
+
+      await db.Pedido.update(
+        { id_usuario, id_restaurante, data, status },
+        { where: { id } }
+      );
+
+      // Atualiza no NoSQL também
+      await PedidoNoSQL.updateOne(
+        { id: id },
+        { id_usuario, id_restaurante, status, data }
+      );
+
+      res.redirect('/pedidoList');
+    } catch (error) {
+      console.error('Erro ao atualizar pedido:', error);
+      res.status(500).send('Erro interno');
+    }
+  },
+
+  // Ação de exclusão
+  async getDelete(req, res) {
+    try {
+      await db.Pedido.destroy({ where: { id: req.params.id } });
+
+      // Remove do NoSQL também
+      await PedidoNoSQL.deleteOne({ id: req.params.id });
+
+      await db.sequelize.query(`ALTER SEQUENCE pedidos_id_seq RESTART WITH 1`);
+      res.redirect('/pedidoList');
+    } catch (error) {
+      console.error('Erro ao deletar pedido:', error);
+      res.status(500).send('Erro interno');
+    }
+  }
+};
+```
+
+backend>controllers>controllerPrato.js:
+```
+const db = require('../config/db_sequelize');
+
+module.exports = {
+  async getCreate(req, res) {
+    res.render('prato/pratoCreate');
+  },
+
+  async postCreate(req, res) {
+    try {
+      await db.Prato.create(req.body);
+      res.redirect('/pratoList');
+    } catch (error) {
+      console.error('Erro ao criar prato:', error);
+      res.status(500).send('Erro interno');
+    }
+  },
+
+  async getList(req, res) {
+    try {
+      const pratos = await db.Prato.findAll();
+      res.render('prato/pratoList', { pratos: pratos.map(p => p.toJSON()) });
+    } catch (error) {
+      console.error('Erro ao listar pratos:', error);
+      res.status(500).send('Erro interno');
+    }
+  },
+
+  async getDelete(req, res) {
+    try {
+      await db.Prato.destroy({ where: { id: req.params.id } });
+      await db.sequelize.query(`ALTER SEQUENCE pratos_id_seq RESTART WITH 1`);
+      res.redirect('/pratoList');
+    } catch (error) {
+      console.error('Erro ao deletar prato:', error);
+      res.status(500).send('Erro interno');
+    }
+  }
+};
+```
+
+backend>controllers>controllerRestaurante.js:
+```
+const db = require('../config/db_sequelize');
+const RestauranteNoSQL = require('../models/noSql/restaurante');
+
+module.exports = {
+  // Página de criação de restaurante
+  async getCreate(req, res) {
+    res.render('restaurante/restauranteCreate');
+  },
+
+  // Ação de criação de restaurante
+  async postCreate(req, res) {
+    try {
+      // Cria no relacional
+      const novoRestaurante = await db.Restaurante.create(req.body);
+
+      // Cria no NoSQL usando o mesmo id
+      await RestauranteNoSQL.create({
+        id: novoRestaurante.id,
+        nome: novoRestaurante.nome
+      });
+
+      res.redirect('/restauranteList');
+    } catch (error) {
+      console.error('Erro ao criar restaurante:', error);
+      res.status(500).send('Erro interno');
+    }
+  },
+
+  // Listagem de restaurantes
+  async getList(req, res) {
+    try {
+      const restaurantes = await db.Restaurante.findAll();
+      res.render('restaurante/restauranteList', {
+        restaurantes: restaurantes.map(r => r.toJSON())
+      });
+    } catch (error) {
+      console.error('Erro ao listar restaurantes:', error);
+      res.status(500).send('Erro interno');
+    }
+  },
+
+  // Página de edição de restaurante
+  async getUpdate(req, res) {
+    try {
+      const restaurante = await db.Restaurante.findByPk(req.params.id);
+      if (restaurante) {
+        res.render('restaurante/restauranteUpdate', {
+          restaurante: restaurante.toJSON()
+        });
+      } else {
+        res.status(404).send('Restaurante não encontrado');
+      }
+    } catch (error) {
+      console.error('Erro ao buscar restaurante:', error);
+      res.status(500).send('Erro interno');
+    }
+  },
+
+  // Ação de atualização de restaurante
+  async postUpdate(req, res) {
+    try {
+      const { id, nome, descricao, endereco } = req.body;
+
+      await db.Restaurante.update(
+        { nome, descricao, endereco },
+        { where: { id } }
+      );
+
+      // Atualiza no NoSQL também
+      await RestauranteNoSQL.updateOne(
+        { id: id },
+        { nome }
+      );
+
+      res.redirect('/restauranteList');
+    } catch (error) {
+      console.error('Erro ao atualizar restaurante:', error);
+      res.status(500).send('Erro interno');
+    }
+  },
+
+  // Ação de exclusão de restaurante
+  async getDelete(req, res) {
+    try {
+      await db.Restaurante.destroy({
+        where: { id: req.params.id }
+      });
+
+      // Remove do NoSQL também
+      await RestauranteNoSQL.deleteOne({ id: req.params.id });
+
+      await db.sequelize.query(`ALTER SEQUENCE restaurantes_id_seq RESTART WITH 1`);
+      res.redirect('/restauranteList');
+    } catch (error) {
+      console.error('Erro ao deletar restaurante:', error);
+      res.status(500).send('Erro interno');
+    }
+  }
+};
+```
+
+backend>controllers>controllerUsuario.js:
+```
+const db = require("../config/db_sequelize");
+const UsuarioNoSQL = require("../models/noSql/usuario");
+
+module.exports = {
+  // Página de login
+  async getLogin(req, res) {
+    res.render("usuario/login", { layout: "noMenu.handlebars" });
+  },
+
+  // Ação de login
+  // Cookies:
+  // async postLogin(req, res) {
+  //   var user = {
+  //     email: req.body.email,
+  //   };
+  //   db.Usuario.findAll({
+  //     where: { email: req.body.email, senha: req.body.senha },
+  //   })
+  //     .then((usuarios) => {
+  //       if (usuarios.length > 0) {
+  //         res.cookie("userData", user, {
+  //           maxAge: 30 * 60 * 1000,
+  //           httpOnly: true,
+  //         });
+  //         res.render("home");
+  //       } else res.redirect("/");
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // },
+
+async postLogin(req, res) {
+  try {
+    const usuarios = await db.Usuario.findAll({
+      where: { email: req.body.email, senha: req.body.senha },
+    });
+
+    if (usuarios.length > 0) {
+      const usuario = usuarios[0];
+
+      // Armazena o usuário na sessão
+      req.session.usuario = usuario.dataValues; // Armazena o objeto do usuário
+
+      console.log("Usuário logado:", req.session.usuario.email);
+      console.log("Perfil do Usuário:", req.session.usuario.perfil);
+
+      res.redirect("/home"); // Redireciona para a rota home
+    } else {
+      res.redirect("/");
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Erro ao realizar login");
+  }
+},
+
+  // Cookies:
+  // async getLogout(req, res) {
+  //   res.cookie("userData", ,
+  //       req.cookies.userData,
+  //     { maxAge: 0, httpOnly: true });
+  //     resredirect("/");
+  // },
+
+  async getLogout(req, res) {
+    req.session.destroy();
+    res.redirect("/");
+  },
+
+  // Página de cadastro
+  async getCreate(req, res) {
+    res.render("usuario/usuarioCreate");
+  },
+
+  // Ação de criação
+  async postCreate(req, res) {
+    try {
+      // Cria no relacional
+      const novoUsuario = await db.Usuario.create(req.body);
+
+      // Cria no NoSQL usando o mesmo id
+      await UsuarioNoSQL.create({
+        id: novoUsuario.id,
+        nome: novoUsuario.nome,
+        nascimento: novoUsuario.nascimento,
+        email: novoUsuario.email,
+        senha: novoUsuario.senha,
+        enderecos: [],
+        restaurantes: [],
+        perfil: novoUsuario.perfil
+      });
+
+      res.redirect("/usuarioList");
+    } catch (error) {
+      console.error("Erro ao criar usuário:", error);
+      res.status(500).send("Erro interno");
+    }
+  },
+
+  // Listagem de usuários
+  async getList(req, res) {
+    try {
+      const usuarios = await db.Usuario.findAll();
+      res.render("usuario/usuarioList", {
+        usuarios: usuarios.map((user) => user.toJSON()),
+      });
+    } catch (err) {
+      console.error("Erro ao listar usuários:", err);
+      res.status(500).send("Erro interno ao listar usuários");
+    }
+  },
+
+  // Página de edição
+  async getUpdate(req, res) {
+    try {
+      const usuario = await db.Usuario.findByPk(req.params.id);
+      if (usuario) {
+        const usuarioData = usuario.toJSON();
+
+        // Formata a data para input type="date"
+        if (usuarioData.nascimento) {
+          usuarioData.nascimento = new Date(usuarioData.nascimento)
+            .toISOString()
+            .split("T")[0];
+        }
+
+        res.render("usuario/usuarioUpdate", { usuario: usuarioData });
+      } else {
+        res.redirect("/usuarioList");
+      }
+    } catch (error) {
+      console.error("Erro ao carregar usuário:", error);
+      res.status(500).send("Erro interno");
+    }
+  },
+
+  // Ação de atualização
+  async postUpdate(req, res) {
+    try {
+      const dadosAtualizados = {
+        nome: req.body.nome,
+        email: req.body.email,
+        nascimento: req.body.nascimento,
+        perfil: req.body.perfil,
+      };
+
+      // Só atualiza a senha se ela for preenchida
+      if (req.body.senha && req.body.senha.trim() !== "") {
+        dadosAtualizados.senha = req.body.senha;
+      }
+
+      await db.Usuario.update(dadosAtualizados, {
+        where: { id: req.body.id },
+      });
+
+      // Atualiza no NoSQL também
+      await UsuarioNoSQL.updateOne({ id: req.body.id }, dadosAtualizados);
+
+      res.redirect("/usuarioList");
+    } catch (error) {
+      console.error("Erro ao atualizar usuário:", error);
+      res.status(500).send("Erro interno");
+    }
+  },
+
+  // Ação de exclusão
+  async getDelete(req, res) {
+    try {
+      await db.Usuario.destroy({
+        where: { id: req.params.id },
+      });
+
+      // Remove do NoSQL também
+      await UsuarioNoSQL.deleteOne({ id: req.params.id });
+      
+      res.redirect("/usuarioList");
+    } catch (error) {
+      console.error("Erro ao deletar usuário:", error);
+      res.status(500).send("Erro interno");
+    }
+  },
+};
+```
+
+backend>controllers>controllerUsuarioEndereco.js:
+```
+const db = require('../config/db_sequelize');
+
+module.exports = {
+  async getCreate(req, res) {
+    res.render('usuarioEndereco/usuarioEnderecoCreate');
+  },
+
+  async postCreate(req, res) {
+    try {
+      await db.UsuarioEndereco.create(req.body);
+      res.redirect('/usuarioEnderecoList');
+    } catch (error) {
+      console.error('Erro ao criar usuário-endereço:', error);
+      res.status(500).send('Erro interno');
+    }
+  },
+
+  async getList(req, res) {
+    try {
+      const usuarioEnderecos = await db.UsuarioEndereco.findAll();
+      res.render('usuarioEndereco/usuarioEnderecoList', { usuarioEnderecos: usuarioEnderecos.map(ue => ue.toJSON()) });
+    } catch (error) {
+      console.error('Erro ao listar usuário-endereço:', error);
+      res.status(500).send('Erro interno');
+    }
+  },
+
+  async getDelete(req, res) {
+    try {
+      await db.UsuarioEndereco.destroy({ where: { id: req.params.id } });
+      res.redirect('/usuarioEnderecoList');
+    } catch (error) {
+      console.error('Erro ao deletar usuário-endereço:', error);
+      res.status(500).send('Erro interno');
+    }
+  },
+  
+  async getUpdate(req, res) {
+    try {
+      const usuarioEndereco = await db.UsuarioEndereco.findByPk(req.params.id);
+      if (usuarioEndereco) {
+        res.render('usuarioEndereco/usuarioEnderecoUpdate', { usuarioEndereco: usuarioEndereco.toJSON() });
+      } else {
+        res.redirect('/usuarioEnderecoList');
+      }
+    } catch (error) {
+      console.error('Erro ao carregar usuário-endereço:', error);
+      res.status(500).send('Erro interno');
+    }
+  },
+
+  async postUpdate(req, res) {
+    try {
+      await db.UsuarioEndereco.update(req.body, { where: { id: req.body.id } });
+      res.redirect('/usuarioEnderecoList');
+    } catch (error) {
+      console.error('Erro ao atualizar usuário-endereço:', error);
+      res.status(500).send('Erro interno');
+    }
+  }
+};
+```
+
+backend>controllers>controllerUsuarioRestaurante.js:
+```
+const UsuarioMongo = require('../models/noSql/usuario');
+const RestauranteMongo = require('../models/noSql/restaurante');
+
+module.exports = {
+  async getCreate(req, res) {
+    res.render('usuarioRestaurante/usuarioRestauranteCreate');
+  },
+
+  async postCreate(req, res) {
+    try {
+      const usuarioId = req.body.usuarioId;
+      const restauranteId = Number(req.body.restauranteId);
+
+      if (isNaN(restauranteId)) {
+        return res.status(400).send('ID do restaurante inválido');
+      }
+
+      const restauranteExists = await RestauranteMongo.findOne({ id: restauranteId });
+      if (!restauranteExists) {
+        return res.status(404).send('Restaurante não encontrado');
+      }
+
+      await UsuarioMongo.updateOne(
+        { id: usuarioId },
+        { $addToSet: { restaurantes: restauranteId } }
+      );
+
+      res.redirect('/usuarioRestauranteList');
+    } catch (error) {
+      console.error('Erro ao adicionar restaurante ao usuário:', error);
+      res.status(500).send('Erro interno');
+    }
+  },
+
+  async getList(req, res) {
+    try {
+      const usuariosMongo = await UsuarioMongo.find();
+
+      const usuariosComRestaurantes = await Promise.all(
+        usuariosMongo.map(async (usuario) => {
+          const restaurantes = await RestauranteMongo.find({
+            id: { $in: usuario.restaurantes || [] }
+          });
+
+          return {
+            ...usuario.toObject(),
+            restaurantes: restaurantes.map(r => r.toObject())
+          };
+        })
+      );
+
+      res.render('usuarioRestaurante/usuarioRestauranteList', {
+        usuariosMongo: usuariosComRestaurantes
+      });
+    } catch (error) {
+      console.error('Erro ao listar usuários:', error);
+      res.status(500).send('Erro interno');
+    }
+  },
+
+  async getDelete(req, res) {
+    try {
+      const usuarioId = Number(req.params.usuarioId);
+      const restauranteId = Number(req.params.restauranteId);
+      const userLogado = req.session.usuario;
+
+      if (!userLogado) {
+        return res.status(401).send('Usuário não autenticado');
+      }
+
+      const usuarioAlvo = await UsuarioMongo.findOne({ id: usuarioId });
+      const restaurante = await RestauranteMongo.findOne({ id: restauranteId });
+
+      if (!usuarioAlvo || !restaurante) {
+        return res.status(404).send('Usuário ou restaurante não encontrado');
+      }
+
+
+      if (userLogado.perfil === 'admin') {
+        await UsuarioMongo.updateOne(
+          { id: usuarioId },
+          { $pull: { restaurantes: restauranteId } }
+        );
+        return res.redirect('/usuarioRestauranteList');
+      }
+
+
+      if (userLogado.perfil === 'dono' && restaurante.usuarioId === userLogado.id) {
+        await UsuarioMongo.updateOne(
+          { id: usuarioId },
+          { $pull: { restaurantes: restauranteId } }
+        );
+        return res.redirect('/usuarioRestauranteList');
+      }
+
+      return res.status(403).send('Você não tem permissão para remover este restaurante');
+    } catch (error) {
+      console.error('Erro ao deletar restaurante:', error);
+      res.status(500).send('Erro interno');
+    }
+  },
+
+
+  async getUpdate(req, res) {
+    try {
+      const usuarioId = req.params.id;
+      const usuarioDoc = await UsuarioMongo.findOne({ id: usuarioId });
+
+      if (usuarioDoc) {
+        const usuario = usuarioDoc.toObject(); // <-- ESSENCIAL
+        res.render('usuarioRestaurante/usuarioRestauranteUpdate', { usuario });
+      } else {
+        res.redirect('/usuarioRestauranteList');
+      }
+    } catch (error) {
+      console.error('Erro ao carregar usuário:', error);
+      res.status(500).send('Erro interno');
+    }
+  }
+  ,
+
+  async postUpdate(req, res) {
+    try {
+      const usuarioId = req.body.id;
+      const restaurantesString = req.body.restaurantes || '';
+      const restaurantesArray = restaurantesString
+        .split(',')
+        .map(id => Number(id.trim()))
+        .filter(id => !isNaN(id));
+
+      await UsuarioMongo.updateOne(
+        { id: usuarioId },
+        {
+          $set: {
+            restaurantes: restaurantesArray
+          }
+        }
+      );
+
+      res.redirect('/usuarioRestauranteList');
+    } catch (error) {
+      console.error('Erro ao atualizar usuário:', error);
+      res.status(500).send('Erro interno');
+    }
+  }
+};
+```
+
+backend>middlewares>accessControl.js:
+```
+module.exports = (allowedProfiles) => {
+  return (req, res, next) => {
+    const user = req.session.usuario;
+
+    if (!user) {
+      return res.redirect("/login");
+    }
+
+    if (!allowedProfiles.includes(user.perfil)) {
+      return res.status(403).send("Acesso negado.");
+    }
+
+    next();
+  };
+};
+```
+
+backend>middlewares>authToken.js:
+```
+const jwt = require("jsonwebtoken");
+const SECRET = "seuSegredoSuperSeguro"; // Ideal: use process.env.JWT_SECRET
+
+module.exports = {
+  gerarToken(usuario) {
+    return jwt.sign({ id: usuario.id, perfil: usuario.perfil }, SECRET, { expiresIn: "2h" });
+  },
+
+  verificarToken(req, res, next) {
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) return res.status(401).json({ erro: "Token não fornecido" });
+
+    jwt.verify(token, SECRET, (err, decoded) => {
+      if (err) return res.status(403).json({ erro: "Token inválido" });
+      req.usuario = decoded;
+      next();
+    });
+  },
+
+  isLogado(req, res, next) {
+    module.exports.verificarToken(req, res, next);
+  },
+
+  isAdmin(req, res, next) {
+    module.exports.verificarToken(req, res, () => {
+      if (req.usuario.perfil === "admin") {
+        next();
+      } else {
+        res.status(403).json({ erro: "Acesso restrito a administradores" });
+      }
+    });
+  },
+
+  isDono(req, res, next) {
+    module.exports.verificarToken(req, res, () => {
+      if (req.usuario.perfil === "dono") {
+        next();
+      } else {
+        res.status(403).json({ erro: "Acesso restrito a donos de restaurante" });
+      }
+    });
+  },
+
+  isCliente(req, res, next) {
+    module.exports.verificarToken(req, res, () => {
+      if (req.usuario.perfil === "cliente") {
+        next();
+      } else {
+        res.status(403).json({ erro: "Acesso restrito a clientes" });
+      }
+    });
+  }
+};
+```
+
+backend>middlewares>middlewares.js:
+```
+module.exports = {
+  logRegister(req, res, next) {
+    console.log(req.url + req.method + new Date())
+    next();
+  },
+  sessionControl(req, res, next) {
+    if (req.session.login != undefined) next();
+    else if ((req.url == '/') && (req.method == 'GET')) next();
+    else if ((req.url == '/login') && (req.method == 'POST')) next();
+    else if ((req.url).split('/')[1] == 'recuperarSenha') next();
+    else res.redirect('/');
+  }
+};
+```
+
+backend>middlewares>sessionControl.js:
+```
+module.exports = (req, res, next) => {
+  const user = req.session.usuario;
+  const rotaPublica = ['/', '/login'].includes(req.path);
+
+  if (!user && rotaPublica) return next();
+  if (!user) return res.redirect('/login');
+
+  // Define layout dinâmico
+  switch (user.perfil) {
+    case "admin":
+      res.locals.layout = "adminMain";
+      break;
+    case "dono":
+      res.locals.layout = "donoMain";
+      break;
+    case "cliente":
+      res.locals.layout = "clienteMain";
+      break;
+    default:
+      res.locals.layout = "main";
+  }
+
+  return next();
+};
+```
+
+backend>models>noSql>pedidos.js:
+```
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const PedidoSchema = new Schema({
+  id: { type: Number, required: true, unique: true }, 
+  id_usuario: { type: Number, required: true },
+  id_restaurante: { type: Number, required: true },
+  pratos: [{
+    nome: { type: String, required: true },
+    descricao: String,
+    preco: Number,
+    comentarios: [{
+      autor: String,
+      texto: String,
+      data: { type: Date, default: Date.now }
+    }]
+  }],
+  total: { type: Number, required: true },
+  status: { type: String, required: true, enum: ['Pendente', 'Em Preparação', 'Entregue'] },
+  data: { type: Date, default: Date.now }
+});
+
+module.exports = mongoose.model("Pedido", PedidoSchema);
+```
+
+backend>models>noSql>restaurante.js:
+```
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const RestauranteSchema = new Schema({
+  id: { type: Number, required: true, unique: true },
+  nome: { type: String, required: true },
+  pratos: [{
+    nome: { type: String, required: true },
+    descricao: String,
+    preco: Number,
+    comentarios: [{
+      autor: String,
+      texto: String,
+      data: { type: Date, default: Date.now }
+    }]
+  }]
+});
+
+module.exports = mongoose.model("Restaurante", RestauranteSchema);
+```
+
+backend>models>noSql>usuario.js:
+```
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const UsuarioSchema = new Schema({
+  id: { type: Number, required: true, unique: true },
+  nome: { type: String, required: true },
+  nascimento: { type: Date, required: true },
+  email: { type: String, required: true, unique: true },
+  senha: { type: String, required: true },
+  enderecos: [{ type: Schema.Types.Number, ref: 'Endereco' }],
+  restaurantes: [{ type: Schema.Types.Number, ref: 'Restaurante' }],
+  perfil: { type: String, enum: ['admin', 'dono', 'cliente'], default: 'cliente' },
+});
+
+module.exports = mongoose.model("Usuario", UsuarioSchema);
+```
+
+backend>models>relational>enderecos.js:
+```
+module.exports = (sequelize, Sequelize) => {
+	const Enderecos = sequelize.define('enderecos', {
+		id: {
+			type: Sequelize.INTEGER,
+			autoIncrement: true, allowNull: false, primaryKey: true
+		},
+		cep: {
+			type: Sequelize.STRING(10), allowNull: false
+		},
+		numero: {
+			type: Sequelize.STRING, allowNull: false
+		},
+		complemento: {
+			type: Sequelize.STRING, allowNull: false
+		}
+	});
+	return Enderecos
+		;
+}
+```
+
+backend>models>relational>favoritos.js:
+```
+module.exports = (sequelize, Sequelize) => {
+  const Favoritos = sequelize.define('favoritos', {
+    id: {
+      type: Sequelize.INTEGER,
+      autoIncrement: true, allowNull: false, primaryKey: true
+    },
+    id_usuario: {
+      type: Sequelize.INTEGER, allowNull: false,
+      references: { model: 'usuarios', key: 'id' }
+    },
+    id_restaurante: {
+      type: Sequelize.INTEGER, allowNull: false,
+      references: { model: 'restaurantes', key: 'id' }
+    }
+  }, {
+    timestamps: false
+  });
+  return Favoritos;
+}
+```
+
+backend>models>relational>pedido.js:
+```
+module.exports = (sequelize, Sequelize) => {
+  const Pedido = sequelize.define('pedido', {
+    id: {
+      type: Sequelize.INTEGER,
+      autoIncrement: true, allowNull: false, primaryKey: true
+    },
+    id_usuario: {
+      type: Sequelize.INTEGER, allowNull: false,
+      references: { model: 'usuarios', key: 'id' }
+    },
+    id_restaurante: {
+      type: Sequelize.INTEGER, allowNull: false,
+      references: { model: 'restaurantes', key: 'id' }
+    },
+    data: {
+      type: Sequelize.DATEONLY,
+      allowNull: false
+    },
+    status: {
+      type: Sequelize.STRING,
+      allowNull: false
+    }
+  }, {
+    timestamps: false
+  });
+
+  return Pedido;
+};
+```
+
+backend>models>relational>prato.js:
+```
+module.exports = (sequelize, Sequelize) => {
+  const Prato = sequelize.define('prato', {
+    id: {
+      type: Sequelize.INTEGER,
+      autoIncrement: true, allowNull: false, primaryKey: true
+    },
+    nome: {
+      type: Sequelize.STRING, allowNull: false
+    },
+    preco: {
+      type: Sequelize.FLOAT, allowNull: false
+    },
+    id_restaurante: {
+      type: Sequelize.INTEGER, allowNull: false,
+      references: { model: 'restaurantes', key: 'id' }
+    }
+  }, {
+    timestamps: false
+  });
+  return Prato;
+}
+```
+
+backend>models>relational>restaurante.js:
+```
+module.exports = (sequelize, Sequelize) => {
+  const Restaurante = sequelize.define('restaurante', {
+    id: {
+      type: Sequelize.INTEGER,
+      autoIncrement: true, allowNull: false, primaryKey: true
+    },
+    nome: {
+      type: Sequelize.STRING, allowNull: false
+    }
+  }, {
+    timestamps: true
+  });
+  return Restaurante;
+}
+```
+
+backend>models>relational>usuario_endereco.js:
+```
+module.exports = (sequelize, Sequelize) => {
+  const UsuarioEndereco = sequelize.define('usuario_endereco', {
+    id: {
+      type: Sequelize.INTEGER,
+      autoIncrement: true, allowNull: false, primaryKey: true
+    },
+    id_usuario: {
+      type: Sequelize.INTEGER, allowNull: false,
+      references: { model: 'usuarios', key: 'id' }
+    },
+    id_endereco: {
+      type: Sequelize.INTEGER, allowNull: false,
+      references: { model: 'enderecos', key: 'id' }
+    }
+  });
+  return UsuarioEndereco;
+}
+```
+
+backend>models>relational>usuario.js:
+```
+module.exports = (sequelize, Sequelize) => {
+  const Usuario = sequelize.define('usuario', {
+    id: {
+      type: Sequelize.INTEGER,
+      autoIncrement: true,
+      allowNull: false,
+      primaryKey: true
+    },
+    nome: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    nascimento: {
+      type: Sequelize.DATE,
+      allowNull: false
+    },
+    email: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      unique: true
+    },
+    senha: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    perfil: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      defaultValue: 'cliente',
+    }
+  }, {
+    timestamps: true
+  });
+  return Usuario;
+}
+```

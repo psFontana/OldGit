@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const controller = require("../../controllers/api/restaurante");
-const auth = require("../../middlewares/authToken");
+const controller = require("../../../web2-hotel/backend/controllers/api/restaurante");
+const auth = require("../../../web2-hotel/backend/middlewares/authToken");
 
 // Rotas da API para Restaurante
 router.get("/", auth.isLogado, controller.listar); // Lista todos os restaurantes

@@ -1,0 +1,290 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API de Usuários",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/login": {
+      "post": {
+        "summary": "Login de usuário",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": { "type": "string" },
+                  "senha": { "type": "string" }
+                },
+                "required": ["email", "senha"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login bem-sucedido - retorna token JWT",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "description": "Token JWT para autenticação"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Credenciais inválidas"
+          }
+        }
+      }
+    },
+    "/api/usuarios": {
+      "get": {
+        "summary": "Lista todos os usuários",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Lista de usuários"
+          }
+        }
+      },
+      "post": {
+        "summary": "Cria um novo usuário",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": { "type": "string" },
+                  "nascimento": { "type": "string", "format": "date" },
+                  "email": { "type": "string" },
+                  "senha": { "type": "string" },
+                  "perfil": { "type": "string" }
+                },
+                "required": ["nome", "email", "senha", "perfil"]
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Usuário criado com sucesso"
+            }
+          }
+        }
+      }
+    },
+    "/api/pedido": {
+      "post": {
+        "summary": "Cria um novo pedido",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id_usuario": { "type": "number" },
+                  "id_restaurante": { "type": "number" },
+                  "pratos": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "nome": { "type": "string" },
+                        "descricao": { "type": "string" },
+                        "preco": { "type": "number" }
+                      }
+                    }
+                  },
+                  "total": { "type": "number" },
+                  "status": {
+                    "type": "string",
+                    "enum": ["Pendente", "Em Preparação", "Entregue"]
+                  }
+                },
+                "required": ["id_usuario", "id_restaurante", "pratos", "total", "status"]
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Pedido criado com sucesso"
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Lista todos os pedidos",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Lista de pedidos"
+          }
+        }
+      }
+    },
+    "/api/endereco": {
+      "post": {
+        "summary": "Cria um novo endereço",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cep": { "type": "string" },
+                  "numero": { "type": "string" },
+                  "complemento": { "type": "string" }
+                },
+                "required": ["cep", "numero"]
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Endereço criado com sucesso"
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Lista todos os endereços",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Lista de endereços"
+          }
+        }
+      }
+    },
+    "/api/favorito": {
+      "post": {
+        "summary": "Cria um novo favorito",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id_usuario": { "type": "number" },
+                  "id_restaurante": { "type": "number" }
+                },
+                "required": ["id_usuario", "id_restaurante"]
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Favorito criado com sucesso"
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Lista todos os favoritos",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Lista de favoritos"
+          }
+        }
+      }
+    },
+    "/api/prato": {
+      "post": {
+        "summary": "Cria um novo prato",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": { "type": "string" },
+                  "preco": { "type": "number" },
+                  "id_restaurante": { "type": "number" }
+                },
+                "required": ["nome", "preco", "id_restaurante"]
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Prato criado com sucesso"
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Lista todos os pratos",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Lista de pratos"
+          }
+        }
+      }
+    },
+    "/api/usuarioEndereco": {
+      "post": {
+        "summary": "Cria um novo usuário-endereço",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id_usuario": { "type": "number" },
+                  "id_endereco": { "type": "number" }
+                },
+                "required": ["id_usuario", "id_endereco"]
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Usuário-endereço criado com sucesso"
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Lista todos os usuários-endereços",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Lista de usuários-endereços"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
