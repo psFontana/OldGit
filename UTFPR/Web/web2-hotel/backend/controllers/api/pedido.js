@@ -4,46 +4,25 @@ const PedidoNoSQL = require("../../models/noSql/pedidos"); // Importa o modelo M
 module.exports = {
   async criar(req, res) {
     try {
-      const { id_usuario, id_restaurante, data } = req.body;
-      const perfil = req.usuario.perfil;
-      const idLogado = req.usuario.id;
+      // Dados que vêm do frontend React
+      const { id_usuario, id_restaurante, data, status, total } = req.body; // Removi 'pratos' daqui por enquanto
 
-      if (perfil === "cliente" && id_usuario != idLogado) {
-        return res
-          .status(403)
-          .json({ erro: "Cliente só pode fazer pedidos para si." });
-      } // Dono só pode criar pedidos para restaurantes que ele é dono
-
-      if (perfil === "dono") {
-        const usuario = await require("../../models/noSql/usuario").findOne({
-          id: idLogado,
-        });
-        if (idLogado == id_usuario) {
-          // Se o dono estiver fazendo um pedido para si mesmo, não precisa verificar o restaurante
-        } else if (
-          !usuario ||
-          !usuario.restaurantes.includes(Number(id_restaurante))
-        ) {
-          return res.status(403).json({
-            erro: "Dono só pode fazer pedidos para seus restaurantes.",
-          });
-        }
-      } // Criação no banco relacional
-
+      // 1. Crie o pedido no banco de dados Relacional (Sequelize)
       const novoPedidoRelacional = await db.Pedido.create({
         id_usuario,
         id_restaurante,
         data,
         status: "Pendente",
-      }); // Criação no Mongo
+      });
 
+      // 2. Crie o pedido correspondente no banco de dados NoSQL (Mongoose)
       await PedidoNoSQL.create({
         id: novoPedidoRelacional.id,
         id_usuario,
         id_restaurante,
-        pratos: [],
+        pratos: [], // Vazio, já que não há lógica de pratos ainda
         total: 0,
-        status: "Pendente",
+        status: novoPedidoRelacional.status,
         data: novoPedidoRelacional.data || new Date(),
       });
 
@@ -53,7 +32,15 @@ module.exports = {
       });
     } catch (error) {
       console.error("Erro ao criar pedido:", error);
-      res.status(500).json({ message: "Erro interno ao criar pedido." });
+      if (error.name === "ValidationError") {
+        return res.status(400).json({
+          message: "Erro de validação ao criar pedido.",
+          errors: error.errors,
+        });
+      }
+      res
+        .status(500)
+        .json({ message: "Erro interno do servidor ao criar pedido." });
     }
   },
 
@@ -100,8 +87,9 @@ module.exports = {
         return res.status(404).json({
           message: "Pedido relacional não encontrado para atualização.",
         });
-      } // Determine o 'total' para atualização
+      }
 
+      // Determine o 'total' para atualização
       const totalParaNoSQL = total || 0; // Ou o valor vindo do frontend
 
       const pedidoAtualizadoNoSQL = await PedidoNoSQL.findOneAndUpdate(

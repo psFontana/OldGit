@@ -24,7 +24,7 @@ const UsuarioRestauranteCreate = () => {
         restauranteId: Number(form.id_restaurante), // Converte para número
       };
 
-      await api.post("/usuarioRestaurante/vincular", dataToSend);
+      await api.post("/usuarioRestaurante", dataToSend);
       alert("Usuário vinculado ao restaurante com sucesso!");
       navigate("/usuario-restaurante/list");
     } catch (err) {
