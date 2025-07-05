@@ -1,6 +1,7 @@
 const db = require("../../config/db_sequelize");
 const RestauranteMongo = require("../../models/noSql/restaurante");
 const Restaurante = db.Restaurante;
+const UsuarioMongo = require("../../models/noSql/usuario");
 
 module.exports = {
   async listar(req, res) {
@@ -24,17 +25,29 @@ module.exports = {
 
   async criar(req, res) {
     try {
+      console.log("Dados recebidos no body:", req.body);
+      console.log("Usuário autenticado:", req.usuario);
+
       const novo = await Restaurante.create(req.body);
 
-      // Criar também no MongoDB
       await RestauranteMongo.create({
         id: novo.id,
         nome: novo.nome,
-        pratos: [], // Lista vazia por padrão
+        pratos: [],
       });
+
+      // Se o perfil for "dono", vincula automaticamente o restaurante
+      if (req.usuario.perfil === "dono") {
+        const usuario = await UsuarioMongo.findOne({ id: req.usuario.id });
+        if (usuario) {
+          usuario.restaurantes = [...(usuario.restaurantes || []), novo.id];
+          await usuario.save();
+        }
+      }
 
       res.status(201).json(novo);
     } catch (err) {
+      console.error(err);
       res.status(400).json({ erro: "Erro ao criar restaurante" });
     }
   },

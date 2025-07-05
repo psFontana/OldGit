@@ -6,8 +6,6 @@ import { useNavigate } from "react-router-dom";
 const RestauranteCreate = () => {
   const [form, setForm] = useState({
     nome: "",
-    categoria: "",
-    endereco: "",
   });
 
   const navigate = useNavigate();

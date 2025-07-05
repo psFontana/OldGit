@@ -66,3 +66,20 @@ db.sequelize
   .catch((err) => {
     console.error("🔴 Erro ao sincronizar banco: ", err);
   });
+
+const adminExistente = await UsuarioModel.findOne({
+  where: { email: "admin@admin.com" },
+});
+
+if (!adminExistente) {
+  await UsuarioModel.create({
+    nome: "Administrador",
+    nascimento: new Date(2005, 4, 27),
+    email: "admin@admin.com",
+    senha: "admin", // Em produção, use hash
+    perfil: "admin",
+  });
+  console.log("🔐 Usuário admin criado com sucesso!");
+} else {
+  console.log("🔐 Usuário admin já existe.");
+}

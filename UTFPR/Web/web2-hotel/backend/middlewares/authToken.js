@@ -3,7 +3,9 @@ const SECRET = "seuSegredoSuperSeguro"; // Ideal: use process.env.JWT_SECRET
 
 module.exports = {
   gerarToken(usuario) {
-    return jwt.sign({ id: usuario.id, perfil: usuario.perfil }, SECRET, { expiresIn: "2h" });
+    return jwt.sign({ id: usuario.id, perfil: usuario.perfil }, SECRET, {
+      expiresIn: "2h",
+    });
   },
 
   verificarToken(req, res, next) {
@@ -33,10 +35,12 @@ module.exports = {
 
   isDono(req, res, next) {
     module.exports.verificarToken(req, res, () => {
-      if (req.usuario.perfil === "dono") {
+      if (req.usuario.perfil === "dono" || req.usuario.perfil === "admin") {
         next();
       } else {
-        res.status(403).json({ erro: "Acesso restrito a donos de restaurante" });
+        res
+          .status(403)
+          .json({ erro: "Acesso restrito a donos de restaurante" });
       }
     });
   },
@@ -49,5 +53,5 @@ module.exports = {
         res.status(403).json({ erro: "Acesso restrito a clientes" });
       }
     });
-  }
+  },
 };

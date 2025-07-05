@@ -11,12 +11,53 @@ const PedidoList = () => {
   useEffect(() => {
     const fetchPedidos = async () => {
       try {
-        const response = await api.get("/pedido");
-        setPedidos(response.data);
+        const perfil = localStorage.getItem("perfil");
+        const token = localStorage.getItem("token");
+
+        if (!perfil || !token) {
+          setErro("Usuário não autenticado.");
+          return;
+        }
+
+        // Extrai o ID do usuário a partir do payload do token manualmente (sem jwt-decode)
+        const base64Payload = token.split(".")[1];
+        const payload = JSON.parse(atob(base64Payload));
+        const idLogado = payload.id;
+
+        // Busca todos os pedidos
+        const pedidosRes = await api.get("/pedido");
+        let pedidosFiltrados = pedidosRes.data;
+
+        if (perfil === "cliente") {
+          pedidosFiltrados = pedidosFiltrados.filter(
+            (p) => Number(p.id_usuario) === Number(idLogado)
+          );
+        } else if (perfil === "dono") {
+          // Busca os restaurantes vinculados ao dono
+          const usuarioRes = await api.get("/usuarioRestaurante");
+          const dono = usuarioRes.data.find(
+            (u) => Number(u.id) === Number(idLogado)
+          );
+
+          if (!dono) {
+            setErro("Dados do dono não encontrados.");
+            return;
+          }
+
+          const idsRestaurantes = dono.restaurantes.map((r) => r.id);
+
+          pedidosFiltrados = pedidosFiltrados.filter((p) =>
+            idsRestaurantes.includes(Number(p.id_restaurante))
+          );
+        }
+
+        setPedidos(pedidosFiltrados);
       } catch (error) {
+        console.error("Erro ao buscar pedidos:", error);
         setErro("Erro ao buscar pedidos.");
       }
     };
+
     fetchPedidos();
   }, []);
 
@@ -24,7 +65,7 @@ const PedidoList = () => {
     if (window.confirm("Tem certeza que deseja deletar este pedido?")) {
       try {
         await api.delete(`/pedido/${id}`);
-        setPedidos(pedidos.filter((p) => p.id !== id));
+        setPedidos((prev) => prev.filter((p) => p.id !== id));
       } catch (error) {
         alert("Erro ao deletar pedido.");
       }
@@ -51,7 +92,7 @@ const PedidoList = () => {
               <tr key={pedido.id}>
                 <td>{pedido.id_usuario}</td>
                 <td>{pedido.id_restaurante}</td>
-                <td>{pedido.data}</td>
+                <td>{new Date(pedido.data).toLocaleDateString()}</td>
                 <td>{pedido.status}</td>
                 <td>
                   <Button
