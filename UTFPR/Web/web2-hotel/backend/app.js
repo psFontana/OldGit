@@ -1,4 +1,3 @@
-// backend/app.js
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
@@ -6,6 +5,9 @@ const cors = require("cors");
 
 const db = require("./config/db_sequelize");
 const mongoose = require("./config/db_mongoose");
+
+// Importar model Usuario Sequelize
+const UsuarioModel = db.Usuario;
 
 // Middlewares
 const sessionControl = require("./middlewares/sessionControl");
@@ -50,14 +52,38 @@ app.use("/api/restaurante", restauranteRoutes);
 app.use("/api/usuarioEndereco", usuarioEnderecoRoutes);
 app.use("/api/usuarioRestaurante", usuarioRestauranteRoutes);
 
-// Swagger
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-// Inicialização do servidor com sincronização do Sequelize
+async function criarAdminSeNaoExistir() {
+  try {
+    const adminExistente = await UsuarioModel.findOne({
+      where: { perfil: "admin" },
+    });
+
+    if (!adminExistente) {
+      await UsuarioModel.create({
+        nome: "Administrador",
+        nascimento: new Date(2005, 4, 27),
+        email: "admin@admin.com",
+        senha: "admin",
+        perfil: "admin",
+      });
+      console.log("🔐 Usuário admin criado com sucesso!");
+    } else {
+      console.log("🔐 Usuário admin já existe.");
+    }
+  } catch (error) {
+    console.error("Erro ao verificar/criar usuário admin:", error);
+  }
+}
+
 db.sequelize
   .sync()
-  .then(() => {
+  .then(async () => {
     console.log("🟢 Banco sincronizado.");
+
+    await criarAdminSeNaoExistir();
+
     app.listen(8081, () => {
       console.log("Servidor no http://localhost:8081");
       console.log("Estado do Mongoose:", mongoose.connection.readyState);
@@ -66,20 +92,3 @@ db.sequelize
   .catch((err) => {
     console.error("🔴 Erro ao sincronizar banco: ", err);
   });
-
-const adminExistente = await UsuarioModel.findOne({
-  where: { email: "admin@admin.com" },
-});
-
-if (!adminExistente) {
-  await UsuarioModel.create({
-    nome: "Administrador",
-    nascimento: new Date(2005, 4, 27),
-    email: "admin@admin.com",
-    senha: "admin", // Em produção, use hash
-    perfil: "admin",
-  });
-  console.log("🔐 Usuário admin criado com sucesso!");
-} else {
-  console.log("🔐 Usuário admin já existe.");
-}
