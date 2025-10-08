@@ -9,36 +9,56 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 
 def interpretar_mensagem(texto: str):
-    prompt = f""" O usuário digitou: "{texto}" Analise e retorne um JSON puro (sem explicações) com a intenção e os dados. 
-                Formato: {{ "acao": "listar" | "criar" | "atualizar" | "deletar" | "recomendar" | "detalhar", 
-                            "nome": <nome do curso ou null>, 
-                            "descricao": <descricao do curso ou null>, 
-                            "carga_horaria": <int ou null>, 
-                            "id": <int ou null> }} """
+    prompt = f"""
+    O usuário digitou: "{texto}".
+    Analise e retorne um JSON puro (sem explicações, texto extra ou comentários)
+    com a intenção e os dados detectados.
+
+    Sempre inclua todas as chaves no JSON, mesmo que o valor seja null.
+    Formato obrigatório:
+    {{
+        "acao": "listar" | "criar" | "atualizar" | "deletar" | "recomendar" | "detalhar",
+        "nome": <nome do curso ou null>,
+        "descricao": <descricao do curso ou null>,
+        "carga_horaria": <int ou null>,
+        "id": <int ou null>
+    }}
+    """
+
     response = client.chat.completions.create(
         model="gpt-4.1-nano",
         messages=[
             {
                 "role": "system",
                 "content": (
-                    "Você é um assistente que responde exclusivamente com um JSON puro, "
-                    "sem explicações, comentários ou texto adicional. "
-                    "Siga rigorosamente o formato solicitado na mensagem do usuário."
+                    "Você é um assistente que responde exclusivamente com um JSON puro. "
+                    "Nunca escreva texto explicativo. "
+                    "Sempre inclua todas as chaves no formato solicitado, mesmo que o valor seja null."
                 ),
             },
             {"role": "user", "content": prompt},
         ],
         max_completion_tokens=200,
     )
+
+    conteudo = response.choices[0].message.content.strip()
+
+    # Log amigável para debug
+    print("\n=== JSON retornado pelo modelo ===")
+    print(conteudo)
+    print("=================================\n")
+
     try:
-        dados = json.loads(response.choices[0].message.content)
+        dados = json.loads(conteudo)
         return dados
-    except Exception:
+    except Exception as e:
+        print("⚠️ Erro ao interpretar JSON:", e)
         return {"acao": "desconhecida"}
 
 
 def executar_acao(dados):
     acao = dados.get("acao")
+
     if acao == "listar":
         r = requests.get(f"{API_URL}/cursos")
         if r.status_code == 200:
@@ -49,14 +69,14 @@ def executar_acao(dados):
                     for c in cursos
                 )
                 return f"Encontrei estes cursos:\n{texto}"
-            else:
-                return "Nenhum curso cadastrado ainda."
+            return "Nenhum curso cadastrado ainda."
         return "Erro ao listar cursos: " + r.text
-    elif acao == "criar":
-        nome = dados.get("nome", "Curso sem nome")
-        descricao = dados.get("descricao")
 
-        if not descricao or descricao.strip() == "":
+    elif acao == "criar":
+        nome = dados.get("nome") or "Curso sem nome"
+        descricao = dados.get("descricao") or ""
+
+        if not descricao.strip():
             r_desc = requests.post(
                 f"{API_URL}/sugerir_descricao",
                 json={"nome": nome, "descricao_inicial": ""},
@@ -64,12 +84,12 @@ def executar_acao(dados):
             if r_desc.status_code == 200:
                 descricao = r_desc.json().get("descricao_sugerida", "Sem descrição.")
             else:
-                descricao = "Sem descrição. Erro ao recomendar descrição:" + r_desc.text
+                descricao = f"Sem descrição. Erro ao recomendar: {r_desc.text}"
 
         payload = {
             "nome": nome,
             "descricao": descricao,
-            "carga_horaria": dados.get("carga_horaria", 20),
+            "carga_horaria": dados.get("carga_horaria") or 20,
         }
 
         r = requests.post(f"{API_URL}/cursos", json=payload)
@@ -85,23 +105,32 @@ def executar_acao(dados):
         if r.status_code == 200:
             return f"🗑️ Curso {curso_id} removido com sucesso!"
         return "Erro ao remover curso: " + r.text
+
     elif acao == "atualizar":
         curso_id = dados.get("id")
         if not curso_id:
             return "Preciso do ID do curso para atualizar."
+
         payload = {
-            "nome": dados.get("nome", ""),
-            "descricao": dados.get("descricao", ""),
-            "carga_horaria": dados.get("carga_horaria", 0),
+            "nome": dados.get("nome") or "",
+            "descricao": dados.get("descricao") or "",
+            "carga_horaria": dados.get("carga_horaria") or 0,
         }
+
         r = requests.patch(f"{API_URL}/cursos/{curso_id}", json=payload)
         if r.status_code == 200:
             return f"✏️ Curso {curso_id} atualizado com sucesso!"
         return "Erro ao atualizar curso: " + r.text
 
     elif acao == "recomendar":
-        texto = dados.get("descricao", "")
+        texto = dados.get("descricao") or dados.get("nome") or ""
         palavras_usuario = [p for p in texto.lower().split() if len(p) > 2]
+
+        if not palavras_usuario:
+            return (
+                "Poderia me dar mais detalhes sobre o tipo de curso que você procura?"
+            )
+
         r = requests.get(f"{API_URL}/cursos")
         if r.status_code != 200:
             return "Erro ao acessar os cursos para recomendação."
@@ -117,16 +146,16 @@ def executar_acao(dados):
         ]
 
         if recomendados:
-            return "Recomendo estes cursos:\n" + "\n".join(
+            return "📚 Recomendo estes cursos:\n" + "\n".join(
                 f"- {c}" for c in recomendados
             )
-        else:
-            return "Hmm... não encontrei um curso que combine com seu interesse."
+        return "Hmm... não encontrei um curso que combine com seu interesse."
 
     elif acao == "detalhar":
         curso_id = dados.get("id")
         if not curso_id:
             return "Por favor, informe o ID do curso que deseja visualizar."
+
         r = requests.get(f"{API_URL}/cursos/{curso_id}")
         if r.status_code == 200:
             curso = r.json()
@@ -138,7 +167,14 @@ def executar_acao(dados):
         return "Não encontrei um curso com esse ID."
 
     else:
-        return "Não entendi o que deseja fazer. Tente algo como:\n- 'Liste os cursos'\n- 'Crie um curso de Python iniciante com 40 horas'"
+        return (
+            "Desculpe, não entendi o que deseja fazer. "
+            "Tente algo como:\n"
+            "- 'Liste os cursos'\n"
+            "- 'Crie um curso de Python iniciante com 40 horas'\n"
+            "- 'Mostre o curso 2'\n"
+            "- 'Recomende um curso sobre React'"
+        )
 
 
 @cl.on_chat_start
@@ -161,11 +197,14 @@ async def start():
 async def processar(msg: cl.Message):
     texto = msg.content.strip()
     await cl.Message(content="⏳ Processando sua solicitação...").send()
+
     dados = interpretar_mensagem(texto)
     ultimo_curso = cl.user_session.get("ultimo_curso")
 
+    # Guarda o último curso criado para atualizações contextuais
     if dados.get("acao") == "criar" and dados.get("nome"):
         cl.user_session.set("ultimo_curso", dados.get("nome"))
+
     elif dados.get("acao") == "atualizar" and not dados.get("id"):
         if ultimo_curso:
             cursos = requests.get(f"{API_URL}/cursos").json()
