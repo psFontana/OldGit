@@ -1,5 +1,6 @@
 UTFPR/Web/Projeto Web2.rar
 *.env
-/Pessoal/Estudos/Plataforma de Cursos/.chainlit/translations
+/Pessoal/Estudos/Plataforma de Cursos/.chainlit
 /Pessoal/Estudos/Plataforma de Cursos/__pycache__
 *.md
+
