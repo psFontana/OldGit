@@ -5,10 +5,17 @@ from pathlib import Path
 from pydantic import BaseModel
 import os
 from openai import OpenAI
+from dotenv import load_dotenv
 
 DATA_PATH = Path("data/cursos.json")
+load_dotenv()
+api_key = os.getenv("OPENAI_API_KEY")
+if not api_key:
+    raise RuntimeError(
+        "OPENAI_API_KEY não está definida no ambiente ou no arquivo .env"
+    )
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = OpenAI(api_key=api_key)
 
 
 class Curso(BaseModel):

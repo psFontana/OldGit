@@ -1,7 +1,45 @@
-UTFPR/Web/Projeto Web2.rar
+# Ambiente virtual
+.venv/
+venv/
+
+# Arquivos de ambiente e segredos
+.env
 *.env
-/Pessoal/Estudos/Plataforma de Cursos/.chainlit
-/Pessoal/Estudos/Plataforma de Cursos/__pycache__
+
+# Cache e compilação Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Arquivos de log e temporários
+*.log
+*.tmp
+*.bak
+
+# Arquivos de projeto pessoais e específicos
+UTFPR/Web/Projeto Web2.rar
 *.md
 
-/Pessoal/Estudos/Comparador OpenAI/model/__pycache__
+# Diretórios de ferramentas
+.chainlit/
+.streamlit/
+.idea/
+.vscode/
+
+# Dados e arquivos gerados
+*.sqlite3
+*.db
+*.csv
+*.json
+*.xlsx
+*.pdf
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Diretórios de testes ou builds
+build/
+dist/
+*.egg-info/

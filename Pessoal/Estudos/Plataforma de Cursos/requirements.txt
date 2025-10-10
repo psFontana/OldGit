@@ -1,0 +1,8 @@
+chainlit
+fastapi
+openai
+pydantic
+python-dotenv
+requests
+streamlit
+uvicorn

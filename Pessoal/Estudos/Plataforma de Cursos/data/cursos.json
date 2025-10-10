@@ -1,32 +1,128 @@
 [
-    {
-        "id": 1,
-        "nome": "Introdu\u00e7\u00e3o \u00e0 Programa\u00e7\u00e3o com Python",
-        "descricao": "Aprenda l\u00f3gica e fundamentos de Python",
-        "carga_horaria": 50
-    },
-    {
-        "id": 4,
-        "nome": "Curso Avan\u00e7ado de React",
-        "descricao": "props e hooks avan\u00e7adas",
-        "carga_horaria": 5
-    },
-    {
-        "id": 5,
-        "nome": "Django",
-        "descricao": "Neste curso de Django, voc\u00ea aprender\u00e1 a criar aplica\u00e7\u00f5es web completas, desde o entendimento dos conceitos b\u00e1sicos at\u00e9 a implementa\u00e7\u00e3o de funcionalidades avan\u00e7adas. Voc\u00ea desenvolver\u00e1 habilidades em desenvolvimento backend, banco de dados e integra\u00e7\u00e3o de APIs, tornando-se capaz de construir sites din\u00e2micos e seguros. Com aulas pr\u00e1ticas e suporte dedicado, este curso \u00e9 perfeito para quem deseja transformar ideias em projetos reais e ampliar seu portf\u00f3lio. Ao final, estar\u00e1 preparado para atuar como desenvolvedor Django e impulsionar sua carreira na \u00e1rea de tecnologia.",
-        "carga_horaria": 35
-    },
-    {
-        "id": 6,
-        "nome": "Introdu\u00e7\u00e3o \u00e0 Programa\u00e7\u00e3o Orientada a Objetos",
-        "descricao": "Neste curso de Introdu\u00e7\u00e3o \u00e0 Programa\u00e7\u00e3o Orientada a Objetos, voc\u00ea trabalhar\u00e1 os conceitos essenciais como classes, objetos, heran\u00e7a e encapsulamento, aprendendo a estruturar c\u00f3digo de forma mais eficiente e modular. Desenvolver\u00e1 habilidades em l\u00f3gica de programa\u00e7\u00e3o e na cria\u00e7\u00e3o de aplicativos mais organizados, facilitando projetos futuros. Essa forma\u00e7\u00e3o \u00e9 ideal para quem deseja iniciar na programa\u00e7\u00e3o ou aprimorar seus conhecimentos, abrindo portas para oportunidades na \u00e1rea de desenvolvimento de software. Ao final, voc\u00ea estar\u00e1 preparado para criar programas mais robustos, escal\u00e1veis e f\u00e1ceis de manter.",
-        "carga_horaria": 10
-    },
-    {
-        "id": 7,
-        "nome": "c#",
-        "descricao": "Neste curso de C#, voc\u00ea aprender\u00e1 a desenvolver aplica\u00e7\u00f5es robustas e eficientes, explorando desde os conceitos b\u00e1sicos at\u00e9 recursos avan\u00e7ados da linguagem. Ao longo das aulas, voc\u00ea adquirir\u00e1 habilidades em programa\u00e7\u00e3o orientada a objetos, manipula\u00e7\u00e3o de dados e cria\u00e7\u00e3o de interfaces, tornando-se capaz de construir softwares completos. Essa forma\u00e7\u00e3o \u00e9 ideal para quem deseja atuar no mercado de desenvolvimento ou criar solu\u00e7\u00f5es personalizadas, proporcionando maior empregabilidade e inova\u00e7\u00e3o. Ao final, voc\u00ea estar\u00e1 preparado para enfrentar desafios reais do universo da programa\u00e7\u00e3o.",
-        "carga_horaria": 20
-    }
+  {
+    "id": 1,
+    "nome": "Introdu\u00e7\u00e3o \u00e0 Programa\u00e7\u00e3o com Python",
+    "descricao": "Neste curso de Introdu\u00e7\u00e3o \u00e0 Programa\u00e7\u00e3o com Python, voc\u00ea aprender\u00e1 os fundamentos da l\u00f3gica de programa\u00e7\u00e3o, estruturas de decis\u00e3o, loops e fun\u00e7\u00f5es. Tamb\u00e9m entender\u00e1 como trabalhar com listas, dicion\u00e1rios e manipula\u00e7\u00e3o de arquivos, desenvolvendo suas primeiras aplica\u00e7\u00f5es pr\u00e1ticas. Ideal para iniciantes que desejam come\u00e7ar na \u00e1rea de tecnologia e adquirir base s\u00f3lida para linguagens mais avan\u00e7adas.",
+    "carga_horaria": 50
+  },
+  {
+    "id": 2,
+    "nome": "Fundamentos de HTML e CSS",
+    "descricao": "Aprenda a criar p\u00e1ginas web do zero com HTML e CSS, dominando a estrutura de documentos, hierarquia de elementos e t\u00e9cnicas de estiliza\u00e7\u00e3o moderna. O curso aborda boas pr\u00e1ticas de design responsivo e acessibilidade, preparando voc\u00ea para desenvolver interfaces visualmente atraentes e compat\u00edveis com diferentes dispositivos.",
+    "carga_horaria": 30
+  },
+  {
+    "id": 3,
+    "nome": "JavaScript para Iniciantes",
+    "descricao": "Neste curso de JavaScript, voc\u00ea aprender\u00e1 os conceitos essenciais da linguagem que d\u00e1 vida \u00e0s p\u00e1ginas web. Desde vari\u00e1veis e fun\u00e7\u00f5es at\u00e9 manipula\u00e7\u00e3o do DOM e eventos, o conte\u00fado \u00e9 repleto de exemplos pr\u00e1ticos para aplicar o aprendizado imediatamente. Ao final, ser\u00e1 capaz de desenvolver p\u00e1ginas interativas e din\u00e2micas.",
+    "carga_horaria": 40
+  },
+  {
+    "id": 4,
+    "nome": "Banco de Dados com MySQL",
+    "descricao": "Aprenda a projetar, modelar e consultar bancos de dados relacionais com MySQL. Voc\u00ea entender\u00e1 conceitos de chaves prim\u00e1rias, relacionamentos, normaliza\u00e7\u00e3o e comandos SQL fundamentais, al\u00e9m de boas pr\u00e1ticas de desempenho e seguran\u00e7a. Ideal para quem deseja integrar bancos de dados a aplica\u00e7\u00f5es web e desktop.",
+    "carga_horaria": 25
+  },
+  {
+    "id": 5,
+    "nome": "Django",
+    "descricao": "Neste curso de Django, voc\u00ea aprender\u00e1 a criar aplica\u00e7\u00f5es web completas, desde o entendimento dos conceitos b\u00e1sicos at\u00e9 a implementa\u00e7\u00e3o de funcionalidades avan\u00e7adas. Voc\u00ea desenvolver\u00e1 habilidades em desenvolvimento backend, banco de dados e integra\u00e7\u00e3o de APIs, tornando-se capaz de construir sites din\u00e2micos e seguros. Com aulas pr\u00e1ticas e suporte dedicado, este curso \u00e9 perfeito para quem deseja transformar ideias em projetos reais e ampliar seu portf\u00f3lio. Ao final, estar\u00e1 preparado para atuar como desenvolvedor Django e impulsionar sua carreira na \u00e1rea de tecnologia.",
+    "carga_horaria": 35
+  },
+  {
+    "id": 6,
+    "nome": "C# e Programa\u00e7\u00e3o Orientada a Objetos",
+    "descricao": "Neste curso, voc\u00ea aprender\u00e1 a programar em C# de forma moderna e eficiente. O conte\u00fado aborda classes, objetos, heran\u00e7a, encapsulamento e polimorfismo, al\u00e9m de boas pr\u00e1ticas para constru\u00e7\u00e3o de sistemas escal\u00e1veis. Ao longo das aulas, ser\u00e3o desenvolvidas aplica\u00e7\u00f5es reais com interface gr\u00e1fica e integra\u00e7\u00e3o a banco de dados.",
+    "carga_horaria": 45
+  },
+  {
+    "id": 7,
+    "nome": "Curso Avan\u00e7ado de React",
+    "descricao": "Aprofunde seus conhecimentos em React aprendendo sobre hooks personalizados, contexto global, roteamento din\u00e2mico e consumo de APIs REST. O curso inclui boas pr\u00e1ticas de componentiza\u00e7\u00e3o, otimiza\u00e7\u00e3o de desempenho e integra\u00e7\u00e3o com bibliotecas modernas. Ideal para quem j\u00e1 domina o b\u00e1sico e quer desenvolver projetos profissionais.",
+    "carga_horaria": 20
+  },
+  {
+    "id": 8,
+    "nome": "Introdu\u00e7\u00e3o \u00e0 Programa\u00e7\u00e3o Orientada a Objetos",
+    "descricao": "Aprenda os conceitos fundamentais da Programa\u00e7\u00e3o Orientada a Objetos (POO), como classes, m\u00e9todos, heran\u00e7a e abstra\u00e7\u00e3o. Este curso ajuda a estruturar c\u00f3digos de forma eficiente e reutiliz\u00e1vel, preparando voc\u00ea para linguagens como Java, Python e C#. Ideal para quem deseja programar com organiza\u00e7\u00e3o e escalabilidade.",
+    "carga_horaria": 15
+  },
+  {
+    "id": 9,
+    "nome": "Desenvolvimento Web com Node.js",
+    "descricao": "Aprenda a construir aplica\u00e7\u00f5es backend com Node.js e Express, desenvolvendo APIs REST, rotas e autentica\u00e7\u00e3o de usu\u00e1rios. O curso aborda integra\u00e7\u00e3o com bancos de dados, tratamento de erros e boas pr\u00e1ticas de seguran\u00e7a. Ideal para quem deseja dominar o ecossistema JavaScript do lado do servidor.",
+    "carga_horaria": 35
+  },
+  {
+    "id": 10,
+    "nome": "Git e Controle de Vers\u00e3o",
+    "descricao": "Aprenda a versionar seus projetos com Git e GitHub, compreendendo o uso de commits, branches, merges e pull requests. O curso ensina tamb\u00e9m estrat\u00e9gias de colabora\u00e7\u00e3o em equipe e resolu\u00e7\u00e3o de conflitos de c\u00f3digo, garantindo um fluxo de trabalho organizado e profissional em qualquer projeto de software.",
+    "carga_horaria": 10
+  },
+  {
+    "id": 11,
+    "nome": "Engenharia de Software",
+    "descricao": "Com este curso, voc\u00ea compreender\u00e1 o ciclo de vida do software, desde a an\u00e1lise de requisitos at\u00e9 a manuten\u00e7\u00e3o. S\u00e3o abordados t\u00f3picos como metodologias \u00e1geis, documenta\u00e7\u00e3o t\u00e9cnica, testes e qualidade de software. Ideal para quem deseja atuar no planejamento e desenvolvimento de sistemas complexos.",
+    "carga_horaria": 40
+  },
+  {
+    "id": 12,
+    "nome": "Desenvolvimento Mobile com React Native",
+    "descricao": "Aprenda a criar aplicativos m\u00f3veis nativos para Android e iOS utilizando React Native. O curso cobre componentes, navega\u00e7\u00e3o, armazenamento local e consumo de APIs. Com exemplos pr\u00e1ticos, voc\u00ea desenvolver\u00e1 apps completos, prontos para publica\u00e7\u00e3o nas lojas digitais.",
+    "carga_horaria": 50
+  },
+  {
+    "id": 13,
+    "nome": "Seguran\u00e7a da Informa\u00e7\u00e3o",
+    "descricao": "Neste curso, voc\u00ea entender\u00e1 os principais conceitos de seguran\u00e7a digital, criptografia, autentica\u00e7\u00e3o e prote\u00e7\u00e3o de dados. Tamb\u00e9m aprender\u00e1 boas pr\u00e1ticas para prevenir ataques e vulnerabilidades em sistemas e redes. Um conte\u00fado essencial para qualquer profissional de tecnologia que preza pela seguran\u00e7a da informa\u00e7\u00e3o.",
+    "carga_horaria": 30
+  },
+  {
+    "id": 14,
+    "nome": "Java Avan\u00e7ado",
+    "descricao": "Aprofunde seus conhecimentos em Java explorando cole\u00e7\u00f5es, threads, tratamento de exce\u00e7\u00f5es e acesso a bancos de dados. O curso tamb\u00e9m aborda a cria\u00e7\u00e3o de APIs e o uso de frameworks populares do ecossistema Java. Ideal para quem j\u00e1 domina o b\u00e1sico e quer evoluir para o desenvolvimento profissional.",
+    "carga_horaria": 40
+  },
+  {
+    "id": 15,
+    "nome": "Linux para Desenvolvedores",
+    "descricao": "Aprenda os comandos e ferramentas essenciais do Linux voltados para o desenvolvimento de software. O curso aborda terminal, permiss\u00f5es, gerenciamento de pacotes e automa\u00e7\u00e3o com scripts. Ao final, voc\u00ea estar\u00e1 apto a usar Linux como sistema principal para programa\u00e7\u00e3o e deploys em servidores.",
+    "carga_horaria": 20
+  },
+  {
+    "id": 16,
+    "nome": "APIs RESTful com Express",
+    "descricao": "Domine o desenvolvimento de APIs RESTful utilizando o framework Express no Node.js. Voc\u00ea aprender\u00e1 a estruturar rotas, autenticar usu\u00e1rios e integrar servi\u00e7os externos com seguran\u00e7a. O curso inclui pr\u00e1ticas reais de deploy e versionamento de endpoints, preparando voc\u00ea para o mercado backend moderno.",
+    "carga_horaria": 25
+  },
+  {
+    "id": 17,
+    "nome": "MongoDB Essencial",
+    "descricao": "Aprenda os fundamentos do banco de dados NoSQL MongoDB, compreendendo a modelagem de documentos, consultas avan\u00e7adas e agrega\u00e7\u00f5es. O curso aborda integra\u00e7\u00e3o com Node.js e boas pr\u00e1ticas de desempenho, ideal para quem deseja trabalhar com bancos de dados modernos e escal\u00e1veis.",
+    "carga_horaria": 20
+  },
+  {
+    "id": 18,
+    "nome": "TypeScript para Desenvolvedores",
+    "descricao": "Neste curso, voc\u00ea aprender\u00e1 a tipar aplica\u00e7\u00f5es JavaScript com seguran\u00e7a e produtividade utilizando TypeScript. O conte\u00fado inclui interfaces, tipos gen\u00e9ricos, m\u00f3dulos e integra\u00e7\u00e3o com frameworks populares. Ideal para quem busca escrever c\u00f3digos mais robustos e escal\u00e1veis.",
+    "carga_horaria": 25
+  },
+  {
+    "id": 19,
+    "nome": "Flask e APIs em Python",
+    "descricao": "Aprenda a criar APIs leves e eficientes com Flask, um dos frameworks mais populares do ecossistema Python. O curso cobre rotas, autentica\u00e7\u00e3o JWT, integra\u00e7\u00e3o com bancos de dados e deploy em nuvem. Ideal para quem deseja construir aplica\u00e7\u00f5es modernas e r\u00e1pidas utilizando Python.",
+    "carga_horaria": 30
+  },
+  {
+    "id": 20,
+    "nome": "Introdu\u00e7\u00e3o \u00e0 Intelig\u00eancia Artificial",
+    "descricao": "Neste curso introdut\u00f3rio, voc\u00ea conhecer\u00e1 os fundamentos da Intelig\u00eancia Artificial, incluindo aprendizado de m\u00e1quina, redes neurais e algoritmos de classifica\u00e7\u00e3o. O conte\u00fado \u00e9 apresentado de forma acess\u00edvel, com exemplos pr\u00e1ticos e aplica\u00e7\u00f5es reais em diversas \u00e1reas. Ideal para quem quer iniciar nessa \u00e1rea promissora.",
+    "carga_horaria": 35
+  },
+  {
+    "id": 21,
+    "nome": "Desenvolvimento com flutter",
+    "descricao": "Neste curso de Desenvolvimento com Flutter, voc\u00ea ir\u00e1 aprender a criar aplicativos m\u00f3veis de alta performance para Android e iOS, dominando desde os conceitos b\u00e1sicos at\u00e9 t\u00e9cnicas avan\u00e7adas de interface e integra\u00e7\u00e3o. Com habilidades em Dart, desenvolvimento de interfaces responsivas e gerenciamento de estados, estar\u00e1 preparado para migrar sua carreira para o universo do Flutter e oferecer solu\u00e7\u00f5es inovadoras. Ideal para profissionais que desejam expandir seu portf\u00f3lio, aumentar sua empregabilidade e criar aplicativos multiplataforma de forma eficiente e modernizada. Transforme seu potencial e destaque-se no mercado de tecnologia com este curso completo!",
+    "carga_horaria": 20
+  }
 ]

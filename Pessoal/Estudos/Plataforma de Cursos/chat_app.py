@@ -1,5 +1,4 @@
 import chainlit as cl
-import json
 import os
 import requests
 from openai import OpenAI
