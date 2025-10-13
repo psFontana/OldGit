@@ -49,7 +49,7 @@ def chat(mensagem: Mensagem):
         # background=False,  # Se True, executa a resposta em segundo plano
     )
     fim = time.time()
-
+    print(response)
     return {
         "modelo": "gpt-5-nano",
         "resposta": response.choices[0].message.content.strip(),

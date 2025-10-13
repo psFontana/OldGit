@@ -91,7 +91,7 @@ if pagina == "Listar cursos":
                 for idx, curso in enumerate(cursos):
                     col = cols[idx % 4]
                     with col:
-                        st.markdown(
+                        st.html(
                             f"""
                             <div class="curso-card">
                                 <div class="curso-titulo">{curso['nome']}</div>
@@ -99,7 +99,6 @@ if pagina == "Listar cursos":
                                 <div class="curso-descricao">{curso['descricao']}</div>
                             </div>
                             """,
-                            unsafe_allow_html=True,
                         )
                     if (idx + 1) % 4 == 0:
                         cols = st.columns(4)
