@@ -46,3 +46,4 @@ Thumbs.db
 build/
 dist/
 *.egg-info/
+/UTFPR/Paradigmas/Índices_Pokemon/dados_pokemon
