@@ -35,6 +35,8 @@ UTFPR/Web/Projeto Web2.rar
 *.db
 *.csv
 *.json
+!package.json
+!package-lock.json
 *.xlsx
 *.pdf
 
