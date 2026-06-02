@@ -1,4 +1,4 @@
-1) Considerando a base de conhecimento abaixo com os fatos do predicado pessoa(Nome, Idade)., crie uma regra que verifique se uma pessoa é mais velha que outra (Peso 3,0):
+%1) Considerando a base de conhecimento abaixo com os fatos do predicado pessoa(Nome, Idade)., crie uma regra que verifique se uma pessoa é mais velha que outra (Peso 3,0):
 % pessoa("André", 33).
 % pessoa("Cris", 26).
 % pessoa("Juca", 57).
