@@ -10,7 +10,7 @@ console.time("indexacao_sequencial");
 const pasta = path.join(__dirname, "dados_pokemon");
 const arquivos = dfs(pasta);
 
-const { adicionar, getIndice } = criarIndexador();
+const { adicionar, getIndice } = criarIndexador(pasta);
 
 arquivos.forEach((arquivo) => {
   processarArquivo(arquivo, adicionar);

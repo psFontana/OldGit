@@ -1,21 +1,21 @@
-function criarIndexador() {
+// indexador_flat.js
+function criarIndexador(baseDir) {
   let indice = {};
+  const path = require("path");
 
   function adicionar(termo, caminhoCompleto) {
-    const path = require("path");
+    if (!termo?.trim()) return;
 
-    const pasta = path.basename(path.dirname(caminhoCompleto));
-    const arquivo = path.basename(caminhoCompleto);
+    const caminhoRelativo = path.relative(baseDir, caminhoCompleto);
+    const chaveCompleta = caminhoRelativo.replace(/\\/g, "/"); // Normaliza para /
 
-    if (!indice[termo]) indice[termo] = {};
-    if (!indice[termo][pasta]) indice[termo][pasta] = {};
-    if (!indice[termo][pasta][arquivo]) indice[termo][pasta][arquivo] = 0;
-
-    indice[termo][pasta][arquivo]++;
+    indice[termo] ??= {};
+    indice[termo][chaveCompleta] ??= 0;
+    indice[termo][chaveCompleta]++;
   }
 
   function getIndice() {
-    return indice;
+    return JSON.parse(JSON.stringify(indice));
   }
 
   return { adicionar, getIndice };
