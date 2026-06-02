@@ -41,24 +41,28 @@ lotes.forEach((lote) => {
     if (finalizados === lotes.length) {
       const indiceFinal = {};
 
-      // merge dos índices
-      resultados.forEach((parcial) => {
-        for (const termo in parcial) {
-          if (!indiceFinal[termo]) indiceFinal[termo] = {};
+      function merge(dest, src) {
+        for (const chave in src) {
+          if (!src.hasOwnProperty(chave)) continue;
 
-          for (const pasta in parcial[termo]) {
-            if (!indiceFinal[termo][pasta]) indiceFinal[termo][pasta] = {};
+          const valor = src[chave];
 
-            for (const arquivo in parcial[termo][pasta]) {
-              if (!indiceFinal[termo][pasta][arquivo]) {
-                indiceFinal[termo][pasta][arquivo] = 0;
-              }
+          if (valor === null || valor === undefined) continue;
 
-              indiceFinal[termo][pasta][arquivo] +=
-                parcial[termo][pasta][arquivo];
+          if (typeof valor === "object") {
+            if (!dest[chave] || typeof dest[chave] !== "object") {
+              dest[chave] = {};
             }
+            merge(dest[chave], valor);
+          } else if (typeof valor === "number") {
+            dest[chave] ??= 0;
+            dest[chave] += valor;
           }
         }
+      }
+
+      resultados.forEach((parcial) => {
+        merge(indiceFinal, parcial);
       });
 
       console.timeEnd("indexacao_workers");
