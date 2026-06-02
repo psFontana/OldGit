@@ -12,6 +12,10 @@
 % \= para "diferente"
 % > < >= <= iguais
 
+% Para rodar: 'swipl primeiro.pl'
+%% Ou 'swipl' e depois '['primeiro.pl'].'
+% Para recompilar: 'make.'
+
 %- Executa o print
 ola_mundo :-
     write('Ola, Mundo!'), 
